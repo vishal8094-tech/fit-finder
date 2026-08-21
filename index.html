@@ -436,7 +436,7 @@
         <h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:17px;margin:0 0 12px;">Best fit for</h3>
         <p style="color:var(--muted);font-size:13.5px;margin:0 0 20px;">Clothing, footwear, and D2C fashion brands — especially ones wanting to reduce size-related returns.</p>
       </div>
-      <a class="btn btn-brass" href="mailto:YOUR-EMAIL@example.com?subject=Advertising%20on%20Fit%20Finder" style="width:100%;">Get in touch</a>
+      <a class="btn btn-brass" href="mailto:fitfinderclothes@gmail.com?subject=Advertising%20on%20Fit%20Finder" style="width:100%;">Get in touch</a>
     </div>
   </div>
 </div>
@@ -552,11 +552,13 @@ function resetAccuracyBox(){
 
 function saveAccuracyFeedback(entry){
   try{
-    const key = "fitfinder_accuracy_feedback";
-    const existing = JSON.parse(localStorage.getItem(key) || "[]");
-    existing.push({ ...entry, savedAt: new Date().toISOString() });
-    localStorage.setItem(key, JSON.stringify(existing));
-  } catch(e){ /* localStorage unavailable — feedback simply won't persist */ }
+    const subject = encodeURIComponent("Fit Finder — size accuracy feedback");
+    const body = encodeURIComponent(
+      `Category: ${entry.category}\nMeasurement entered: ${entry.measurement}\nWas it accurate: ${entry.accurate ? "Yes" : "No"}` +
+      (entry.actualFit ? `\nWhat actually fit: ${entry.actualFit}` : "")
+    );
+    window.location.href = `mailto:fitfinderclothes@gmail.com?subject=${subject}&body=${body}`;
+  } catch(e){ /* mail client unavailable — feedback simply won't send */ }
 }
 
 function showThanks(){
@@ -705,6 +707,23 @@ const guideToggleText = document.getElementById("guide-toggle-text");
 
 function icon(name, extra=""){ return `<span class="${extra}">${ICONS[name]}</span>`; }
 
+/* Remember the user's own measurements in their own browser only — never sent anywhere */
+function rememberMeasurement(category, value){
+  try{
+    const key = "fitfinder_saved_measurements";
+    const existing = JSON.parse(localStorage.getItem(key) || "{}");
+    existing[category] = value;
+    localStorage.setItem(key, JSON.stringify(existing));
+  } catch(e){ /* localStorage unavailable — just won't be remembered */ }
+}
+function recallMeasurement(category){
+  try{
+    const key = "fitfinder_saved_measurements";
+    const existing = JSON.parse(localStorage.getItem(key) || "{}");
+    return existing[category] ?? null;
+  } catch(e){ return null; }
+}
+
 function renderPills(){
   pillRow.innerHTML = Object.values(CATEGORIES).map(c => `
     <button type="button" class="pill ${c.key===categoryKey?'active':''}" data-key="${c.key}">
@@ -714,7 +733,8 @@ function renderPills(){
     btn.addEventListener("click", ()=>{
       categoryKey = btn.dataset.key;
       submittedValue = null;
-      measureInput.value = "";
+      const remembered = recallMeasurement(categoryKey);
+      measureInput.value = remembered != null ? remembered : "";
       errMsg.style.display = "none";
       renderPills();
       renderForm();
@@ -802,6 +822,7 @@ document.getElementById("measure-form").addEventListener("submit", (e)=>{
   }
   errMsg.style.display = "none";
   submittedValue = num;
+  rememberMeasurement(categoryKey, num);
   renderTape();
   renderResults();
   document.getElementById("results-section").scrollIntoView({behavior:"smooth", block:"start"});
@@ -861,7 +882,7 @@ document.getElementById("feedback-form").addEventListener("submit", async (e)=>{
   }catch(err){
     const subject=encodeURIComponent("Fit Finder feedback");
     const body=encodeURIComponent(`Category: ${categoryKey}\nEmail: ${email || "Not provided"}\n\n${msg}`);
-    window.location.href=`mailto:YOUR-EMAIL@example.com?subject=${subject}&body=${body}`;
+    window.location.href=`mailto:fitfinderclothes@gmail.com?subject=${subject}&body=${body}`;
   }
 });
 
@@ -899,6 +920,8 @@ document.getElementById("year").textContent = new Date().getFullYear();
 
 renderPills();
 renderForm();
+const initialRemembered = recallMeasurement(categoryKey);
+if (initialRemembered != null) measureInput.value = initialRemembered;
 renderTape();
 renderResults();
 </script>
