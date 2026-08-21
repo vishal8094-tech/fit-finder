@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fit Finder — Find Your Size Across Brands | Free Size Calculator</title>
+<meta name="description" content="Enter your measurement once and see your true size across Zara, H&M, Uniqlo, Levi's and more. No more guessing sizes when shopping online." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,340;0,9..144,500;0,9..144,600;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#14171f; --surface:#1c202b; --surface-2:#262b38;
+    --stroke:rgba(237,234,226,0.10); --stroke-strong:rgba(237,234,226,0.20);
+    --text:#ede9e1; --muted:#8b93a6;
+    --brass:#c9a15a; --brass-soft:rgba(201,161,90,0.14);
+    --thread:#c0463c; --thread-soft:rgba(192,70,60,0.16);
+    --sage:#7c9885; --sage-soft:rgba(124,152,133,0.16);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-serif;line-height:1.6;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .display{font-family:'Fraunces',serif;}
+  a{color:inherit;}
+  img,svg{display:block;}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 32px;}
+  .section{padding:64px 0;}
+  @media (max-width:640px){ .wrap{padding:0 18px;} .section{padding:44px 0;} }
+
+  /* ---- nav ---- */
+  .nav{position:sticky;top:0;z-index:20;background:rgba(20,23,31,0.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--stroke);}
+  .nav-inner{max-width:1040px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;}
+  @media (max-width:640px){.nav-inner{padding:14px 18px;}}
+  .nav-brand{display:flex;align-items:center;gap:10px;}
+  .nav-mark{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--brass);display:flex;align-items:center;justify-content:center;color:var(--brass);flex-shrink:0;}
+  .nav-name{font-family:'Fraunces',serif;font-size:16.5px;}
+  .nav-links{display:flex;gap:22px;font-size:13.5px;color:var(--muted);}
+  .nav-links a{text-decoration:none;transition:color .2s;}
+  .nav-links a:hover{color:var(--text);}
+  @media (max-width:720px){.nav-links{display:none;}}
+
+  /* ---- hero ---- */
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--brass);margin-bottom:18px;opacity:0;animation:rise .6s ease forwards;}
+  .eyebrow::before{content:'';width:16px;height:1px;background:var(--brass);}
+  h1.hero-title{font-size:44px;font-weight:500;line-height:1.1;margin:0 0 16px;max-width:640px;letter-spacing:-0.01em;opacity:0;animation:rise .7s ease .08s forwards;}
+  @media (max-width:640px){h1.hero-title{font-size:30px;}}
+  h1.hero-title em{font-style:italic;color:var(--brass);}
+  .hero-sub{color:var(--muted);font-size:16.5px;max-width:540px;margin:0 0 32px;opacity:0;animation:rise .7s ease .16s forwards;}
+  @keyframes rise{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+
+  /* ---- category pills ---- */
+  .pill-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px;opacity:0;animation:rise .7s ease .22s forwards;}
+  .pill{display:flex;align-items:center;gap:7px;padding:9px 16px;border-radius:999px;border:1px solid var(--stroke-strong);background:transparent;color:var(--muted);font-size:13.5px;cursor:pointer;transition:border-color .2s,color .2s,background .2s,transform .15s;font-family:inherit;}
+  .pill:hover{border-color:var(--brass);color:var(--text);transform:translateY(-1px);}
+  .pill.active{background:var(--brass-soft);border-color:var(--brass);color:var(--brass);}
+  .pill svg{width:15px;height:15px;}
+
+  /* ---- form card ---- */
+  .form-card{background:var(--surface);border:1px solid var(--stroke);border-radius:14px;padding:26px;max-width:520px;opacity:0;animation:rise .7s ease .28s forwards;}
+  .form-row{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;}
+  .field-label{display:block;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
+  .field-hint{font-size:12.5px;color:var(--muted);margin:10px 0 0;display:flex;gap:6px;}
+  .field-hint svg{width:14px;height:14px;flex-shrink:0;margin-top:1.5px;color:var(--brass);}
+  .input-group{flex:1;min-width:160px;position:relative;}
+  .num-input{width:100%;background:var(--bg);border:1px solid var(--stroke-strong);border-radius:8px;padding:12px 44px 12px 14px;color:var(--text);font-size:20px;font-family:'IBM Plex Mono',monospace;outline:none;transition:border-color .2s;}
+  .num-input:focus{border-color:var(--brass);}
+  .unit-suffix{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:13px;font-family:'IBM Plex Mono',monospace;}
+  .btn{display:inline-flex;align-items:center;gap:8px;justify-content:center;border-radius:8px;padding:12px 20px;font-size:14.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:transform .15s,background .2s,border-color .2s;white-space:nowrap;text-decoration:none;border:none;}
+  .btn-brass{background:var(--brass);color:#201a0e;}
+  .btn-brass:hover{background:#d8ac63;transform:translateY(-1px);}
+  .btn-brass:active{transform:scale(.98);}
+  .btn svg{width:16px;height:16px;}
+  .err-msg{color:var(--thread);font-size:12.5px;margin-top:10px;}
+
+  /* ---- tape measure ---- */
+  .tape-wrap{max-width:1040px;margin:44px auto 0;padding:0 32px;}
+  @media (max-width:640px){.tape-wrap{padding:0 18px;}}
+  .tape-strip{position:relative;height:46px;display:flex;align-items:flex-end;border-bottom:2px solid var(--brass);}
+  .tick{flex:1 1 auto;height:8px;background:var(--stroke-strong);width:1px;}
+  .tick.major{height:16px;background:var(--brass);width:1.5px;opacity:.6;}
+  .tape-marker{position:absolute;bottom:-2px;transform:translateX(-50%);transition:left .9s cubic-bezier(.22,1,.36,1);display:none;}
+  .marker-pin{width:12px;height:12px;border-radius:50%;background:var(--thread);border:2px solid var(--bg);box-shadow:0 0 0 1.5px var(--thread);margin-bottom:-6px;animation:pin-pulse 1.8s ease-in-out infinite;}
+  @keyframes pin-pulse{0%,100%{box-shadow:0 0 0 1.5px var(--thread);}50%{box-shadow:0 0 0 5px var(--thread-soft);}}
+
+  /* ---- results ---- */
+  .results-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:22px;flex-wrap:wrap;gap:10px;}
+  .results-title{font-family:'Fraunces',serif;font-size:24px;font-weight:500;}
+  .results-title .mono{color:var(--brass);}
+  .results-note{font-size:12.5px;color:var(--muted);}
+  .brand-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;}
+  .brand-card{background:var(--surface);border:1px solid var(--stroke);border-radius:12px;padding:18px;opacity:0;transform:translateY(10px);animation:card-in .5s cubic-bezier(.22,1,.36,1) forwards;transition:border-color .2s,transform .2s;}
+  .brand-card:hover{border-color:var(--stroke-strong);transform:translateY(-2px);}
+  @keyframes card-in{to{opacity:1;transform:translateY(0);}}
+  .brand-name{font-size:14.5px;font-weight:500;}
+  .brand-note{font-size:11.5px;color:var(--muted);margin-bottom:14px;}
+  .brand-size{font-family:'IBM Plex Mono',monospace;font-size:30px;color:var(--brass);line-height:1;}
+  .conf-tag{display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:3px 9px;border-radius:999px;margin-top:12px;}
+  .conf-tag.good{background:var(--sage-soft);color:var(--sage);}
+  .conf-tag.border{background:var(--thread-soft);color:var(--thread);}
+  .band-bar{height:4px;border-radius:2px;background:var(--stroke-strong);margin-top:12px;position:relative;overflow:hidden;}
+  .band-fill{position:absolute;top:0;bottom:0;width:3px;background:var(--brass);border-radius:2px;transition:left .6s ease;}
+  .shop-btn{margin-top:14px;width:100%;display:flex;align-items:center;justify-content:center;gap:6px;padding:9px 12px;border-radius:7px;border:1px solid var(--stroke-strong);background:transparent;color:var(--text);font-size:12.5px;font-family:inherit;cursor:pointer;text-decoration:none;transition:border-color .2s,background .2s;}
+  .shop-btn:hover{border-color:var(--brass);background:var(--brass-soft);color:var(--brass);}
+  .shop-btn svg{width:13px;height:13px;}
+  .shop-btn[disabled],.shop-btn.disabled{opacity:.5;cursor:default;pointer-events:none;}
+  .marketplace-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px;}
+  .mp-btn{display:flex;align-items:center;justify-content:center;padding:7px 4px;border-radius:6px;border:1px solid var(--stroke);background:transparent;color:var(--muted);font-size:10.5px;font-family:inherit;cursor:pointer;text-decoration:none;transition:border-color .2s,color .2s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .mp-btn:hover{border-color:var(--stroke-strong);color:var(--text);}
+
+  /* ---- guide toggle ---- */
+  .guide-toggle{display:inline-flex;align-items:center;gap:6px;background:none;border:none;color:var(--brass);font-size:13.5px;cursor:pointer;padding:0;font-family:inherit;margin-top:26px;}
+  .guide-toggle svg{width:15px;height:15px;transition:transform .25s;}
+  .guide-toggle.open svg{transform:rotate(180deg);}
+  .guide-body{max-height:0;overflow:hidden;transition:max-height .4s ease;}
+  .guide-body.open{max-height:200px;}
+  .guide-inner{padding-top:16px;font-size:13.5px;color:var(--muted);max-width:560px;}
+
+  .disclaimer{display:flex;gap:8px;font-size:12px;color:var(--muted);border-top:1px solid var(--stroke);padding-top:18px;margin-top:30px;}
+  .disclaimer svg{width:14px;height:14px;flex-shrink:0;margin-top:1px;}
+
+  /* ---- accuracy feedback loop ---- */
+  .accuracy-box{background:var(--surface);border:1px solid var(--stroke);border-radius:12px;padding:18px 20px;margin-top:18px;opacity:0;transform:translateY(8px);animation:card-in .5s cubic-bezier(.22,1,.36,1) .3s forwards;}
+  .accuracy-prompt{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+  .accuracy-text{font-size:13.5px;color:var(--text);}
+  .accuracy-btns{display:flex;gap:8px;flex-shrink:0;}
+  .acc-btn{background:transparent;border:1px solid var(--stroke-strong);color:var(--text);font-size:12.5px;padding:8px 14px;border-radius:7px;cursor:pointer;font-family:inherit;transition:border-color .2s,background .2s,color .2s;}
+  .acc-btn:hover{border-color:var(--brass);color:var(--brass);background:var(--brass-soft);}
+  .accuracy-followup{margin-top:4px;}
+  .accuracy-followup .field-label{margin-bottom:8px;}
+  .accuracy-thanks{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--sage);}
+  .accuracy-thanks svg{width:16px;height:16px;flex-shrink:0;}
+
+  /* ---- content sections ---- */
+  .section-head{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+  .section-head .num{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--brass);border:1px solid var(--brass);border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  h2.sec-title{font-family:'Fraunces',serif;font-size:28px;font-weight:500;margin:0 0 14px;}
+  .sec-sub{color:var(--muted);font-size:15px;max-width:640px;margin:0 0 28px;}
+  .divider{border:none;border-top:1px solid var(--stroke);}
+
+  .article-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  @media (max-width:720px){.article-grid{grid-template-columns:1fr;}}
+  .article-card{background:var(--surface);border:1px solid var(--stroke);border-radius:12px;padding:22px;}
+  .article-card h3{font-family:'Fraunces',serif;font-weight:500;font-size:17px;margin:0 0 10px;}
+  .article-card p{color:var(--muted);font-size:14px;margin:0;}
+
+  .compare-table{width:100%;border-collapse:collapse;font-size:13.5px;}
+  .compare-table th,.compare-table td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--stroke);}
+  .compare-table th{color:var(--muted);font-weight:500;font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;}
+  .tag-small{display:inline-block;font-size:11px;padding:2px 8px;border-radius:999px;background:var(--brass-soft);color:var(--brass);}
+
+  .steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  @media (max-width:720px){.steps-grid{grid-template-columns:1fr;}}
+  .step-card{border:1px solid var(--stroke);border-radius:12px;padding:20px;}
+  .step-card .step-num{font-family:'IBM Plex Mono',monospace;color:var(--brass);font-size:13px;margin-bottom:10px;}
+  .step-card h4{font-size:15px;font-weight:500;margin:0 0 8px;}
+  .step-card p{color:var(--muted);font-size:13.5px;margin:0;}
+
+  .trust-box{background:var(--surface);border:1px solid var(--stroke);border-radius:12px;padding:24px;display:flex;gap:16px;align-items:flex-start;}
+  .trust-box svg{width:20px;height:20px;color:var(--sage);flex-shrink:0;margin-top:2px;}
+  .trust-box p{margin:0;color:var(--muted);font-size:14px;}
+  .trust-box strong{color:var(--text);}
+
+  /* ---- ad slots (AdSense-ready placeholders) ---- */
+  .ad-slot{border:1px dashed var(--stroke-strong);border-radius:10px;padding:18px;text-align:center;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em;}
+  .ad-slot span{display:block;margin-top:4px;font-size:11px;text-transform:none;letter-spacing:0;opacity:.7;}
+  .ad-slot-leaderboard{min-height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .ad-slot-infeed{min-height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:8px 0;}
+
+  /* ---- advertise with us ---- */
+  .advertise-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:stretch;}
+  @media (max-width:720px){.advertise-grid{grid-template-columns:1fr;}}
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0 24px;}
+  .stat-box{background:var(--surface);border:1px solid var(--stroke);border-radius:10px;padding:14px;text-align:center;}
+  .stat-box .stat-num{font-family:'IBM Plex Mono',monospace;font-size:20px;color:var(--brass);}
+  .stat-box .stat-label{font-size:11px;color:var(--muted);margin-top:4px;}
+  .advertise-card{background:var(--surface);border:1px solid var(--stroke);border-radius:12px;padding:24px;}
+  .advertise-card ul{margin:0;padding-left:18px;color:var(--muted);font-size:13.5px;}
+  .advertise-card li{margin-bottom:8px;}
+
+  /* ---- feedback form ---- */
+  .feedback-card{background:var(--surface);border:1px solid var(--stroke);border-radius:14px;padding:28px;max-width:560px;}
+  .fb-row{margin-bottom:14px;}
+  .fb-row label{display:block;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px;}
+  .fb-row input,.fb-row textarea{width:100%;background:var(--bg);border:1px solid var(--stroke-strong);border-radius:8px;padding:11px 13px;color:var(--text);font-size:14px;font-family:inherit;outline:none;transition:border-color .2s;resize:vertical;}
+  .fb-row input:focus,.fb-row textarea:focus{border-color:var(--brass);}
+  .fb-success{display:none;align-items:center;gap:8px;color:var(--sage);font-size:13.5px;margin-top:14px;}
+  .fb-success svg{width:16px;height:16px;}
+  .fb-success.show{display:flex;}
+
+  /* ---- footer ---- */
+  footer{border-top:1px solid var(--stroke);padding:48px 0 28px;}
+  .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:36px;margin-bottom:36px;}
+  @media (max-width:720px){.footer-grid{grid-template-columns:1fr;gap:28px;}}
+  .footer-brand{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+  .footer-desc{color:var(--muted);font-size:13.5px;max-width:280px;}
+  .footer-col h5{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 14px;}
+  .footer-col a,.footer-col button{display:block;background:none;border:none;text-align:left;padding:0;color:var(--text);font-size:13.5px;text-decoration:none;margin-bottom:10px;cursor:pointer;font-family:inherit;opacity:.85;}
+  .footer-col a:hover,.footer-col button:hover{opacity:1;color:var(--brass);}
+  .legal-panel{max-height:0;overflow:hidden;transition:max-height .4s ease;}
+  .legal-panel.open{max-height:600px;}
+  .legal-inner{font-size:12.5px;color:var(--muted);border-top:1px solid var(--stroke);padding-top:18px;margin-top:18px;}
+  .legal-inner h6{color:var(--text);font-size:12.5px;margin:14px 0 4px;}
+  .footer-bottom{border-top:1px solid var(--stroke);padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--muted);}
+
+  /* ---- premium/mobile improvements ---- */
+  .hero-sub{max-width:680px;}
+  .form-card{box-shadow:0 18px 50px rgba(0,0,0,.18);}
+  .brand-card{box-shadow:0 8px 28px rgba(0,0,0,.10);}
+  .brand-card .shop-btn{font-weight:600;}
+  .affiliate-note{font-size:11px;color:var(--muted);margin:12px 0 0;padding:9px 11px;border:1px solid var(--stroke);border-radius:7px;background:rgba(201,161,90,.05);}
+  .cookie-banner{position:fixed;left:16px;right:16px;bottom:16px;z-index:100;background:var(--surface);border:1px solid var(--stroke-strong);border-radius:12px;padding:14px 16px;box-shadow:0 20px 60px rgba(0,0,0,.35);display:none;align-items:center;gap:14px;justify-content:space-between;}
+  .cookie-banner.show{display:flex;}
+  .cookie-banner p{margin:0;color:var(--muted);font-size:12px;max-width:760px;}
+  .cookie-actions{display:flex;gap:8px;flex-shrink:0;}
+  .cookie-actions button{border:1px solid var(--stroke-strong);background:transparent;color:var(--text);border-radius:7px;padding:8px 12px;font-family:inherit;cursor:pointer;}
+  .cookie-actions .accept{background:var(--brass);color:#201a0e;border-color:var(--brass);font-weight:600;}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+  @media (max-width:640px){
+    .cookie-banner{left:10px;right:10px;bottom:10px;flex-direction:column;align-items:stretch;}
+    .cookie-actions{justify-content:flex-end;}
+    .form-card{padding:18px;}
+    .form-row{align-items:stretch;}
+    .input-group{min-width:100%;}
+    .form-row .btn{width:100%;}
+    .brand-grid{grid-template-columns:1fr;}
+    .marketplace-row{grid-template-columns:repeat(2,1fr);}
+    .tape-wrap{margin-top:28px;}
+    .results-title{font-size:21px;}
+    .stat-row{grid-template-columns:1fr;}
+    .compare-table{display:block;overflow-x:auto;white-space:nowrap;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .eyebrow,h1.hero-title,.hero-sub,.pill-row,.form-card,.brand-card{animation:none!important;opacity:1!important;transform:none!important;}
+    .marker-pin{animation:none!important;}
+    .tape-marker{transition:none!important;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <div class="nav-mark" id="icon-ruler"></div>
+      <div class="nav-name display">Fit Finder</div>
+    </div>
+    <div class="nav-links">
+      <a href="#tool">Find my size</a>
+      <a href="#guides">Guides</a>
+      <a href="#trust">Why trust us</a>
+      <a href="#advertise">Advertise</a>
+      <a href="#feedback">Feedback</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO + TOOL -->
+<div class="wrap section" id="tool" style="padding-bottom:0;">
+  <div class="eyebrow">One measurement, every brand's size</div>
+  <h1 class="hero-title display">Every brand sizes differently.<br />Your <em>fit</em> stays the same.</h1>
+  <p class="hero-sub">Enter your measurement once — see your exact size across Zara, H&M, Uniqlo, Levi's, and more. No guessing, just numbers.</p>
+
+  <div class="pill-row" id="pill-row"></div>
+
+  <form class="form-card" id="measure-form">
+    <label class="field-label" id="dimension-label" for="measure-input">Your measurement</label>
+    <div class="form-row">
+      <div class="input-group">
+        <input id="measure-input" class="num-input" aria-describedby="hint-text" type="number" inputmode="decimal" step="1" placeholder="96" />
+        <span class="unit-suffix">cm</span>
+      </div>
+      <button class="btn btn-brass" type="submit" aria-label="Find my size across brands">Find my size <span id="icon-arrow"></span></button>
+    </div>
+    <div class="err-msg" id="err-msg" style="display:none;"></div>
+    <div class="field-hint"><span id="icon-info-hint"></span><span id="hint-text"></span></div>
+  </form>
+</div>
+
+<!-- TAPE MEASURE -->
+<div class="tape-wrap" aria-hidden="true">
+  <div class="tape-strip" id="tape-strip"></div>
+</div>
+
+<!-- RESULTS -->
+<div class="wrap section" id="results-section">
+  <div id="results-empty" style="color:var(--muted);font-size:14px;">Enter your measurement and press "Find my size" — sizes across all brands will show up here.</div>
+  <div id="results-content" style="display:none;">
+    <div class="results-head">
+      <div class="results-title display">Based on your <span class="mono" id="submitted-value"></span> measurement</div>
+      <div class="results-note" id="results-note"></div>
+    </div>
+    <div class="brand-grid" id="brand-grid"></div>
+    <div class="disclaimer"><span id="icon-info-disc"></span><span>These charts are approximate, based on typical brand sizing — always check the brand's official size chart before you buy. Some links may be affiliate links. We may earn a commission at no extra cost to you — see our <a href="#trust" style="color:var(--brass);">trust section</a> and affiliate disclosure below.</span></div>
+
+    <div class="accuracy-box" id="accuracy-box">
+      <div class="accuracy-prompt" id="accuracy-prompt">
+        <span class="accuracy-text">Bought something using this size? Was it accurate?</span>
+        <div class="accuracy-btns">
+          <button type="button" class="acc-btn" id="acc-yes">Yes, spot on</button>
+          <button type="button" class="acc-btn" id="acc-no">Not quite</button>
+        </div>
+      </div>
+      <div class="accuracy-followup" id="accuracy-followup" style="display:none;">
+        <label class="field-label" for="acc-actual">Which brand &amp; size actually fit you?</label>
+        <div class="form-row">
+          <div class="input-group" style="max-width:180px;">
+            <input id="acc-actual" class="num-input" type="text" placeholder="e.g. Zara L" style="font-size:16px;padding:10px 14px;" />
+          </div>
+          <button class="btn btn-brass" type="button" id="acc-submit">Submit</button>
+        </div>
+      </div>
+      <div class="accuracy-thanks" id="accuracy-thanks" style="display:none;">
+        <span id="icon-check-acc"></span><span>Thanks — this helps make the charts more accurate for everyone.</span>
+      </div>
+    </div>
+  </div>
+
+  <button type="button" class="guide-toggle" id="guide-toggle">
+    <span id="icon-chevron"></span> <span id="guide-toggle-text">How to measure correctly</span>
+  </button>
+  <div class="guide-body" id="guide-body">
+    <div class="guide-inner" id="guide-inner"></div>
+  </div>
+</div>
+
+<!-- AD SLOT 1 — replace with your AdSense <ins> tag once approved -->
+<div class="wrap" style="padding:0 32px 40px;">
+  <div class="ad-slot ad-slot-leaderboard" id="ad-slot-1">
+    Advertisement
+    <span>728×90 leaderboard slot — swap this div for your AdSense code</span>
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- SEO CONTENT: WHY SIZES DIFFER -->
+<div class="wrap section" id="guides">
+  <div class="section-head"><span class="num">1</span></div>
+  <h2 class="sec-title display">Why does the same size fit differently everywhere?</h2>
+  <p class="sec-sub">It's not you — it's the industry. Here's what's actually going on behind every size label.</p>
+  <div class="article-grid">
+    <div class="article-card">
+      <h3>Vanity sizing is real</h3>
+      <p>Many brands quietly widen their size charts over the years so a "medium" feels more flattering than it used to. That's why a medium from one label can be a small — or a large — somewhere else. The label is marketing as much as it is measurement.</p>
+    </div>
+    <div class="article-card">
+      <h3>Cut philosophy differs by brand</h3>
+      <p>A "fitted" brand and a "relaxed" brand can use the exact same size label for garments with several centimetres of difference in ease. That's the gap Fit Finder is built to close — by comparing your real measurement, not the label.</p>
+    </div>
+    <div class="article-card">
+      <h3>Fabric changes the fit</h3>
+      <p>Stretch fabrics (like most jersey knits) forgive a size or two. Rigid fabrics (raw denim, structured cotton) don't. Two "medium" tops in different fabrics can sit completely differently on the same body.</p>
+    </div>
+    <div class="article-card">
+      <h3>Region changes the chart</h3>
+      <p>The same global brand often ships different size charts for different markets. A US-cut and an EU-cut of the "same" item are rarely identical — always check the region the chart was built for.</p>
+    </div>
+  </div>
+</div>
+
+  <!-- AD SLOT 2 — in-feed native slot, replace with your AdSense code -->
+  <div class="ad-slot ad-slot-infeed" style="margin-top:28px;" id="ad-slot-2">
+    Advertisement
+    <span>In-feed native slot — swap this div for your AdSense code</span>
+  </div>
+</div>
+
+<!-- BRAND COMPARISON TABLE -->
+<div class="wrap section" style="padding-top:0;">
+  <div class="section-head"><span class="num">2</span></div>
+  <h2 class="sec-title display">Zara vs H&M vs Uniqlo: who runs small?</h2>
+  <p class="sec-sub">A quick reference for the three brands people ask about most, based on the chest-fit data used in the tool above.</p>
+  <table class="compare-table">
+    <thead><tr><th>Brand</th><th>Typical cut</th><th>Sizing behaviour</th></tr></thead>
+    <tbody>
+      <tr><td>Zara</td><td>Fitted</td><td><span class="tag-small">Runs small</span> — size up if between sizes</td></tr>
+      <tr><td>H&M</td><td>Relaxed</td><td><span class="tag-small">Runs large</span> — true size usually works</td></tr>
+      <tr><td>Uniqlo</td><td>Standard</td><td><span class="tag-small">True to size</span> — most consistent of the three</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<hr class="divider" />
+
+<!-- HOW IT WORKS / TRUST -->
+<div class="wrap section" id="trust">
+  <div class="section-head"><span class="num">3</span></div>
+  <h2 class="sec-title display">How Fit Finder works</h2>
+  <p class="sec-sub">No login, no app, no guessing — just your measurement compared against how each brand actually cuts its clothes.</p>
+  <div class="steps-grid" style="margin-bottom:28px;">
+    <div class="step-card">
+      <div class="step-num mono">01</div>
+      <h4>You measure once</h4>
+      <p>A single body measurement — chest, waist, bust, or foot length — using the guide below.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num mono">02</div>
+      <h4>We compare it to brand data</h4>
+      <p>Your number is checked against each brand's typical size bands to find where you land, and how close to the edge you are.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num mono">03</div>
+      <h4>You shop with confidence</h4>
+      <p>See your size across every brand at once, then jump straight to that brand's store if you want to shop.</p>
+    </div>
+  </div>
+  <div class="trust-box">
+    <span id="icon-check-trust"></span>
+    <p><strong>We're shopper-first, not brand-first.</strong> Our size charts are reviewed periodically against publicly available brand data — they're a strong estimate, not an official chart. Some "Shop" buttons above are affiliate links: if you buy through them, we may earn a small commission at no extra cost to you. This never changes which size or brand we recommend — the recommendation is based purely on your measurement.</p>
+  </div>
+</div>
+
+<!-- ADVERTISE WITH US -->
+<div class="wrap section" id="advertise">
+  <div class="section-head"><span class="num">4</span></div>
+  <h2 class="sec-title display">Advertise with Fit Finder</h2>
+  <p class="sec-sub">Reach shoppers at the exact moment they're deciding what size to buy — the highest-intent moment in the entire shopping journey.</p>
+
+  <div class="stat-row">
+    <div class="stat-box"><div class="stat-num mono">—</div><div class="stat-label">Monthly visitors</div></div>
+    <div class="stat-box"><div class="stat-num mono">—</div><div class="stat-label">Sizes checked / month</div></div>
+    <div class="stat-box"><div class="stat-num mono">—</div><div class="stat-label">Avg. session length</div></div>
+  </div>
+
+  <div class="advertise-grid">
+    <div class="advertise-card">
+      <h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:17px;margin:0 0 12px;">Ways to partner</h3>
+      <ul>
+        <li><strong style="color:var(--text);">Featured brand slot</strong> — your brand highlighted in the size results for a relevant category.</li>
+        <li><strong style="color:var(--text);">Sponsored guide</strong> — your brand's fit tips featured in the guides section.</li>
+        <li><strong style="color:var(--text);">Newsletter placement</strong> — once our email list launches, a dedicated spot in weekly sends.</li>
+        <li><strong style="color:var(--text);">Display ad placement</strong> — the ad slots already built into this page.</li>
+      </ul>
+    </div>
+    <div class="advertise-card" style="display:flex;flex-direction:column;justify-content:space-between;">
+      <div>
+        <h3 style="font-family:'Fraunces',serif;font-weight:500;font-size:17px;margin:0 0 12px;">Best fit for</h3>
+        <p style="color:var(--muted);font-size:13.5px;margin:0 0 20px;">Clothing, footwear, and D2C fashion brands — especially ones wanting to reduce size-related returns.</p>
+      </div>
+      <a class="btn btn-brass" href="mailto:YOUR-EMAIL@example.com?subject=Advertising%20on%20Fit%20Finder" style="width:100%;">Get in touch</a>
+    </div>
+  </div>
+</div>
+
+<!-- FEEDBACK -->
+<div class="wrap section" id="feedback">
+  <div class="section-head"><span class="num">5</span></div>
+  <h2 class="sec-title display">Help us get more accurate</h2>
+  <p class="sec-sub">Bought something using your Fit Finder size? Tell us how it fit — this is exactly what keeps the charts honest.</p>
+  <form class="feedback-card" id="feedback-form">
+    <div class="fb-row">
+      <label for="fb-email">Email (optional)</label>
+      <input id="fb-email" type="email" placeholder="you@example.com" />
+    </div>
+    <div class="fb-row">
+      <label for="fb-message">Your feedback</label>
+      <textarea id="fb-message" rows="4" placeholder="e.g. Zara Medium was tight on me at 96cm chest — recommend adjusting the band."></textarea>
+    </div>
+    <button class="btn btn-brass" type="submit">Send feedback</button>
+    <div class="fb-success" id="fb-success"><span id="icon-check-fb"></span><span>Thanks — this helps us improve the charts.</span></div>
+  </form>
+</div>
+
+<!-- AD SLOT 3 — footer banner slot, replace with your AdSense code -->
+<div class="wrap" style="padding:0 32px 20px;">
+  <div class="ad-slot ad-slot-leaderboard" id="ad-slot-3">
+    Advertisement
+    <span>728×90 leaderboard slot — swap this div for your AdSense code</span>
+  </div>
+</div>
+
+<div class="wrap" style="padding-bottom:24px;">
+  <div class="affiliate-note">
+    <strong>Affiliate disclosure:</strong> Fit Finder may earn commissions from qualifying purchases made through some outbound shopping links. Recommendations are based on the size-matching data, not commission rates.
+    <br /><strong>Amazon Associates:</strong> As an Amazon Associate I earn from qualifying purchases.
+  </div>
+</div>
+
+<div class="cookie-banner" id="cookie-banner" role="dialog" aria-label="Cookie and analytics notice">
+  <p>We use analytics and, if enabled, advertising cookies to understand site usage and improve Fit Finder. You can accept or continue with essential functionality only. See our Privacy Policy for details.</p>
+  <div class="cookie-actions">
+    <button type="button" id="cookie-essential">Essential only</button>
+    <button type="button" class="accept" id="cookie-accept">Accept</button>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <div class="nav-mark" id="icon-ruler-footer"></div>
+          <div class="nav-name display">Fit Finder</div>
+        </div>
+        <p class="footer-desc">Measure once, get the right size every time — across every brand you shop.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Site</h5>
+        <a href="#tool">Find my size</a>
+        <a href="#guides">Guides</a>
+        <a href="#trust">Why trust us</a>
+        <a href="#advertise">Advertise</a>
+        <a href="#feedback">Feedback</a>
+      </div>
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <button type="button" id="privacy-toggle">Privacy policy</button>
+        <button type="button" id="terms-toggle">Terms of service</button>
+      </div>
+    </div>
+
+    <div class="legal-panel" id="privacy-panel">
+      <div class="legal-inner">
+        <h6>Privacy Policy</h6>
+        <p><strong>Last updated: August 20, 2026.</strong> Fit Finder may process measurements entered into the calculator, optional feedback, and optional email addresses submitted through forms. Measurement values are used to calculate size estimates. Feedback is used to improve our size bands. We may use Google Analytics and advertising services such as Google AdSense after they are enabled. Those services may use cookies, device identifiers, IP addresses, or similar technologies as described by their own policies. We do not sell personal information. Do not submit sensitive personal information through the feedback form. You may contact us to request access, correction, or deletion of information you submitted. Replace this starter policy with legal advice appropriate to your business, hosting provider, analytics setup, advertising partners, and applicable Indian/international privacy laws before launch.</p>
+      </div>
+    </div>
+    <div class="legal-panel" id="terms-panel">
+      <div class="legal-inner">
+        <h6>Terms of Service</h6>
+        <p><strong>Last updated: August 20, 2026.</strong> Fit Finder provides approximate size estimates for informational and shopping-assistance purposes only. Brand charts, cuts, product construction, region, and individual fit can differ. Always confirm the current official size chart and product details before purchasing. We do not guarantee fit and are not responsible for returns, exchanges, purchases, or losses resulting from reliance on an estimate. Some outbound links may be affiliate links and may generate a commission at no extra cost to you. You agree not to misuse the site, interfere with its operation, or submit unlawful, abusive, or malicious content. Replace this starter text with legal advice appropriate to your business and jurisdiction before launch.</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Fit Finder. Not affiliated with any brand listed above.</span>
+      <span>Measure once, get the right size every time.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ---------------- ICONS (inline SVG, no external deps) ---------------- */
+const ICONS = {
+  ruler: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="8" width="18" height="8" rx="1.5"/><path d="M7 8v3M11 8v3M15 8v3M19 8v3"/></svg>`,
+  shirt: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4l4 2 4-2 4 4-3 3v9H7v-9L4 8z"/></svg>`,
+  foot: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3c1 2-1 3-1 5s2 2 2 4-2 3-2 6c0 1.5 1 2.5 3 2.5 3 0 5-2 5-5 0-3-2-4-2-7 0-3-1-5.5-5-5.5z"/></svg>`,
+  info: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.01"/></svg>`,
+  arrow: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`,
+  check: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 6"/></svg>`,
+  chevron: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>`,
+  external: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4L10 14M19 13v6a1 1 0 01-1 1H5a1 1 0 01-1-1V6a1 1 0 011-1h6"/></svg>`
+};
+
+/* ---------------- ACCURACY FEEDBACK (stored locally in the browser) ---------------- */
+function resetAccuracyBox(){
+  document.getElementById("accuracy-prompt").style.display = "flex";
+  document.getElementById("accuracy-followup").style.display = "none";
+  document.getElementById("accuracy-thanks").style.display = "none";
+  const input = document.getElementById("acc-actual");
+  if (input) input.value = "";
+}
+
+function saveAccuracyFeedback(entry){
+  try{
+    const key = "fitfinder_accuracy_feedback";
+    const existing = JSON.parse(localStorage.getItem(key) || "[]");
+    existing.push({ ...entry, savedAt: new Date().toISOString() });
+    localStorage.setItem(key, JSON.stringify(existing));
+  } catch(e){ /* localStorage unavailable — feedback simply won't persist */ }
+}
+
+function showThanks(){
+  document.getElementById("accuracy-prompt").style.display = "none";
+  document.getElementById("accuracy-followup").style.display = "none";
+  document.getElementById("accuracy-thanks").style.display = "flex";
+}
+
+/* ---------------- DATA ---------------- */
+const CATEGORIES = {
+  shirt: { key:"shirt", label:"Shirts", icon:"shirt", dimension:"Chest", hint:"Measure around the fullest part of your chest, under the arms", min:78, max:132, step:1, searchTerm:"shirt",
+    brands:[
+      {name:"Red Tape", note:"Fashion & lifestyle fit", url:"https://redtape.com/", ranges:[{max:85,label:"XS"},{max:92,label:"S"},{max:99,label:"M"},{max:107,label:"L"},{max:115,label:"XL"},{max:123,label:"XXL"},{max:Infinity,label:"XXXL"}]},
+      {name:"Zara", note:"Fitted cut", url:"https://www.zara.com/in/en/search?searchTerm=men+shirt", ranges:[{max:84,label:"XS"},{max:90,label:"S"},{max:96,label:"M"},{max:104,label:"L"},{max:112,label:"XL"},{max:120,label:"XXL"},{max:Infinity,label:"XXXL"}]},
+      {name:"H&M", note:"Relaxed fit", url:"https://www2.hm.com/en_in/search-results.html?q=men+shirt", ranges:[{max:86,label:"XS"},{max:92,label:"S"},{max:100,label:"M"},{max:108,label:"L"},{max:116,label:"XL"},{max:124,label:"XXL"},{max:Infinity,label:"XXXL"}]},
+      {name:"Uniqlo", note:"Standard fit", url:"https://www.uniqlo.com/in/en/search?q=men+shirt", ranges:[{max:85,label:"XS"},{max:91,label:"S"},{max:98,label:"M"},{max:106,label:"L"},{max:114,label:"XL"},{max:122,label:"XXL"},{max:Infinity,label:"XXXL"}]},
+      {name:"Levi's", note:"Standard fit", url:"https://www.levi.in/search?q=shirt", ranges:[{max:84,label:"XS"},{max:90,label:"S"},{max:97,label:"M"},{max:105,label:"L"},{max:113,label:"XL"},{max:121,label:"XXL"},{max:Infinity,label:"XXXL"}]},
+      {name:"Allen Solly", note:"Standard fit", url:"https://www.allensolly.com/search?q=shirt", ranges:[{max:85,label:"XS"},{max:91,label:"S"},{max:98,label:"M"},{max:106,label:"L"},{max:114,label:"XL"},{max:122,label:"XXL"},{max:Infinity,label:"XXXL"}]},
+      {name:"Van Heusen", note:"Fitted cut", url:"https://www.vanheusenindia.com/search?q=shirt", ranges:[{max:84,label:"XS"},{max:90,label:"S"},{max:97,label:"M"},{max:105,label:"L"},{max:113,label:"XL"},{max:121,label:"XXL"},{max:Infinity,label:"XXXL"}]},
+      {name:"Peter England", note:"Relaxed fit", url:"https://www.peterengland.com/search?q=shirt", ranges:[{max:87,label:"XS"},{max:93,label:"S"},{max:101,label:"M"},{max:109,label:"L"},{max:117,label:"XL"},{max:125,label:"XXL"},{max:Infinity,label:"XXXL"}]},
+      {name:"FabIndia", note:"Relaxed, ethnic-friendly cut", url:"https://www.fabindia.com/search?q=shirt", ranges:[{max:88,label:"XS"},{max:95,label:"S"},{max:103,label:"M"},{max:111,label:"L"},{max:119,label:"XL"},{max:127,label:"XXL"},{max:Infinity,label:"XXXL"}]},
+      {name:"Roadster", note:"Fitted cut", url:"https://www.myntra.com/roadster-shirts", ranges:[{max:85,label:"XS"},{max:91,label:"S"},{max:98,label:"M"},{max:106,label:"L"},{max:114,label:"XL"},{max:122,label:"XXL"},{max:Infinity,label:"XXXL"}]},
+      {name:"Local Tailor", note:"Extra ease", url:null, ranges:[{max:88,label:"XS"},{max:95,label:"S"},{max:103,label:"M"},{max:111,label:"L"},{max:119,label:"XL"},{max:127,label:"XXL"},{max:Infinity,label:"XXXL"}]},
+    ]},
+  jeans: { key:"jeans", label:"Jeans", icon:"ruler", dimension:"Waist", hint:"Wrap the tape around the narrowest part of your waist — not too tight", min:60, max:112, step:1, searchTerm:"jeans",
+    brands:[
+      {name:"Red Tape", note:"Denim fit — verify item chart", url:"https://redtape.com/", ranges:[{max:71,label:"28"},{max:76,label:"30"},{max:81,label:"32"},{max:86,label:"34"},{max:91,label:"36"},{max:96,label:"38"},{max:Infinity,label:"40"}]},
+      {name:"Zara", note:"Fitted cut", url:"https://www.zara.com/in/en/search?searchTerm=jeans", ranges:[{max:69,label:"28"},{max:74,label:"30"},{max:79,label:"32"},{max:84,label:"34"},{max:89,label:"36"},{max:94,label:"38"},{max:Infinity,label:"40"}]},
+      {name:"H&M", note:"Standard", url:"https://www2.hm.com/en_in/search-results.html?q=jeans", ranges:[{max:72,label:"28"},{max:77,label:"30"},{max:82,label:"32"},{max:87,label:"34"},{max:92,label:"36"},{max:97,label:"38"},{max:Infinity,label:"40"}]},
+      {name:"Uniqlo", note:"Standard", url:"https://www.uniqlo.com/in/en/search?q=jeans", ranges:[{max:73,label:"28"},{max:78,label:"30"},{max:83,label:"32"},{max:88,label:"34"},{max:93,label:"36"},{max:98,label:"38"},{max:Infinity,label:"40"}]},
+      {name:"Levi's", note:"True to size", url:"https://www.levi.in/search?q=jeans", ranges:[{max:71,label:"28"},{max:76,label:"30"},{max:81,label:"32"},{max:86,label:"34"},{max:91,label:"36"},{max:96,label:"38"},{max:Infinity,label:"40"}]},
+      {name:"Pepe Jeans", note:"Fitted cut", url:"https://www.pepejeans.in/search?q=jeans", ranges:[{max:70,label:"28"},{max:75,label:"30"},{max:80,label:"32"},{max:85,label:"34"},{max:90,label:"36"},{max:95,label:"38"},{max:Infinity,label:"40"}]},
+      {name:"Wrangler", note:"Standard", url:"https://www.wrangler.in/search?q=jeans", ranges:[{max:72,label:"28"},{max:77,label:"30"},{max:82,label:"32"},{max:87,label:"34"},{max:92,label:"36"},{max:97,label:"38"},{max:Infinity,label:"40"}]},
+      {name:"Spykar", note:"Relaxed fit", url:"https://www.spykar.com/search?q=jeans", ranges:[{max:74,label:"28"},{max:79,label:"30"},{max:84,label:"32"},{max:89,label:"34"},{max:94,label:"36"},{max:99,label:"38"},{max:Infinity,label:"40"}]},
+      {name:"Roadster", note:"Fitted cut", url:"https://www.myntra.com/roadster-jeans", ranges:[{max:70,label:"28"},{max:75,label:"30"},{max:80,label:"32"},{max:85,label:"34"},{max:90,label:"36"},{max:95,label:"38"},{max:Infinity,label:"40"}]},
+      {name:"Local Denim Co.", note:"Extra ease", url:null, ranges:[{max:75,label:"28"},{max:80,label:"30"},{max:85,label:"32"},{max:90,label:"34"},{max:95,label:"36"},{max:100,label:"38"},{max:Infinity,label:"40"}]},
+    ]},
+  dress: { key:"dress", label:"Dresses / Tops", icon:"shirt", dimension:"Bust", hint:"Wrap the tape around the fullest part of your bust", min:74, max:126, step:1, searchTerm:"dress",
+    brands:[
+      {name:"Red Tape", note:"Women's apparel — verify item chart", url:"https://redtape.com/", ranges:[{max:80,label:"XS"},{max:87,label:"S"},{max:94,label:"M"},{max:101,label:"L"},{max:108,label:"XL"},{max:Infinity,label:"XXL"}]},
+      {name:"Zara", note:"Fitted cut", url:"https://www.zara.com/in/en/search?searchTerm=dress", ranges:[{max:80,label:"XS"},{max:86,label:"S"},{max:92,label:"M"},{max:98,label:"L"},{max:104,label:"XL"},{max:Infinity,label:"XXL"}]},
+      {name:"H&M", note:"Relaxed fit", url:"https://www2.hm.com/en_in/search-results.html?q=dress", ranges:[{max:82,label:"XS"},{max:88,label:"S"},{max:95,label:"M"},{max:102,label:"L"},{max:109,label:"XL"},{max:Infinity,label:"XXL"}]},
+      {name:"Uniqlo", note:"Standard fit", url:"https://www.uniqlo.com/in/en/search?q=dress", ranges:[{max:81,label:"XS"},{max:87,label:"S"},{max:93,label:"M"},{max:100,label:"L"},{max:107,label:"XL"},{max:Infinity,label:"XXL"}]},
+      {name:"& Other Stories", note:"Runs small", url:"https://www.stories.com/en_in/search.html?q=dress", ranges:[{max:79,label:"XS"},{max:85,label:"S"},{max:91,label:"M"},{max:97,label:"L"},{max:103,label:"XL"},{max:Infinity,label:"XXL"}]},
+      {name:"Forever 21", note:"Runs small", url:"https://www.forever21.com/in/shop/catalog/category/f21/dress", ranges:[{max:78,label:"XS"},{max:84,label:"S"},{max:90,label:"M"},{max:96,label:"L"},{max:102,label:"XL"},{max:Infinity,label:"XXL"}]},
+      {name:"Biba", note:"Ethnic wear, extra ease", url:"https://www.biba.in/search?q=dress", ranges:[{max:85,label:"XS"},{max:92,label:"S"},{max:99,label:"M"},{max:107,label:"L"},{max:115,label:"XL"},{max:Infinity,label:"XXL"}]},
+      {name:"W for Woman", note:"Standard fit", url:"https://www.wforwoman.com/search?q=dress", ranges:[{max:82,label:"XS"},{max:88,label:"S"},{max:94,label:"M"},{max:101,label:"L"},{max:108,label:"XL"},{max:Infinity,label:"XXL"}]},
+      {name:"Aurelia", note:"Ethnic wear, relaxed fit", url:"https://www.tcnsclothing.com/aurelia", ranges:[{max:83,label:"XS"},{max:90,label:"S"},{max:97,label:"M"},{max:105,label:"L"},{max:113,label:"XL"},{max:Infinity,label:"XXL"}]},
+      {name:"Local Boutique", note:"Extra ease", url:null, ranges:[{max:84,label:"XS"},{max:91,label:"S"},{max:98,label:"M"},{max:106,label:"L"},{max:114,label:"XL"},{max:Infinity,label:"XXL"}]},
+    ]},
+  tshirts: { key:"tshirts", label:"T-Shirts", icon:"shirt", dimension:"Chest", hint:"Measure around the fullest part of your chest, under the arms", min:78, max:132, step:1, searchTerm:"t-shirt",
+    brands:[
+      {name:"Red Tape", note:"T-shirt fit — verify item chart", url:"https://redtape.com/", ranges:[{max:84,label:"XS"},{max:91,label:"S"},{max:98,label:"M"},{max:106,label:"L"},{max:114,label:"XL"},{max:122,label:"XXL"},{max:Infinity,label:"XXXL"}]},
+      {name:"Zara", note:"Fitted cut", url:"https://www.zara.com/in/en/search?searchTerm=t-shirt", ranges:[{max:84,label:"XS"},{max:90,label:"S"},{max:96,label:"M"},{max:104,label:"L"},{max:112,label:"XL"},{max:120,label:"XXL"},{max:Infinity,label:"XXXL"}]},
+      {name:"H&M", note:"Relaxed fit", url:"https://www2.hm.com/en_in/search-results.html?q=t-shirt", ranges:[{max:86,label:"XS"},{max:92,label:"S"},{max:100,label:"M"},{max:108,label:"L"},{max:116,label:"XL"},{max:124,label:"XXL"},{max:Infinity,label:"XXXL"}]},
+      {name:"Uniqlo", note:"Standard fit", url:"https://www.uniqlo.com/in/en/search?q=t-shirt", ranges:[{max:85,label:"XS"},{max:91,label:"S"},{max:98,label:"M"},{max:106,label:"L"},{max:114,label:"XL"},{max:122,label:"XXL"},{max:Infinity,label:"XXXL"}]},
+      {name:"Levi's", note:"Standard fit", url:"https://www.levi.in/search?q=t-shirt", ranges:[{max:84,label:"XS"},{max:90,label:"S"},{max:97,label:"M"},{max:105,label:"L"},{max:113,label:"XL"},{max:121,label:"XXL"},{max:Infinity,label:"XXXL"}]},
+      {name:"Jack & Jones", note:"Contemporary fit", url:"https://www.myntra.com/jack-jones-tshirts", ranges:[{max:85,label:"XS"},{max:91,label:"S"},{max:98,label:"M"},{max:106,label:"L"},{max:114,label:"XL"},{max:122,label:"XXL"},{max:Infinity,label:"XXXL"}]},
+      {name:"Roadster", note:"Fitted cut", url:"https://www.myntra.com/roadster-tshirts", ranges:[{max:85,label:"XS"},{max:91,label:"S"},{max:98,label:"M"},{max:106,label:"L"},{max:114,label:"XL"},{max:122,label:"XXL"},{max:Infinity,label:"XXXL"}]}
+    ]},
+  hoodies: { key:"hoodies", label:"Hoodies", icon:"shirt", dimension:"Chest", hint:"Measure around the fullest part of your chest; choose a larger size for an oversized fit", min:78, max:132, step:1, searchTerm:"hoodie",
+    brands:[
+      {name:"Red Tape", note:"Sweatshirt/hoodie fit — verify item chart", url:"https://redtape.com/", ranges:[{max:86,label:"XS"},{max:93,label:"S"},{max:101,label:"M"},{max:109,label:"L"},{max:117,label:"XL"},{max:125,label:"XXL"},{max:Infinity,label:"XXXL"}]},
+      {name:"H&M", note:"Relaxed fit", url:"https://www2.hm.com/en_in/search-results.html?q=hoodie", ranges:[{max:88,label:"XS"},{max:94,label:"S"},{max:102,label:"M"},{max:110,label:"L"},{max:118,label:"XL"},{max:126,label:"XXL"},{max:Infinity,label:"XXXL"}]},
+      {name:"Uniqlo", note:"Standard fit", url:"https://www.uniqlo.com/in/en/search?q=hoodie", ranges:[{max:87,label:"XS"},{max:93,label:"S"},{max:101,label:"M"},{max:109,label:"L"},{max:117,label:"XL"},{max:125,label:"XXL"},{max:Infinity,label:"XXXL"}]},
+      {name:"Adidas", note:"Sport fit", url:"https://www.adidas.co.in/search?q=hoodie", ranges:[{max:88,label:"XS"},{max:94,label:"S"},{max:102,label:"M"},{max:110,label:"L"},{max:118,label:"XL"},{max:126,label:"XXL"},{max:Infinity,label:"XXXL"}]},
+      {name:"Nike", note:"Sport fit", url:"https://www.nike.com/in/w?q=hoodie", ranges:[{max:87,label:"XS"},{max:93,label:"S"},{max:101,label:"M"},{max:109,label:"L"},{max:117,label:"XL"},{max:125,label:"XXL"},{max:Infinity,label:"XXXL"}]},
+      {name:"Puma", note:"Relaxed sport fit", url:"https://in.puma.com/in/en/search?q=hoodie", ranges:[{max:88,label:"XS"},{max:94,label:"S"},{max:102,label:"M"},{max:110,label:"L"},{max:118,label:"XL"},{max:126,label:"XXL"},{max:Infinity,label:"XXXL"}]}
+    ]},
+  trousers: { key:"trousers", label:"Trousers", icon:"ruler", dimension:"Waist", hint:"Measure around the narrowest part of your waist without pulling the tape tight", min:60, max:112, step:1, searchTerm:"trousers",
+    brands:[
+      {name:"Red Tape", note:"Trouser fit — verify item chart", url:"https://redtape.com/", ranges:[{max:70,label:"28"},{max:75,label:"30"},{max:80,label:"32"},{max:85,label:"34"},{max:90,label:"36"},{max:95,label:"38"},{max:Infinity,label:"40"}]},
+      {name:"Zara", note:"Fitted cut", url:"https://www.zara.com/in/en/search?searchTerm=trousers", ranges:[{max:69,label:"28"},{max:74,label:"30"},{max:79,label:"32"},{max:84,label:"34"},{max:89,label:"36"},{max:94,label:"38"},{max:Infinity,label:"40"}]},
+      {name:"H&M", note:"Standard", url:"https://www2.hm.com/en_in/search-results.html?q=trousers", ranges:[{max:72,label:"28"},{max:77,label:"30"},{max:82,label:"32"},{max:87,label:"34"},{max:92,label:"36"},{max:97,label:"38"},{max:Infinity,label:"40"}]},
+      {name:"Uniqlo", note:"Standard", url:"https://www.uniqlo.com/in/en/search?q=trousers", ranges:[{max:73,label:"28"},{max:78,label:"30"},{max:83,label:"32"},{max:88,label:"34"},{max:93,label:"36"},{max:98,label:"38"},{max:Infinity,label:"40"}]},
+      {name:"Levi's", note:"True to size", url:"https://www.levi.in/search?q=trousers", ranges:[{max:71,label:"28"},{max:76,label:"30"},{max:81,label:"32"},{max:86,label:"34"},{max:91,label:"36"},{max:96,label:"38"},{max:Infinity,label:"40"}]},
+      {name:"Allen Solly", note:"Standard fit", url:"https://www.allensolly.com/search?q=trousers", ranges:[{max:72,label:"28"},{max:77,label:"30"},{max:82,label:"32"},{max:87,label:"34"},{max:92,label:"36"},{max:97,label:"38"},{max:Infinity,label:"40"}]}
+    ]},
+  shoes: { key:"shoes", label:"Shoes", icon:"foot", dimension:"Foot length", hint:"Stand against a wall and measure heel to longest toe (measure in the evening, when feet are slightly larger)", min:21, max:30.5, step:0.1, searchTerm:"shoes",
+    brands:[
+      {name:"Red Tape", note:"Footwear — verify product chart", url:"https://redtape.com/", ranges:[{max:23.0,label:"UK 3"},{max:23.7,label:"UK 4"},{max:24.4,label:"UK 5"},{max:25.1,label:"UK 6"},{max:25.8,label:"UK 7"},{max:26.5,label:"UK 8"},{max:27.2,label:"UK 9"},{max:27.9,label:"UK 10"},{max:28.6,label:"UK 11"},{max:Infinity,label:"UK 12"}]},
+      {name:"Adidas", note:"True to size", url:"https://www.adidas.co.in/search?q=shoes", ranges:[{max:22.9,label:"UK 3"},{max:23.6,label:"UK 4"},{max:24.3,label:"UK 5"},{max:24.9,label:"UK 6"},{max:25.6,label:"UK 7"},{max:26.2,label:"UK 8"},{max:26.9,label:"UK 9"},{max:27.6,label:"UK 10"},{max:28.3,label:"UK 11"},{max:Infinity,label:"UK 12"}]},
+      {name:"Nike", note:"Runs small", url:"https://www.nike.com/in/w?q=shoes", ranges:[{max:22.6,label:"UK 3"},{max:23.3,label:"UK 4"},{max:24.0,label:"UK 5"},{max:24.6,label:"UK 6"},{max:25.3,label:"UK 7"},{max:25.9,label:"UK 8"},{max:26.6,label:"UK 9"},{max:27.3,label:"UK 10"},{max:28.0,label:"UK 11"},{max:Infinity,label:"UK 12"}]},
+      {name:"Puma", note:"Runs small", url:"https://in.puma.com/in/en/search?q=shoes", ranges:[{max:22.7,label:"UK 3"},{max:23.4,label:"UK 4"},{max:24.1,label:"UK 5"},{max:24.7,label:"UK 6"},{max:25.4,label:"UK 7"},{max:26.0,label:"UK 8"},{max:26.7,label:"UK 9"},{max:27.4,label:"UK 10"},{max:28.1,label:"UK 11"},{max:Infinity,label:"UK 12"}]},
+      {name:"Bata", note:"True to size", url:"https://www.bata.in/search?q=shoes", ranges:[{max:23.0,label:"UK 3"},{max:23.7,label:"UK 4"},{max:24.4,label:"UK 5"},{max:25.0,label:"UK 6"},{max:25.7,label:"UK 7"},{max:26.3,label:"UK 8"},{max:27.0,label:"UK 9"},{max:27.7,label:"UK 10"},{max:28.4,label:"UK 11"},{max:Infinity,label:"UK 12"}]},
+      {name:"Reebok", note:"True to size", url:"https://www.reebok.in/search?q=shoes", ranges:[{max:22.9,label:"UK 3"},{max:23.6,label:"UK 4"},{max:24.3,label:"UK 5"},{max:24.9,label:"UK 6"},{max:25.6,label:"UK 7"},{max:26.2,label:"UK 8"},{max:26.9,label:"UK 9"},{max:27.6,label:"UK 10"},{max:28.3,label:"UK 11"},{max:Infinity,label:"UK 12"}]},
+      {name:"Skechers", note:"Runs large", url:"https://www.skechers.in/search?q=shoes", ranges:[{max:23.3,label:"UK 3"},{max:24.0,label:"UK 4"},{max:24.7,label:"UK 5"},{max:25.3,label:"UK 6"},{max:26.0,label:"UK 7"},{max:26.6,label:"UK 8"},{max:27.3,label:"UK 9"},{max:28.0,label:"UK 10"},{max:28.7,label:"UK 11"},{max:Infinity,label:"UK 12"}]},
+      {name:"Sparx", note:"True to size", url:"https://www.sparxshoes.in/search?q=shoes", ranges:[{max:23.0,label:"UK 3"},{max:23.7,label:"UK 4"},{max:24.4,label:"UK 5"},{max:25.0,label:"UK 6"},{max:25.7,label:"UK 7"},{max:26.3,label:"UK 8"},{max:27.0,label:"UK 9"},{max:27.7,label:"UK 10"},{max:28.4,label:"UK 11"},{max:Infinity,label:"UK 12"}]},
+      {name:"Woodland", note:"Runs large", url:"https://www.woodlandworldwide.com/search?q=shoes", ranges:[{max:23.2,label:"UK 3"},{max:23.9,label:"UK 4"},{max:24.6,label:"UK 5"},{max:25.2,label:"UK 6"},{max:25.9,label:"UK 7"},{max:26.5,label:"UK 8"},{max:27.2,label:"UK 9"},{max:27.9,label:"UK 10"},{max:28.6,label:"UK 11"},{max:Infinity,label:"UK 12"}]},
+    ]},
+};
+
+/* ---------------- LOGIC ---------------- */
+const MONETIZATION = {
+  amazonTag: "YOUR-AMAZON-TAG-21",
+  affiliateRedirectBase: "", // Optional: set to your own redirect endpoint for Myntra/Ajio/other networks.
+  analyticsId: "G-XXXXXXXXXX"
+};
+function marketplaceLinks(brandName, searchTerm){
+  const q = encodeURIComponent(`${brandName} ${searchTerm}`);
+  const links = [
+    { name:"Amazon", url:`https://www.amazon.in/s?k=${q}&tag=${MONETIZATION.amazonTag}`, affiliate:true },
+    { name:"Myntra", url:`https://www.myntra.com/${encodeURIComponent(searchTerm)}?rawQuery=${encodeURIComponent(brandName)}`, affiliate:true },
+    { name:"Ajio", url:`https://www.ajio.com/search/?text=${q}`, affiliate:true },
+    { name:"Flipkart", url:`https://www.flipkart.com/search?q=${q}`, affiliate:true }
+  ];
+  return links;
+}
+
+function matchBrand(value, ranges, category){
+  for(let i=0;i<ranges.length;i++){
+    const band=ranges[i];
+    const lower=i===0 ? category.min : ranges[i-1].max;
+    const upper=band.max===Infinity ? Math.max(value, lower+8) : band.max;
+    if(value<=upper){
+      const width=Math.max(upper-lower,1);
+      const pos=Math.min(Math.max((value-lower)/width,0),1);
+      const edgeDistance=Math.min(pos,1-pos);
+      const confidence=edgeDistance<0.14 ? "Borderline" : "Good fit";
+      const advice=pos>0.82 && i<ranges.length-1 ? "Consider sizing up" : (pos<0.18 && i>0 ? "Consider sizing down" : "Within band");
+      return {label:band.label, confidence, pos, advice};
+    }
+  }
+  const last=ranges[ranges.length-1];
+  return {label:last.label, confidence:"Borderline", pos:1, advice:"Check the brand chart"};
+}
+
+/* ---------------- STATE ---------------- */
+let categoryKey = "shirt";
+let submittedValue = null;
+
+const pillRow = document.getElementById("pill-row");
+const measureInput = document.getElementById("measure-input");
+const dimensionLabel = document.getElementById("dimension-label");
+const hintText = document.getElementById("hint-text");
+const unitSuffix = document.querySelector(".unit-suffix");
+const errMsg = document.getElementById("err-msg");
+const tapeStrip = document.getElementById("tape-strip");
+const resultsEmpty = document.getElementById("results-empty");
+const resultsContent = document.getElementById("results-content");
+const submittedValueEl = document.getElementById("submitted-value");
+const resultsNote = document.getElementById("results-note");
+const brandGrid = document.getElementById("brand-grid");
+const guideInner = document.getElementById("guide-inner");
+const guideToggleText = document.getElementById("guide-toggle-text");
+
+function icon(name, extra=""){ return `<span class="${extra}">${ICONS[name]}</span>`; }
+
+function renderPills(){
+  pillRow.innerHTML = Object.values(CATEGORIES).map(c => `
+    <button type="button" class="pill ${c.key===categoryKey?'active':''}" data-key="${c.key}">
+      ${ICONS[c.icon]} ${c.label}
+    </button>`).join("");
+  pillRow.querySelectorAll(".pill").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      categoryKey = btn.dataset.key;
+      submittedValue = null;
+      measureInput.value = "";
+      errMsg.style.display = "none";
+      renderPills();
+      renderForm();
+      renderTape();
+      renderResults();
+    });
+  });
+}
+
+function renderForm(){
+  const c = CATEGORIES[categoryKey];
+  dimensionLabel.textContent = `Your ${c.dimension} measurement`;
+  hintText.textContent = c.hint;
+  measureInput.step = c.step;
+  measureInput.placeholder = Math.round((c.min+c.max)/2);
+  document.getElementById("icon-info-hint").innerHTML = ICONS.info;
+  guideToggleText.textContent = `How to measure your ${c.dimension.toLowerCase()} correctly`;
+  guideInner.textContent = `Use a flexible measuring tape — not too tight, not too loose, just resting against your skin. ${c.hint}. Getting a second pair of hands makes the measurement more accurate.`;
+}
+
+function renderTape(){
+  const c = CATEGORIES[categoryKey];
+  const totalTicks = 46;
+  let html = "";
+  for (let i=0;i<=totalTicks;i++){
+    html += `<span class="tick ${i%5===0?'major':''}"></span>`;
+  }
+  if (submittedValue != null){
+    const pos = Math.min(Math.max((submittedValue-c.min)/(c.max-c.min),0),1);
+    html += `<div class="tape-marker" style="display:block;left:${pos*100}%;"><div class="marker-pin"></div></div>`;
+  }
+  tapeStrip.innerHTML = html;
+}
+
+function renderResults(){
+  const c = CATEGORIES[categoryKey];
+  if (submittedValue == null){
+    resultsEmpty.style.display = "block";
+    resultsContent.style.display = "none";
+    return;
+  }
+  resultsEmpty.style.display = "none";
+  resultsContent.style.display = "block";
+  resetAccuracyBox();
+  submittedValueEl.textContent = `${submittedValue} cm`;
+  resultsNote.textContent = `Sizes across ${c.brands.length} brands`;
+  document.getElementById("icon-info-disc").innerHTML = ICONS.info;
+
+  brandGrid.innerHTML = c.brands.map((b,i)=>{
+    const m = matchBrand(submittedValue, b.ranges, c);
+    const confClass = m.confidence === "Good fit" ? "good" : "border";
+    const confIcon = m.confidence === "Good fit" ? ICONS.check : ICONS.info;
+    const shopBtn = b.url
+      ? `<a class="shop-btn" href="${b.url}" target="_blank" rel="noopener sponsored">${ICONS.external} Shop on ${b.name}</a>`
+      : `<button class="shop-btn disabled" disabled>${ICONS.external} Find a local store</button>`;
+    const mp = marketplaceLinks(b.name, c.searchTerm);
+    const mpRow = `<div class="marketplace-row">${mp.map(m=>`<a class="mp-btn" href="${m.url}" target="_blank" rel="noopener sponsored">${m.name}</a>`).join("")}</div>`;
+    return `
+      <div class="brand-card" style="animation-delay:${i*70}ms;">
+        <div class="brand-name">${b.name}</div>
+        <div class="brand-note">${b.note}</div>
+        <div class="brand-size mono">${m.label}</div>
+        <span class="conf-tag ${confClass}">${confIcon}${m.confidence}</span>
+        <div class="brand-note" style="margin-top:8px;margin-bottom:0;">${m.advice}</div>
+        <div class="band-bar"><div class="band-fill" style="left:${m.pos*100}%;"></div></div>
+        ${shopBtn}
+        ${mpRow}
+      </div>`;
+  }).join("");
+}
+
+document.getElementById("measure-form").addEventListener("submit", (e)=>{
+  e.preventDefault();
+  const c = CATEGORIES[categoryKey];
+  const num = parseFloat(measureInput.value);
+  if (!measureInput.value || isNaN(num)){
+    errMsg.textContent = "Enter your measurement first";
+    errMsg.style.display = "block";
+    return;
+  }
+  if (num < c.min || num > c.max){
+    errMsg.textContent = `For ${c.label.toLowerCase()}, enter a measurement between ${c.min}–${c.max} cm`;
+    errMsg.style.display = "block";
+    return;
+  }
+  errMsg.style.display = "none";
+  submittedValue = num;
+  renderTape();
+  renderResults();
+  document.getElementById("results-section").scrollIntoView({behavior:"smooth", block:"start"});
+});
+
+document.getElementById("acc-yes").addEventListener("click", ()=>{
+  saveAccuracyFeedback({ category: categoryKey, measurement: submittedValue, accurate: true });
+  showThanks();
+});
+document.getElementById("acc-no").addEventListener("click", ()=>{
+  document.getElementById("accuracy-prompt").style.display = "none";
+  document.getElementById("accuracy-followup").style.display = "block";
+});
+document.getElementById("acc-submit").addEventListener("click", ()=>{
+  const actual = document.getElementById("acc-actual").value.trim();
+  if (!actual) return;
+  saveAccuracyFeedback({ category: categoryKey, measurement: submittedValue, accurate: false, actualFit: actual });
+  showThanks();
+});
+
+document.getElementById("guide-toggle").addEventListener("click", function(){
+  this.classList.toggle("open");
+  document.getElementById("guide-body").classList.toggle("open");
+});
+
+/* analytics + feedback */
+function track(eventName, params={}) {
+  if (typeof gtag === "function") gtag("event", eventName, params);
+}
+document.getElementById("measure-form").addEventListener("submit", ()=>{
+  track("size_check", {category: categoryKey});
+}, {capture:true});
+
+document.addEventListener("click", (e)=>{
+  const link=e.target.closest("a");
+  if(!link) return;
+  if(link.classList.contains("mp-btn") || link.classList.contains("shop-btn")){
+    track("affiliate_click", {category:categoryKey, destination:link.textContent.trim()});
+  }
+});
+
+const FORM_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
+document.getElementById("feedback-form").addEventListener("submit", async (e)=>{
+  e.preventDefault();
+  const msg=document.getElementById("fb-message").value.trim();
+  const email=document.getElementById("fb-email").value.trim();
+  if(!msg){ alert("Please enter your feedback."); return; }
+  const success=document.getElementById("fb-success");
+  try{
+    if(FORM_ENDPOINT.includes("YOUR_FORM_ID")) throw new Error("Demo endpoint");
+    const res=await fetch(FORM_ENDPOINT,{
+      method:"POST", headers:{"Accept":"application/json","Content-Type":"application/json"},
+      body:JSON.stringify({email,message:msg,category:categoryKey})
+    });
+    if(!res.ok) throw new Error("Request failed");
+    success.classList.add("show"); e.target.reset(); track("feedback_submit",{category:categoryKey});
+  }catch(err){
+    const subject=encodeURIComponent("Fit Finder feedback");
+    const body=encodeURIComponent(`Category: ${categoryKey}\nEmail: ${email || "Not provided"}\n\n${msg}`);
+    window.location.href=`mailto:YOUR-EMAIL@example.com?subject=${subject}&body=${body}`;
+  }
+});
+
+/* cookie preference */
+const cookieBanner=document.getElementById("cookie-banner");
+const cookieChoice=localStorage.getItem("fitfinder_cookie_choice");
+if(!cookieChoice) cookieBanner.classList.add("show");
+document.getElementById("cookie-accept").addEventListener("click",()=>{
+  localStorage.setItem("fitfinder_cookie_choice","accepted");
+  cookieBanner.classList.remove("show");
+  track("cookie_consent",{choice:"accepted"});
+});
+document.getElementById("cookie-essential").addEventListener("click",()=>{
+  localStorage.setItem("fitfinder_cookie_choice","essential");
+  cookieBanner.classList.remove("show");
+});
+/* legal accordions */
+function bindLegal(toggleId, panelId){
+  document.getElementById(toggleId).addEventListener("click", ()=>{
+    document.getElementById(panelId).classList.toggle("open");
+  });
+}
+bindLegal("privacy-toggle","privacy-panel");
+bindLegal("terms-toggle","terms-panel");
+
+/* nav icons */
+document.getElementById("icon-ruler").innerHTML = ICONS.ruler;
+document.getElementById("icon-ruler-footer").innerHTML = ICONS.ruler;
+document.getElementById("icon-arrow").innerHTML = ICONS.arrow;
+document.getElementById("icon-chevron").innerHTML = ICONS.chevron;
+document.getElementById("icon-check-trust").innerHTML = ICONS.check;
+document.getElementById("icon-check-fb").innerHTML = ICONS.check;
+document.getElementById("icon-check-acc").innerHTML = ICONS.check;
+document.getElementById("year").textContent = new Date().getFullYear();
+
+renderPills();
+renderForm();
+renderTape();
+renderResults();
+</script>
+</body>
+</html>
