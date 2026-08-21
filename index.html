@@ -242,6 +242,33 @@
     .marker-pin{animation:none!important;}
     .tape-marker{transition:none!important;}
   }
+
+  /* ---- fit preference ---- */
+  .fit-preference{margin-top:12px;padding-top:12px;border-top:1px solid var(--stroke);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+  .fit-preference-copy{min-width:0;} .fit-preference-title{font-size:12px;color:var(--text);font-weight:500;} .fit-preference-sub{font-size:11px;color:var(--muted);margin-top:3px;}
+  .fit-toggle{display:flex;gap:4px;padding:3px;background:var(--bg);border:1px solid var(--stroke-strong);border-radius:9px;flex-shrink:0;}
+  .fit-option{border:0;background:transparent;color:var(--muted);border-radius:6px;padding:7px 11px;font:12px inherit;cursor:pointer;transition:.2s;}
+  .fit-option:hover{color:var(--text);}
+  .fit-option.active{background:var(--brass);color:#201a0e;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,.12);}
+  .fit-badge{display:inline-flex;align-items:center;gap:5px;margin-top:8px;font-size:11px;color:var(--muted);}
+  .fit-badge strong{color:var(--brass);font-weight:600;}
+  @media(max-width:640px){.fit-preference{align-items:stretch;}.fit-toggle{width:100%;}.fit-option{flex:1;}}
+
+  /* ---- saved body profiles ---- */
+  .profile-bar{max-width:520px;margin:-14px 0 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+  .profile-current{display:flex;align-items:center;gap:8px;min-width:0;}
+  .profile-avatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--brass-soft);color:var(--brass);border:1px solid var(--brass);font-size:12px;font-weight:600;flex-shrink:0;}
+  .profile-copy{min-width:0;} .profile-name{font-size:13px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px;} .profile-status{font-size:11px;color:var(--muted);}
+  .profile-actions{display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+  .profile-select{background:var(--surface);border:1px solid var(--stroke-strong);color:var(--text);border-radius:7px;padding:7px 28px 7px 9px;font:inherit;font-size:12px;max-width:150px;}
+  .profile-mini-btn{background:transparent;border:1px solid var(--stroke-strong);color:var(--muted);border-radius:7px;padding:7px 10px;font:inherit;font-size:12px;cursor:pointer;transition:.2s;} .profile-mini-btn:hover{border-color:var(--brass);color:var(--brass);background:var(--brass-soft);}
+  .profile-panel{display:none;max-width:520px;background:var(--surface);border:1px solid var(--stroke);border-radius:12px;padding:18px;margin:-6px 0 18px;box-shadow:0 12px 30px rgba(0,0,0,.12);} .profile-panel.open{display:block;animation:card-in .25s ease forwards;}
+  .profile-panel-head{position:relative;display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:14px;padding-right:108px;} .profile-panel h3{font-family:'Fraunces',serif;font-size:19px;font-weight:500;margin:0 0 5px;} .profile-panel p{font-size:12px;color:var(--muted);margin:0;line-height:1.5;}
+  .profile-unit-row{position:absolute;top:0;right:0;display:flex;align-items:center;gap:5px;} .profile-unit-label{display:none;} .profile-unit-toggle{margin:0;} .profile-unit-toggle button{min-width:42px;padding:6px 9px;} .profile-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;} .profile-field label{display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;} .profile-field input{width:100%;box-sizing:border-box;background:var(--bg);border:1px solid var(--stroke-strong);border-radius:7px;color:var(--text);padding:10px 11px;font:14px 'IBM Plex Mono',monospace;outline:none;} .profile-field input:focus{border-color:var(--brass);} .profile-unit-text{color:var(--text);font-weight:500;}
+  .profile-footnote{font-size:11px;color:var(--muted);margin:12px 0 14px;} .profile-panel-actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;}
+  .profile-empty{max-width:520px;margin:-14px 0 18px;padding:11px 13px;border:1px dashed var(--stroke-strong);border-radius:9px;color:var(--muted);font-size:12px;display:flex;align-items:center;justify-content:space-between;gap:10px;} .profile-empty strong{color:var(--text);font-weight:500;}
+  @media(max-width:640px){.profile-bar{margin-top:-10px;}.profile-actions{width:100%;}.profile-select{flex:1;max-width:none;}.profile-grid{grid-template-columns:1fr;}.profile-panel-actions .btn,.profile-panel-actions .profile-mini-btn{flex:1;}}
+
 </style>
 </head>
 <body>
@@ -270,6 +297,29 @@
 
   <div class="pill-row" id="pill-row"></div>
 
+<!-- Saved full-body profiles: stored only in this browser -->
+<div class="profile-bar" id="profile-bar" style="display:none;">
+  <div class="profile-current"><div class="profile-avatar" id="profile-avatar">P</div><div class="profile-copy"><div class="profile-name" id="profile-current-name">My Profile</div><div class="profile-status" id="profile-current-status">Saved on this device</div></div></div>
+  <div class="profile-actions"><select class="profile-select" id="profile-select" aria-label="Choose profile"></select><button type="button" class="profile-mini-btn" id="profile-manage">Manage</button></div>
+</div>
+<div class="profile-empty" id="profile-empty"><span><strong>Save your measurements once.</strong> Choose a profile next time and Fit Finder fills the right measurement automatically.</span><button type="button" class="profile-mini-btn" id="profile-create">Create profile</button></div>
+<div class="profile-panel" id="profile-panel" aria-hidden="true">
+  <div class="profile-panel-head"><div><h3 id="profile-panel-title">Create a body profile</h3><p>Save your full measurements once. You can create separate profiles for family members too.</p></div><div class="profile-unit-row" aria-label="Profile measurement unit"><div class="unit-toggle profile-unit-toggle" id="profile-unit-toggle" role="group" aria-label="Profile measurement unit">
+      <button type="button" id="profile-unit-cm-btn" class="active" data-profile-unit="cm">cm</button>
+      <button type="button" id="profile-unit-in-btn" data-profile-unit="in">in</button>
+    </div></div><button type="button" class="profile-mini-btn" id="profile-close">Close</button></div>
+  <div class="profile-grid">
+    <div class="profile-field"><label for="profile-name-input">Profile name</label><input id="profile-name-input" type="text" maxlength="30" placeholder="e.g. Vishal" /></div>
+    <div class="profile-field"><label for="profile-chest">Chest / Bust <span class="profile-unit-text">(cm)</span></label><input id="profile-chest" type="number" min="19.7" max="70.9" step="0.1" placeholder="e.g. 96" /></div>
+    <div class="profile-field"><label for="profile-waist">Waist <span class="profile-unit-text">(cm)</span></label><input id="profile-waist" type="number" min="17.7" max="63" step="0.1" placeholder="e.g. 80" /></div>
+    <div class="profile-field"><label for="profile-hip">Hip <span class="profile-unit-text">(cm)</span></label><input id="profile-hip" type="number" min="19.7" max="70.9" step="0.1" placeholder="e.g. 98" /></div>
+    <div class="profile-field"><label for="profile-shoulder">Shoulder <span class="profile-unit-text">(cm)</span></label><input id="profile-shoulder" type="number" min="11.8" max="27.6" step="0.1" placeholder="e.g. 43" /></div>
+    <div class="profile-field"><label for="profile-foot">Foot length <span class="profile-unit-text">(cm)</span></label><input id="profile-foot" type="number" min="5.9" max="13.8" step="0.1" placeholder="e.g. 25" /></div>
+  </div>
+  <div class="profile-footnote">🔒 Profiles stay in your browser's local storage. Fit Finder does not send these measurements to a server.</div>
+  <div class="profile-panel-actions"><button type="button" class="profile-mini-btn" id="profile-delete" style="display:none;">Delete profile</button><button type="button" class="btn btn-brass" id="profile-save">Save profile</button></div>
+</div>
+
   <form class="form-card" id="measure-form">
     <label class="field-label" id="dimension-label" for="measure-input">Your measurement</label>
     <div class="form-row">
@@ -284,6 +334,17 @@
     </div>
     <div class="err-msg" id="err-msg" style="display:none;"></div>
     <div class="field-hint"><span id="icon-info-hint"></span><span id="hint-text"></span></div>
+    <div class="fit-preference" aria-label="Fit preference">
+      <div class="fit-preference-copy">
+        <div class="fit-preference-title">How do you like your fit?</div>
+        <div class="fit-preference-sub">Loose moves the recommendation one size up • Tight moves it one size down • Regular keeps the measurement match.</div>
+      </div>
+      <div class="fit-toggle" id="fit-toggle" role="group" aria-label="Fit preference">
+        <button type="button" class="fit-option" data-fit="loose" aria-pressed="false">Loose</button>
+        <button type="button" class="fit-option active" data-fit="regular" aria-pressed="true">Regular</button>
+        <button type="button" class="fit-option" data-fit="tight" aria-pressed="false">Tight</button>
+      </div>
+    </div>
   </form>
 </div>
 
@@ -523,7 +584,7 @@
     <div class="legal-panel" id="privacy-panel">
       <div class="legal-inner">
         <h6>Privacy Policy</h6>
-        <p><strong>Last updated: August 20, 2026.</strong> Fit Finder may process measurements entered into the calculator, optional feedback, and optional email addresses submitted through forms. Measurement values are used to calculate size estimates. Feedback is used to improve our size bands. We may use Google Analytics and advertising services such as Google AdSense after they are enabled. Those services may use cookies, device identifiers, IP addresses, or similar technologies as described by their own policies. We do not sell personal information. Do not submit sensitive personal information through the feedback form. You may contact us to request access, correction, or deletion of information you submitted. Replace this starter policy with legal advice appropriate to your business, hosting provider, analytics setup, advertising partners, and applicable Indian/international privacy laws before launch.</p>
+        <p><strong>Last updated: August 20, 2026.</strong> Fit Finder may process measurements entered into the calculator, optional saved body profiles stored locally in your browser, optional feedback, and optional email addresses submitted through forms. Measurement values are used to calculate size estimates. Feedback is used to improve our size bands. We may use Google Analytics and advertising services such as Google AdSense after they are enabled. Those services may use cookies, device identifiers, IP addresses, or similar technologies as described by their own policies. We do not sell personal information. Do not submit sensitive personal information through the feedback form. You may contact us to request access, correction, or deletion of information you submitted. Replace this starter policy with legal advice appropriate to your business, hosting provider, analytics setup, advertising partners, and applicable Indian/international privacy laws before launch.</p>
       </div>
     </div>
     <div class="legal-panel" id="terms-panel">
@@ -745,6 +806,7 @@ function matchBrand(value, ranges, category){
 let categoryKey = "shirt";
 let submittedValue = null; // always stored internally in cm
 let unit = "cm"; // "cm" or "in" — controls how the input is displayed/entered
+let fitPreference = "regular"; // loose | regular | tight
 
 const CM_PER_IN = 2.54;
 function cmToUnit(cmVal, u){ return u === "in" ? cmVal / CM_PER_IN : cmVal; }
@@ -768,6 +830,7 @@ const guideToggleText = document.getElementById("guide-toggle-text");
 const unitToggle = document.getElementById("unit-toggle");
 const unitCmBtn = document.getElementById("unit-cm-btn");
 const unitInBtn = document.getElementById("unit-in-btn");
+const fitToggle = document.getElementById("fit-toggle");
 
 function icon(name, extra=""){ return `<span class="${extra}">${ICONS[name]}</span>`; }
 
@@ -788,6 +851,95 @@ function recallMeasurement(category){
   } catch(e){ return null; }
 }
 
+/* ---------------- FIT PREFERENCE ---------------- */
+const FIT_PREF_KEY = "fitfinder_fit_preference_v1";
+const FIT_PREF_LABELS = {loose:"Loose", regular:"Regular", tight:"Tight"};
+function normalizeFitPreference(value){ return FIT_PREF_LABELS[value] ? value : "regular"; }
+function readGlobalFitPreference(){ try{return normalizeFitPreference(localStorage.getItem(FIT_PREF_KEY)||"regular");}catch(e){return "regular";} }
+function writeGlobalFitPreference(value){ try{localStorage.setItem(FIT_PREF_KEY,normalizeFitPreference(value));}catch(e){} }
+function setFitToggle(value){
+  fitPreference = normalizeFitPreference(value);
+  fitToggle.querySelectorAll(".fit-option").forEach(btn=>{
+    const active=btn.dataset.fit===fitPreference;
+    btn.classList.toggle("active",active);
+    btn.setAttribute("aria-pressed",active?"true":"false");
+  });
+}
+function persistFitPreference(){
+  const profiles=readProfiles();
+  if(activeProfileId && profiles.length){
+    const idx=profiles.findIndex(p=>p.id===activeProfileId);
+    if(idx>=0){ profiles[idx].fitPreference=fitPreference; writeProfiles(profiles); return; }
+  }
+  writeGlobalFitPreference(fitPreference);
+}
+function applyFitPreferenceFromActiveProfile(){
+  const profiles=readProfiles();
+  const active=profiles.find(p=>p.id===activeProfileId);
+  setFitToggle(active ? normalizeFitPreference(active.fitPreference||"regular") : readGlobalFitPreference());
+}
+
+function adjustedMatchBrand(value, ranges, category, preference){
+  const base=matchBrand(value,ranges,category);
+  const baseIndex=ranges.findIndex(r=>r.label===base.label);
+  if(baseIndex<0 || preference==="regular") return {...base, baseLabel:base.label, preference, adjusted:false, adjustment:"none"};
+  let targetIndex=baseIndex;
+  if(preference==="loose") targetIndex=Math.min(baseIndex+1,ranges.length-1);
+  if(preference==="tight") targetIndex=Math.max(baseIndex-1,0);
+  const adjusted=targetIndex!==baseIndex;
+  const target=ranges[targetIndex];
+  const adjustment=targetIndex>baseIndex ? "up" : targetIndex<baseIndex ? "down" : "boundary";
+  let advice=base.advice;
+  if(adjusted){
+    advice = preference==="loose"
+      ? `Loose-fit preference: ${target.label} (one size up from ${base.label})`
+      : `Tight-fit preference: ${target.label} (one size down from ${base.label})`;
+  } else if(preference!=="regular"){
+    advice = preference==="loose"
+      ? `Loose-fit preference selected; ${base.label} is the largest available size`
+      : `Tight-fit preference selected; ${base.label} is the smallest available size`;
+  }
+  return {...base,label:target.label,baseLabel:base.label,preference,adjusted,adjustment,advice};
+}
+
+/* ---------------- FULL BODY PROFILES ---------------- */
+const PROFILE_KEY = "fitfinder_body_profiles_v1";
+let activeProfileId = null;
+let editingProfileId = null;
+let profileUnit = "cm"; // profile entry unit; measurements are always stored internally in cm
+const PROFILE_FIELD_MAP = {chest:"chest",bust:"chest",waist:"waist",hip:"hip",shoulder:"shoulder","foot length":"foot"};
+function readProfiles(){try{return JSON.parse(localStorage.getItem(PROFILE_KEY)||"[]");}catch(e){return [];}}
+function writeProfiles(profiles){try{localStorage.setItem(PROFILE_KEY,JSON.stringify(profiles));return true;}catch(e){return false;}}
+function profileInitial(name){return (name||"P").trim().charAt(0).toUpperCase()||"P";}
+function escapeHtml(value){return String(value).replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));}
+function profileForCategory(profile,category){if(!profile)return null;const field=PROFILE_FIELD_MAP[(category.dimension||"").toLowerCase()];return field&&profile.measurements&&Number.isFinite(Number(profile.measurements[field]))?Number(profile.measurements[field]):null;}
+function setProfileUnit(newUnit, convertExisting=true){
+  const next = newUnit === "in" ? "in" : "cm";
+  if(convertExisting && next !== profileUnit){
+    ["profile-chest","profile-waist","profile-hip","profile-shoulder","profile-foot"].forEach(id=>{
+      const el=document.getElementById(id);
+      const v=parseFloat(el.value);
+      if(Number.isFinite(v)) el.value=fmt(next === "in" ? v / CM_PER_IN : v * CM_PER_IN);
+    });
+  }
+  profileUnit=next;
+  document.querySelectorAll(".profile-unit-text").forEach(el=>el.textContent=`(${profileUnit})`);
+  const mins={chest:50,waist:45,hip:50,shoulder:30,foot:15}, maxs={chest:180,waist:160,hip:180,shoulder:70,foot:35};
+  ["chest","waist","hip","shoulder","foot"].forEach(field=>{const el=document.getElementById(`profile-${field}`);if(el){el.min=fmt(cmToUnit(mins[field],profileUnit));el.max=fmt(cmToUnit(maxs[field],profileUnit));el.step="0.1";}});
+  const cmBtn=document.getElementById("profile-unit-cm-btn"),inBtn=document.getElementById("profile-unit-in-btn");
+  cmBtn.classList.toggle("active",profileUnit==="cm"); inBtn.classList.toggle("active",profileUnit==="in");
+  cmBtn.setAttribute("aria-pressed",profileUnit==="cm"?"true":"false"); inBtn.setAttribute("aria-pressed",profileUnit==="in"?"true":"false");
+  const placeholders={chest:96,waist:80,hip:98,shoulder:43,foot:25};
+  Object.entries(placeholders).forEach(([field,v])=>{const el=document.getElementById(`profile-${field}`);if(el && !el.value)el.placeholder=`e.g. ${fmt(cmToUnit(v,profileUnit))}`;});
+}
+function refreshProfileUI(){const profiles=readProfiles(),bar=document.getElementById("profile-bar"),empty=document.getElementById("profile-empty"),select=document.getElementById("profile-select");if(!profiles.length){activeProfileId=null;bar.style.display="none";empty.style.display="flex";applyFitPreferenceFromActiveProfile();return;}if(!profiles.some(p=>p.id===activeProfileId))activeProfileId=profiles[0].id;const active=profiles.find(p=>p.id===activeProfileId)||profiles[0];select.innerHTML=profiles.map(p=>`<option value="${p.id}">${escapeHtml(p.name)}</option>`).join("");select.value=active.id;document.getElementById("profile-current-name").textContent=active.name;document.getElementById("profile-current-status").textContent=`Saved on this device • ${FIT_PREF_LABELS[normalizeFitPreference(active.fitPreference||"regular")]} fit`;document.getElementById("profile-avatar").textContent=profileInitial(active.name);bar.style.display="flex";empty.style.display="none";applyFitPreferenceFromActiveProfile();}
+function openProfilePanel(id=null){editingProfileId=id;const p=readProfiles().find(x=>x.id===id);document.getElementById("profile-panel-title").textContent=p?`Edit ${p.name}`:"Create a body profile";document.getElementById("profile-name-input").value=p?p.name:"";profileUnit=p?.unit==="in"?"in":(p?.unit==="cm"?"cm":unit);const vals=p?.measurements||{};["chest","waist","hip","shoulder","foot"].forEach(field=>{const el=document.getElementById(`profile-${field}`);const cm=Number(vals[field]);el.value=Number.isFinite(cm)?fmt(cmToUnit(cm,profileUnit)):"";});setProfileUnit(profileUnit,false);document.getElementById("profile-delete").style.display=p?"inline-flex":"none";const panel=document.getElementById("profile-panel");panel.classList.add("open");panel.setAttribute("aria-hidden","false");}
+function closeProfilePanel(){const panel=document.getElementById("profile-panel");panel.classList.remove("open");panel.setAttribute("aria-hidden","true");editingProfileId=null;}
+function applyActiveProfileToCategory(){const active=readProfiles().find(p=>p.id===activeProfileId),value=profileForCategory(active,CATEGORIES[categoryKey]);if(value!=null){measureInput.value=fmt(cmToUnit(value,unit));errMsg.style.display="none";submittedValue=null;renderTape();renderResults();}}
+function saveProfile(){const name=document.getElementById("profile-name-input").value.trim();const measurements={};["chest","waist","hip","shoulder","foot"].forEach(field=>{const raw=parseFloat(document.getElementById(`profile-${field}`).value);measurements[field]=Number.isFinite(raw)?fmt(unitToCm(raw,profileUnit)):null;});if(!name){alert("Please enter a profile name.");return;}const profiles=readProfiles();if(editingProfileId){const idx=profiles.findIndex(p=>p.id===editingProfileId);if(idx>=0)profiles[idx]={...profiles[idx],name,measurements,unit:profileUnit,fitPreference:normalizeFitPreference(profiles[idx].fitPreference||fitPreference)};}else{const id="p_"+Date.now().toString(36)+Math.random().toString(36).slice(2,7);profiles.push({id,name,measurements,unit:profileUnit,fitPreference,createdAt:new Date().toISOString()});activeProfileId=id;}if(!writeProfiles(profiles)){alert("Your browser could not save the profile. Please check local storage settings.");return;}refreshProfileUI();closeProfilePanel();applyActiveProfileToCategory();track("profile_saved",{profile_count:profiles.length,fit_preference:fitPreference,profile_unit:profileUnit});}
+function deleteProfile(){if(!editingProfileId)return;const profiles=readProfiles(),p=profiles.find(x=>x.id===editingProfileId);if(!p||!confirm(`Delete ${p.name}'s profile from this device?`))return;const next=profiles.filter(x=>x.id!==editingProfileId);activeProfileId=next[0]?.id||null;writeProfiles(next);refreshProfileUI();closeProfilePanel();}
+document.getElementById("profile-create").addEventListener("click",()=>openProfilePanel());document.getElementById("profile-manage").addEventListener("click",()=>openProfilePanel(activeProfileId));document.getElementById("profile-close").addEventListener("click",closeProfilePanel);document.getElementById("profile-save").addEventListener("click",saveProfile);document.getElementById("profile-delete").addEventListener("click",deleteProfile);document.getElementById("profile-select").addEventListener("change",e=>{activeProfileId=e.target.value;refreshProfileUI();applyActiveProfileToCategory();track("profile_switched",{profile_count:readProfiles().length,fit_preference:fitPreference});});document.getElementById("profile-unit-cm-btn").addEventListener("click",()=>setProfileUnit("cm"));document.getElementById("profile-unit-in-btn").addEventListener("click",()=>setProfileUnit("in"));
+
 function renderPills(){
   pillRow.innerHTML = Object.values(CATEGORIES).map(c => `
     <button type="button" class="pill ${c.key===categoryKey?'active':''}" data-key="${c.key}">
@@ -797,8 +949,10 @@ function renderPills(){
     btn.addEventListener("click", ()=>{
       categoryKey = btn.dataset.key;
       submittedValue = null;
+      const activeProfile = readProfiles().find(p=>p.id===activeProfileId);
+      const profileValue = profileForCategory(activeProfile, CATEGORIES[categoryKey]);
       const remembered = recallMeasurement(categoryKey);
-      measureInput.value = remembered != null ? fmt(cmToUnit(remembered, unit)) : "";
+      measureInput.value = profileValue != null ? fmt(cmToUnit(profileValue, unit)) : (remembered != null ? fmt(cmToUnit(remembered, unit)) : "");
       errMsg.style.display = "none";
       renderPills();
       renderForm();
@@ -835,6 +989,20 @@ function setUnit(newUnit){
 }
 unitCmBtn.addEventListener("click", ()=> setUnit("cm"));
 unitInBtn.addEventListener("click", ()=> setUnit("in"));
+fitToggle.querySelectorAll(".fit-option").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    const next=normalizeFitPreference(btn.dataset.fit);
+    if(next===fitPreference) return;
+    setFitToggle(next);
+    persistFitPreference();
+    const active=readProfiles().find(p=>p.id===activeProfileId);
+    if(active){
+      document.getElementById("profile-current-status").textContent=`Saved on this device • ${FIT_PREF_LABELS[fitPreference]} fit`;
+    }
+    if(submittedValue!=null) renderResults();
+    track("fit_preference_changed",{category:categoryKey,fit_preference:fitPreference,has_profile:Boolean(activeProfileId)});
+  });
+});
 
 function renderTape(){
   const c = CATEGORIES[categoryKey];
@@ -861,11 +1029,11 @@ function renderResults(){
   resultsContent.style.display = "block";
   resetAccuracyBox();
   submittedValueEl.textContent = `${submittedValue} cm (≈ ${(submittedValue/2.54).toFixed(1)} in)`;
-  resultsNote.textContent = `Sizes across ${c.brands.length} brands`;
+  resultsNote.textContent = `Sizes across ${c.brands.length} brands • ${FIT_PREF_LABELS[fitPreference]} fit`;
   document.getElementById("icon-info-disc").innerHTML = ICONS.info;
 
   brandGrid.innerHTML = c.brands.map((b,i)=>{
-    const m = matchBrand(submittedValue, b.ranges, c);
+    const m = adjustedMatchBrand(submittedValue, b.ranges, c, fitPreference);
     const confClass = m.confidence === "Good fit" ? "good" : "border";
     const confIcon = m.confidence === "Good fit" ? ICONS.check : ICONS.info;
     const shopBtn = b.url
@@ -879,6 +1047,7 @@ function renderResults(){
         <div class="brand-note">${b.note}</div>
         <div class="brand-size mono">${m.label}</div>
         <span class="conf-tag ${confClass}">${confIcon}${m.confidence}</span>
+        ${m.preference !== "regular" ? `<div class="fit-badge">Fit preference: <strong>${FIT_PREF_LABELS[m.preference]}</strong>${m.adjusted ? ` • ${m.baseLabel} → ${m.label}` : " • measurement match"}</div>` : ""}
         <div class="brand-note" style="margin-top:8px;margin-bottom:0;">${m.advice}</div>
         <div class="band-bar"><div class="band-fill" style="left:${m.pos*100}%;"></div></div>
         ${shopBtn}
@@ -912,7 +1081,7 @@ document.getElementById("measure-form").addEventListener("submit", (e)=>{
 });
 
 document.getElementById("acc-yes").addEventListener("click", ()=>{
-  saveAccuracyFeedback({ category: categoryKey, measurement: submittedValue, accurate: true });
+  saveAccuracyFeedback({ category: categoryKey, measurement: submittedValue, accurate: true, fitPreference });
   showThanks();
 });
 document.getElementById("acc-no").addEventListener("click", ()=>{
@@ -922,7 +1091,7 @@ document.getElementById("acc-no").addEventListener("click", ()=>{
 document.getElementById("acc-submit").addEventListener("click", ()=>{
   const actual = document.getElementById("acc-actual").value.trim();
   if (!actual) return;
-  saveAccuracyFeedback({ category: categoryKey, measurement: submittedValue, accurate: false, actualFit: actual });
+  saveAccuracyFeedback({ category: categoryKey, measurement: submittedValue, accurate: false, actualFit: actual, fitPreference });
   showThanks();
 });
 
@@ -936,7 +1105,7 @@ function track(eventName, params={}) {
   if (typeof gtag === "function") gtag("event", eventName, params);
 }
 document.getElementById("measure-form").addEventListener("submit", ()=>{
-  track("size_check", {category: categoryKey});
+  track("size_check", {category: categoryKey, fit_preference: fitPreference});
 }, {capture:true});
 
 document.addEventListener("click", (e)=>{
@@ -999,10 +1168,14 @@ document.getElementById("icon-check-fb").innerHTML = ICONS.check;
 document.getElementById("icon-check-acc").innerHTML = ICONS.check;
 document.getElementById("year").textContent = new Date().getFullYear();
 
+refreshProfileUI();
 renderPills();
 renderForm();
+const initialActiveProfile = readProfiles().find(p=>p.id===activeProfileId);
+const initialProfileValue = profileForCategory(initialActiveProfile, CATEGORIES[categoryKey]);
 const initialRemembered = recallMeasurement(categoryKey);
-if (initialRemembered != null) measureInput.value = fmt(cmToUnit(initialRemembered, unit));
+if (initialProfileValue != null) measureInput.value = fmt(cmToUnit(initialProfileValue, unit));
+else if (initialRemembered != null) measureInput.value = fmt(cmToUnit(initialRemembered, unit));
 renderTape();
 renderResults();
 </script>
