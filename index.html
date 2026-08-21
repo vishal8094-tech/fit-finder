@@ -67,6 +67,10 @@
   .num-input{width:100%;background:var(--bg);border:1px solid var(--stroke-strong);border-radius:8px;padding:12px 44px 12px 14px;color:var(--text);font-size:20px;font-family:'IBM Plex Mono',monospace;outline:none;transition:border-color .2s;}
   .num-input:focus{border-color:var(--brass);}
   .unit-suffix{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:13px;font-family:'IBM Plex Mono',monospace;}
+  .unit-toggle{position:absolute;right:8px;top:50%;transform:translateY(-50%);display:flex;gap:2px;background:var(--bg);border:1px solid var(--stroke-strong);border-radius:6px;padding:2px;}
+  .unit-toggle button{border:none;background:transparent;color:var(--muted);font-size:12px;font-family:'IBM Plex Mono',monospace;padding:4px 9px;border-radius:4px;cursor:pointer;transition:background .15s,color .15s;}
+  .unit-toggle button.active{background:var(--brass);color:#1a1a1a;}
+  .num-input{padding-right:78px;}
   .btn{display:inline-flex;align-items:center;gap:8px;justify-content:center;border-radius:8px;padding:12px 20px;font-size:14.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:transform .15s,background .2s,border-color .2s;white-space:nowrap;text-decoration:none;border:none;}
   .btn-brass{background:var(--brass);color:#201a0e;}
   .btn-brass:hover{background:#d8ac63;transform:translateY(-1px);}
@@ -269,7 +273,10 @@
     <div class="form-row">
       <div class="input-group">
         <input id="measure-input" class="num-input" aria-describedby="hint-text" type="number" inputmode="decimal" step="1" placeholder="96" />
-        <span class="unit-suffix">cm</span>
+        <div class="unit-toggle" id="unit-toggle" role="group" aria-label="Measurement unit">
+          <button type="button" id="unit-cm-btn" class="active" data-unit="cm">cm</button>
+          <button type="button" id="unit-in-btn" data-unit="in">in</button>
+        </div>
       </div>
       <button class="btn btn-brass" type="submit" aria-label="Find my size across brands">Find my size <span id="icon-arrow"></span></button>
     </div>
@@ -691,7 +698,13 @@ function matchBrand(value, ranges, category){
 
 /* ---------------- STATE ---------------- */
 let categoryKey = "shirt";
-let submittedValue = null;
+let submittedValue = null; // always stored internally in cm
+let unit = "cm"; // "cm" or "in" — controls how the input is displayed/entered
+
+const CM_PER_IN = 2.54;
+function cmToUnit(cmVal, u){ return u === "in" ? cmVal / CM_PER_IN : cmVal; }
+function unitToCm(val, u){ return u === "in" ? val * CM_PER_IN : val; }
+function fmt(n){ return Math.round(n*10)/10; }
 
 const pillRow = document.getElementById("pill-row");
 const measureInput = document.getElementById("measure-input");
@@ -707,6 +720,9 @@ const resultsNote = document.getElementById("results-note");
 const brandGrid = document.getElementById("brand-grid");
 const guideInner = document.getElementById("guide-inner");
 const guideToggleText = document.getElementById("guide-toggle-text");
+const unitToggle = document.getElementById("unit-toggle");
+const unitCmBtn = document.getElementById("unit-cm-btn");
+const unitInBtn = document.getElementById("unit-in-btn");
 
 function icon(name, extra=""){ return `<span class="${extra}">${ICONS[name]}</span>`; }
 
@@ -737,7 +753,7 @@ function renderPills(){
       categoryKey = btn.dataset.key;
       submittedValue = null;
       const remembered = recallMeasurement(categoryKey);
-      measureInput.value = remembered != null ? remembered : "";
+      measureInput.value = remembered != null ? fmt(cmToUnit(remembered, unit)) : "";
       errMsg.style.display = "none";
       renderPills();
       renderForm();
@@ -750,13 +766,30 @@ function renderPills(){
 function renderForm(){
   const c = CATEGORIES[categoryKey];
   dimensionLabel.textContent = `Your ${c.dimension} measurement`;
-  hintText.textContent = c.hint;
-  measureInput.step = c.step;
-  measureInput.placeholder = Math.round((c.min+c.max)/2);
+  const minU = cmToUnit(c.min, unit), maxU = cmToUnit(c.max, unit);
+  hintText.textContent = `${c.hint} (accepts ${fmt(minU)}–${fmt(maxU)} ${unit})`;
+  measureInput.step = unit === "in" ? 0.1 : c.step;
+  measureInput.placeholder = fmt((minU+maxU)/2);
   document.getElementById("icon-info-hint").innerHTML = ICONS.info;
   guideToggleText.textContent = `How to measure your ${c.dimension.toLowerCase()} correctly`;
   guideInner.textContent = `Use a flexible measuring tape — not too tight, not too loose, just resting against your skin. ${c.hint}. Getting a second pair of hands makes the measurement more accurate.`;
 }
+
+/* Unit toggle: switch between cm and inch entry. Internal logic always works in cm. */
+function setUnit(newUnit){
+  if (newUnit === unit) return;
+  const currentVal = parseFloat(measureInput.value);
+  if (!isNaN(currentVal) && measureInput.value !== ""){
+    const cmVal = unitToCm(currentVal, unit);
+    measureInput.value = fmt(cmToUnit(cmVal, newUnit));
+  }
+  unit = newUnit;
+  unitCmBtn.classList.toggle("active", unit === "cm");
+  unitInBtn.classList.toggle("active", unit === "in");
+  renderForm();
+}
+unitCmBtn.addEventListener("click", ()=> setUnit("cm"));
+unitInBtn.addEventListener("click", ()=> setUnit("in"));
 
 function renderTape(){
   const c = CATEGORIES[categoryKey];
@@ -782,7 +815,7 @@ function renderResults(){
   resultsEmpty.style.display = "none";
   resultsContent.style.display = "block";
   resetAccuracyBox();
-  submittedValueEl.textContent = `${submittedValue} cm`;
+  submittedValueEl.textContent = `${submittedValue} cm (≈ ${(submittedValue/2.54).toFixed(1)} in)`;
   resultsNote.textContent = `Sizes across ${c.brands.length} brands`;
   document.getElementById("icon-info-disc").innerHTML = ICONS.info;
 
@@ -812,14 +845,16 @@ function renderResults(){
 document.getElementById("measure-form").addEventListener("submit", (e)=>{
   e.preventDefault();
   const c = CATEGORIES[categoryKey];
-  const num = parseFloat(measureInput.value);
-  if (!measureInput.value || isNaN(num)){
+  const enteredNum = parseFloat(measureInput.value);
+  if (!measureInput.value || isNaN(enteredNum)){
     errMsg.textContent = "Enter your measurement first";
     errMsg.style.display = "block";
     return;
   }
+  const num = unitToCm(enteredNum, unit); // normalize to cm for all internal logic
   if (num < c.min || num > c.max){
-    errMsg.textContent = `For ${c.label.toLowerCase()}, enter a measurement between ${c.min}–${c.max} cm`;
+    const minU = fmt(cmToUnit(c.min, unit)), maxU = fmt(cmToUnit(c.max, unit));
+    errMsg.textContent = `For ${c.label.toLowerCase()}, enter a measurement between ${minU}–${maxU} ${unit}`;
     errMsg.style.display = "block";
     return;
   }
@@ -922,7 +957,7 @@ document.getElementById("year").textContent = new Date().getFullYear();
 renderPills();
 renderForm();
 const initialRemembered = recallMeasurement(categoryKey);
-if (initialRemembered != null) measureInput.value = initialRemembered;
+if (initialRemembered != null) measureInput.value = fmt(cmToUnit(initialRemembered, unit));
 renderTape();
 renderResults();
 </script>
