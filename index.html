@@ -1314,26 +1314,15 @@ document.addEventListener("click", (e)=>{
   }
 });
 
-const FORM_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
 document.getElementById("feedback-form").addEventListener("submit", async (e)=>{
   e.preventDefault();
   const msg=document.getElementById("fb-message").value.trim();
   const email=document.getElementById("fb-email").value.trim();
   if(!msg){ alert("Please enter your feedback."); return; }
-  const success=document.getElementById("fb-success");
-  try{
-    if(FORM_ENDPOINT.includes("YOUR_FORM_ID")) throw new Error("Demo endpoint");
-    const res=await fetch(FORM_ENDPOINT,{
-      method:"POST", headers:{"Accept":"application/json","Content-Type":"application/json"},
-      body:JSON.stringify({email,message:msg,category:categoryKey})
-    });
-    if(!res.ok) throw new Error("Request failed");
-    success.classList.add("show"); e.target.reset(); track("feedback_submit",{category:categoryKey});
-  }catch(err){
-    const subject=encodeURIComponent("Fit Finder feedback");
-    const body=encodeURIComponent(`Category: ${categoryKey}\nEmail: ${email || "Not provided"}\n\n${msg}`);
-    window.location.href=`mailto:fitfinderclothes@gmail.com?subject=${subject}&body=${body}`;
-  }
+  const subject=encodeURIComponent("Fit Finder feedback");
+  const body=encodeURIComponent(`Category: ${categoryKey}\nEmail: ${email || "Not provided"}\n\n${msg}`);
+  track("feedback_submit",{category:categoryKey});
+  window.location.href=`mailto:fitfinderclothes@gmail.com?subject=${subject}&body=${body}`;
 });
 
 /* cookie preference */
