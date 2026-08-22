@@ -64,6 +64,11 @@
   .nav-links a:hover{color:var(--text);}
   @media (max-width:720px){.nav-links{display:none;}}
 
+  /* ---- language toggle ---- */
+  .lang-toggle{display:flex;align-items:center;border:1px solid var(--stroke-strong);border-radius:999px;overflow:hidden;flex-shrink:0;margin-left:14px;}
+  .lang-btn{background:transparent;border:none;color:var(--muted);font-size:11.5px;font-weight:600;padding:6px 12px;cursor:pointer;font-family:inherit;letter-spacing:.03em;transition:background .2s,color .2s;}
+  .lang-btn.active{background:var(--brass);color:var(--bg);}
+
   /* ---- hero ---- */
   .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--brass);margin-bottom:18px;opacity:0;animation:rise .6s ease forwards;}
   .eyebrow::before{content:'';width:16px;height:1px;background:var(--brass);}
@@ -301,29 +306,33 @@
       <div class="nav-name display">Fit Finder</div>
     </div>
     <div class="nav-links">
-      <a href="#tool">Find my size</a>
-      <a href="#guides">Guides</a>
-      <a href="#trust">Why trust us</a>
-      <a href="#advertise">Advertise</a>
-      <a href="#feedback">Feedback</a>
+      <a href="#tool" data-i18n="nav_find">Find my size</a>
+      <a href="#guides" data-i18n="nav_guides">Guides</a>
+      <a href="#trust" data-i18n="nav_trust">Why trust us</a>
+      <a href="#advertise" data-i18n="nav_advertise">Advertise</a>
+      <a href="#feedback" data-i18n="nav_feedback">Feedback</a>
+    </div>
+    <div class="lang-toggle" id="lang-toggle">
+      <button type="button" class="lang-btn active" data-lang="en">EN</button>
+      <button type="button" class="lang-btn" data-lang="hi">हिं</button>
     </div>
   </div>
 </nav>
 
 <!-- HERO + TOOL -->
 <div class="wrap section" id="tool" style="padding-bottom:0;">
-  <div class="eyebrow">One measurement, every brand's size</div>
-  <h1 class="hero-title display">Every brand sizes differently.<br />Your <em>fit</em> stays the same.</h1>
-  <p class="hero-sub">Enter your measurement once — see your exact size across Zara, H&M, Uniqlo, Levi's, and more. No guessing, just numbers.</p>
+  <div class="eyebrow" data-i18n="hero_eyebrow">One measurement, every brand's size</div>
+  <h1 class="hero-title display" id="hero-title-el">Every brand sizes differently.<br />Your <em>fit</em> stays the same.</h1>
+  <p class="hero-sub" data-i18n="hero_sub">Enter your measurement once — see your exact size across Zara, H&M, Uniqlo, Levi's, and more. No guessing, just numbers.</p>
 
   <div class="pill-row" id="pill-row"></div>
 
 <!-- Saved full-body profiles: stored only in this browser -->
 <div class="profile-bar" id="profile-bar" style="display:none;">
   <div class="profile-current"><div class="profile-avatar" id="profile-avatar">P</div><div class="profile-copy"><div class="profile-name" id="profile-current-name">My Profile</div><div class="profile-status" id="profile-current-status">Saved on this device</div></div></div>
-  <div class="profile-actions"><select class="profile-select" id="profile-select" aria-label="Choose profile"></select><button type="button" class="profile-mini-btn" id="profile-manage">Manage</button></div>
+  <div class="profile-actions"><select class="profile-select" id="profile-select" aria-label="Choose profile"></select><button type="button" class="profile-mini-btn" id="profile-manage" data-i18n="btn_manage">Manage</button></div>
 </div>
-<div class="profile-empty" id="profile-empty"><span><strong>Save your measurements once.</strong> Choose a profile next time and Fit Finder fills the right measurement automatically.</span><button type="button" class="profile-mini-btn" id="profile-create">Create profile</button></div>
+<div class="profile-empty" id="profile-empty"><span><strong data-i18n="profile_empty_bold">Save your measurements once.</strong> <span data-i18n="profile_empty_rest">Choose a profile next time and Fit Finder fills the right measurement automatically.</span></span><button type="button" class="profile-mini-btn" id="profile-create" data-i18n="btn_create_profile">Create profile</button></div>
 <div class="profile-panel" id="profile-panel" aria-hidden="true">
   <div class="profile-panel-head"><div><h3 id="profile-panel-title">Create a body profile</h3><p>Save your full measurements once. You can create separate profiles for family members too.</p></div><div class="profile-unit-row" aria-label="Profile measurement unit"><div class="unit-toggle profile-unit-toggle" id="profile-unit-toggle" role="group" aria-label="Profile measurement unit">
       <button type="button" id="profile-unit-cm-btn" class="active" data-profile-unit="cm">cm</button>
@@ -351,19 +360,19 @@
           <button type="button" id="unit-in-btn" data-unit="in">in</button>
         </div>
       </div>
-      <button class="btn btn-brass" type="submit" aria-label="Find my size across brands">Find my size <span id="icon-arrow"></span></button>
+      <button class="btn btn-brass" type="submit" aria-label="Find my size across brands"><span data-i18n="btn_find">Find my size</span> <span id="icon-arrow"></span></button>
     </div>
     <div class="err-msg" id="err-msg" style="display:none;"></div>
     <div class="field-hint"><span id="icon-info-hint"></span><span id="hint-text"></span></div>
     <div class="fit-preference" aria-label="Fit preference">
       <div class="fit-preference-copy">
-        <div class="fit-preference-title">How do you like your fit?</div>
-        <div class="fit-preference-sub">Loose moves the recommendation one size up • Tight moves it one size down • Regular keeps the measurement match.</div>
+        <div class="fit-preference-title" data-i18n="fit_title">How do you like your fit?</div>
+        <div class="fit-preference-sub" data-i18n="fit_sub">Loose moves the recommendation one size up • Tight moves it one size down • Regular keeps the measurement match.</div>
       </div>
       <div class="fit-toggle" id="fit-toggle" role="group" aria-label="Fit preference">
-        <button type="button" class="fit-option" data-fit="loose" aria-pressed="false">Loose</button>
-        <button type="button" class="fit-option active" data-fit="regular" aria-pressed="true">Regular</button>
-        <button type="button" class="fit-option" data-fit="tight" aria-pressed="false">Tight</button>
+        <button type="button" class="fit-option" data-fit="loose" aria-pressed="false" data-i18n="fit_loose">Loose</button>
+        <button type="button" class="fit-option active" data-fit="regular" aria-pressed="true" data-i18n="fit_regular">Regular</button>
+        <button type="button" class="fit-option" data-fit="tight" aria-pressed="false" data-i18n="fit_tight">Tight</button>
       </div>
     </div>
   </form>
@@ -376,7 +385,7 @@
 
 <!-- RESULTS -->
 <div class="wrap section" id="results-section">
-  <div id="results-empty" style="color:var(--muted);font-size:14px;">Enter your measurement and press "Find my size" — sizes across all brands will show up here.</div>
+  <div id="results-empty" style="color:var(--muted);font-size:14px;" data-i18n="results_empty">Enter your measurement and press "Find my size" — sizes across all brands will show up here.</div>
   <div id="results-content" style="display:none;">
     <div class="results-head">
       <div class="results-title display">Based on your <span class="mono" id="submitted-value"></span> measurement</div>
@@ -429,7 +438,7 @@
 <!-- SEO CONTENT: WHY SIZES DIFFER -->
 <div class="wrap section" id="guides">
   <div class="section-head"><span class="num">1</span></div>
-  <h2 class="sec-title display">Why does the same size fit differently everywhere?</h2>
+  <h2 class="sec-title display" data-i18n="sec_guides1">Why does the same size fit differently everywhere?</h2>
   <p class="sec-sub">It's not you — it's the industry. Here's what's actually going on behind every size label.</p>
   <div class="article-grid">
     <div class="article-card">
@@ -460,7 +469,7 @@
 <!-- BRAND COMPARISON TABLE -->
 <div class="wrap section" style="padding-top:0;">
   <div class="section-head"><span class="num">2</span></div>
-  <h2 class="sec-title display">Zara vs H&M vs Uniqlo: who runs small?</h2>
+  <h2 class="sec-title display" data-i18n="sec_guides2">Zara vs H&M vs Uniqlo: who runs small?</h2>
   <p class="sec-sub">A quick reference for the three brands people ask about most, based on the chest-fit data used in the tool above.</p>
   <table class="compare-table">
     <thead><tr><th>Brand</th><th>Typical cut</th><th>Sizing behaviour</th></tr></thead>
@@ -477,7 +486,7 @@
 <!-- HOW IT WORKS / TRUST -->
 <div class="wrap section" id="trust">
   <div class="section-head"><span class="num">3</span></div>
-  <h2 class="sec-title display">How Fit Finder works</h2>
+  <h2 class="sec-title display" data-i18n="sec_trust">How Fit Finder works</h2>
   <p class="sec-sub">No login, no app, no guessing — just your measurement compared against how each brand actually cuts its clothes.</p>
   <div class="steps-grid" style="margin-bottom:28px;">
     <div class="step-card">
@@ -505,7 +514,7 @@
 <!-- ADVERTISE WITH US -->
 <div class="wrap section" id="advertise">
   <div class="section-head"><span class="num">4</span></div>
-  <h2 class="sec-title display">Advertise with Fit Finder</h2>
+  <h2 class="sec-title display" data-i18n="sec_advertise">Advertise with Fit Finder</h2>
   <p class="sec-sub">Reach shoppers at the exact moment they're deciding what size to buy — the highest-intent moment in the entire shopping journey.</p>
 
   <div class="stat-row">
@@ -537,7 +546,7 @@
 <!-- FEEDBACK -->
 <div class="wrap section" id="feedback">
   <div class="section-head"><span class="num">5</span></div>
-  <h2 class="sec-title display">Help us get more accurate</h2>
+  <h2 class="sec-title display" data-i18n="sec_feedback">Help us get more accurate</h2>
   <p class="sec-sub">Bought something using your Fit Finder size? Tell us how it fit — this is exactly what keeps the charts honest.</p>
   <form class="feedback-card" id="feedback-form">
     <div class="fb-row">
@@ -993,7 +1002,7 @@ document.getElementById("profile-create").addEventListener("click",()=>openProfi
 function renderPills(){
   pillRow.innerHTML = Object.values(CATEGORIES).map(c => `
     <button type="button" class="pill ${c.key===categoryKey?'active':''}" data-key="${c.key}">
-      ${ICONS[c.icon]} ${c.label}
+      ${ICONS[c.icon]} ${(typeof currentLang!=="undefined" && currentLang==="hi" && CATEGORY_LABELS_HI[c.key]) ? CATEGORY_LABELS_HI[c.key] : c.label}
     </button>`).join("");
   pillRow.querySelectorAll(".pill").forEach(btn=>{
     btn.addEventListener("click", ()=>{
@@ -1232,6 +1241,82 @@ else if (initialRemembered != null) measureInput.value = fmt(cmToUnit(initialRem
 renderTape();
 renderResults();
 </script>
+
+<!-- HINDI / ENGLISH TOGGLE — isolated script so it can never break the calculator above -->
+<script>
+try {
+  var currentLang = localStorage.getItem("fitfinder_lang") || "en";
+
+  var CATEGORY_LABELS_HI = {
+    shirt:"शर्ट", jeans:"जींस", dress:"ड्रेस / टॉप", tshirts:"टी-शर्ट",
+    hoodies:"हुडी", trousers:"ट्राउज़र", shoes:"जूते", coords:"को-ऑर्ड सेट",
+    kurti:"कुर्ती", salwar:"सलवार सूट", palazzo:"पलाज़ो / पैंट्स"
+  };
+
+  var TRANSLATIONS = {
+    nav_find:        { en:"Find my size", hi:"साइज़ खोजें" },
+    nav_guides:      { en:"Guides", hi:"गाइड्स" },
+    nav_trust:       { en:"Why trust us", hi:"हम पर भरोसा क्यों" },
+    nav_advertise:   { en:"Advertise", hi:"विज्ञापन" },
+    nav_feedback:    { en:"Feedback", hi:"फीडबैक" },
+    hero_eyebrow:    { en:"One measurement, every brand's size", hi:"एक माप, हर ब्रांड का साइज़" },
+    hero_sub:        { en:"Enter your measurement once — see your exact size across Zara, H&M, Uniqlo, Levi's, and more. No guessing, just numbers.",
+                        hi:"एक बार अपना माप डालें — Zara, H&M, Uniqlo, Levi's जैसे ब्रांड्स में अपना सही साइज़ देखें। कोई अंदाज़ा नहीं, सिर्फ सही नंबर।" },
+    btn_find:        { en:"Find my size", hi:"साइज़ खोजें" },
+    fit_title:       { en:"How do you like your fit?", hi:"आपको कैसी फिटिंग पसंद है?" },
+    fit_sub:         { en:"Loose moves the recommendation one size up • Tight moves it one size down • Regular keeps the measurement match.",
+                        hi:"Loose से एक साइज़ बड़ा सुझाव मिलेगा • Tight से एक साइज़ छोटा • Regular आपके माप जैसा ही रहेगा।" },
+    fit_loose:       { en:"Loose", hi:"ढीला" },
+    fit_regular:     { en:"Regular", hi:"सामान्य" },
+    fit_tight:       { en:"Tight", hi:"टाइट" },
+    results_empty:   { en:"Enter your measurement and press \"Find my size\" — sizes across all brands will show up here.",
+                        hi:"अपना माप डालें और \"साइज़ खोजें\" दबाएं — सभी ब्रांड्स के साइज़ यहां दिखेंगे।" },
+    sec_guides1:     { en:"Why does the same size fit differently everywhere?", hi:"एक ही साइज़ हर जगह अलग फिट क्यों होता है?" },
+    sec_guides2:     { en:"Zara vs H&M vs Uniqlo: who runs small?", hi:"Zara vs H&M vs Uniqlo: कौन छोटा साइज़ देता है?" },
+    sec_trust:       { en:"How Fit Finder works", hi:"Fit Finder कैसे काम करता है" },
+    sec_advertise:   { en:"Advertise with Fit Finder", hi:"Fit Finder के साथ विज्ञापन दें" },
+    sec_feedback:    { en:"Help us get more accurate", hi:"हमें और सटीक बनाने में मदद करें" },
+    btn_manage:      { en:"Manage", hi:"प्रबंधित करें" },
+    profile_empty_bold: { en:"Save your measurements once.", hi:"अपना माप एक बार सेव करें।" },
+    profile_empty_rest: { en:"Choose a profile next time and Fit Finder fills the right measurement automatically.",
+                           hi:"अगली बार प्रोफ़ाइल चुनें और Fit Finder सही माप अपने आप भर देगा।" },
+    btn_create_profile: { en:"Create profile", hi:"प्रोफ़ाइल बनाएं" }
+  };
+
+  var HERO_TITLE = {
+    en: 'Every brand sizes differently.<br />Your <em>fit</em> stays the same.',
+    hi: 'हर ब्रांड का साइज़ अलग होता है।<br />आपकी <em>फिटिंग</em> वही रहती है।'
+  };
+
+  function applyTranslations(lang){
+    currentLang = lang;
+    document.querySelectorAll("[data-i18n]").forEach(function(el){
+      var key = el.getAttribute("data-i18n");
+      if (TRANSLATIONS[key]) el.textContent = TRANSLATIONS[key][lang];
+    });
+    var heroEl = document.getElementById("hero-title-el");
+    if (heroEl) heroEl.innerHTML = HERO_TITLE[lang];
+    document.querySelectorAll(".lang-btn").forEach(function(b){
+      b.classList.toggle("active", b.dataset.lang === lang);
+    });
+    document.documentElement.lang = lang;
+    try { localStorage.setItem("fitfinder_lang", lang); } catch(e){}
+    // Re-render category pills so their labels pick up the new language too
+    if (typeof renderPills === "function") renderPills();
+  }
+
+  document.querySelectorAll(".lang-btn").forEach(function(btn){
+    btn.addEventListener("click", function(){ applyTranslations(btn.dataset.lang); });
+  });
+
+  applyTranslations(currentLang);
+} catch(err){
+  /* If anything here fails, the page simply stays in English —
+     the size calculator above is completely unaffected. */
+  console.warn("Language toggle unavailable:", err);
+}
+</script>
+
 <script defer src="/_vercel/insights/script.js"></script>
 <script>
   /* Registers the service worker so Fit Finder can be installed to the
