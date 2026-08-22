@@ -1,1 +1,0 @@
-Copy the contents of this folder into the root of your Vercel project. The existing homepage index.html remains unchanged; these are additional SEO landing pages. sitemap.xml and robots.txt are included.
