@@ -1821,5 +1821,28 @@ try {
   renderReliableSizes();
 }());
 </script>
+<!-- Lightweight motion layer: preserves the existing interface and honours reduced-motion preferences. -->
+<script>
+(function(){
+  "use strict";
+  var style=document.createElement("style");
+  style.textContent=`
+    #ff-scroll-progress{position:fixed;top:0;left:0;z-index:500;width:100%;height:3px;background:linear-gradient(90deg,var(--brass),#f0cf8f,var(--sage));transform:scaleX(0);transform-origin:left;box-shadow:0 1px 12px rgba(201,161,90,.55);pointer-events:none;}
+    .pill.active::after{content:"";width:5px;height:5px;border-radius:50%;background:currentColor;box-shadow:0 0 0 0 rgba(201,161,90,.55);animation:ff-active-pulse 2.3s ease-out infinite;}
+    @keyframes ff-active-pulse{0%{box-shadow:0 0 0 0 rgba(201,161,90,.55)}70%{box-shadow:0 0 0 7px rgba(201,161,90,0)}100%{box-shadow:0 0 0 0 rgba(201,161,90,0)}}
+    .form-card{overflow:hidden;}.form-card::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;background:linear-gradient(115deg,transparent 28%,rgba(240,207,143,.7) 50%,transparent 72%);background-size:240% 100%;animation:ff-edge-sheen 9s linear infinite;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);}
+    @keyframes ff-edge-sheen{0%{background-position:200% 0}100%{background-position:-50% 0}}
+    .num-input{transition:box-shadow .25s ease,border-color .25s ease,transform .25s ease;}.num-input:focus{transform:translateY(-1px);box-shadow:0 0 0 3px var(--brass-soft),0 10px 24px rgba(0,0,0,.16);}
+    .brand-card{will-change:transform;}.brand-card:hover{border-color:var(--brass);}.brand-card:hover .brand-size{animation:ff-size-pop .35s cubic-bezier(.22,1,.36,1) both;}@keyframes ff-size-pop{0%{transform:scale(.92);opacity:.6}100%{transform:scale(1);opacity:1}}
+    .ff-shopping-tools,.ff-reliable-sizes{transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s ease,border-color .3s ease;}.ff-shopping-tools:hover,.ff-reliable-sizes:hover{transform:translateY(-2px);border-color:var(--stroke-strong);box-shadow:0 16px 36px rgba(0,0,0,.18);}
+    .ff-results-fresh .brand-card{animation-duration:.62s;}.ff-results-fresh .results-head{animation:ff-head-in .45s cubic-bezier(.22,1,.36,1) both;}@keyframes ff-head-in{from{opacity:.35;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+    @media (prefers-reduced-motion:reduce){#ff-scroll-progress{display:none}.pill.active::after,.form-card::after{animation:none}.num-input:focus,.ff-shopping-tools:hover,.ff-reliable-sizes:hover{transform:none}.brand-card:hover .brand-size{animation:none}}
+  `;
+  document.head.appendChild(style);
+  var progress=document.createElement("div");progress.id="ff-scroll-progress";progress.setAttribute("aria-hidden","true");document.body.appendChild(progress);
+  var ticking=false;function updateProgress(){var max=document.documentElement.scrollHeight-window.innerHeight;progress.style.transform="scaleX("+(max>0?Math.min(window.scrollY/max,1):0)+")";ticking=false;}window.addEventListener("scroll",function(){if(!ticking){requestAnimationFrame(updateProgress);ticking=true;}},{passive:true});updateProgress();
+  var priorRenderResults=renderResults;renderResults=function(){priorRenderResults();var result=document.getElementById("results-section");if(!result)return;result.classList.remove("ff-results-fresh");void result.offsetWidth;result.classList.add("ff-results-fresh");};
+}());
+</script>
 </body>
 </html>
