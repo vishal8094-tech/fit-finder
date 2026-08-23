@@ -52,6 +52,29 @@
   .section{padding:64px 0;}
   @media (max-width:640px){ .wrap{padding:0 18px;} .section{padding:44px 0;} }
 
+  /* ---- Blog / SEO content (additive only) ---- */
+  .ff-blog-grid{display:grid;grid-template-columns:repeat(1,minmax(0,1fr));gap:18px;}
+  .ff-blog-card{border:1px solid var(--stroke);background:rgba(255,255,255,.025);border-radius:18px;padding:24px;transition:transform .25s ease,border-color .25s ease,background .25s ease;}
+  .ff-blog-card:hover{transform:translateY(-3px);border-color:var(--brass);background:rgba(255,255,255,.04);}
+  .ff-blog-kicker{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--brass);margin-bottom:10px;}
+  .ff-blog-card h3{font-family:'Fraunces',serif;font-weight:500;font-size:24px;line-height:1.2;margin:0 0 10px;color:var(--text);}
+  .ff-blog-card p{color:var(--muted);line-height:1.7;font-size:14px;margin:0 0 18px;}
+  .ff-blog-read{display:inline-flex;align-items:center;gap:7px;color:var(--brass);text-decoration:none;font-size:13px;font-weight:600;}
+  .ff-blog-article{margin-top:24px;border:1px solid var(--stroke);border-radius:20px;background:rgba(255,255,255,.018);padding:clamp(22px,4vw,38px);}
+  .ff-blog-article .article-meta{color:var(--muted);font-size:12px;line-height:1.6;margin:0 0 22px;}
+  .ff-blog-article h3{font-family:'Fraunces',serif;font-weight:500;font-size:25px;line-height:1.25;margin:30px 0 12px;color:var(--text);}
+  .ff-blog-article h4{font-family:'Fraunces',serif;font-weight:500;font-size:19px;margin:22px 0 8px;color:var(--text);}
+  .ff-blog-article p,.ff-blog-article li{color:var(--muted);font-size:14px;line-height:1.8;}
+  .ff-blog-article ul{padding-left:22px;}
+  .ff-blog-table{width:100%;border-collapse:collapse;margin:18px 0 24px;font-size:13px;}
+  .ff-blog-table th,.ff-blog-table td{border:1px solid var(--stroke);padding:12px;text-align:left;vertical-align:top;}
+  .ff-blog-table th{color:var(--text);background:rgba(255,255,255,.035);font-weight:600;}
+  .ff-blog-source{font-size:12px!important;}
+  .ff-blog-cta{margin-top:28px;padding:22px;border:1px solid var(--brass);border-radius:16px;background:var(--brass-soft);}
+  .ff-blog-cta p{margin:0 0 14px;color:var(--text);}
+  .ff-blog-cta .btn{display:inline-flex;text-decoration:none;}
+  @media(max-width:640px){.ff-blog-card h3{font-size:21px}.ff-blog-article{padding:20px 16px}.ff-blog-table{display:block;overflow-x:auto;white-space:nowrap}.ff-blog-table th,.ff-blog-table td{white-space:normal;min-width:150px}}
+
   /* ---- nav ---- */
   .nav{position:sticky;top:0;z-index:20;background:rgba(20,23,31,0.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--stroke);}
   .nav-inner{max-width:1040px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;}
@@ -491,6 +514,7 @@
       <a href="#tool" data-i18n="nav_find">Find my size</a>
       <a href="#guides" data-i18n="nav_guides">Guides</a>
       <a href="#help-center" data-i18n="nav_help">Help Center</a>
+      <a href="#blog" data-i18n="nav_blog">Blog</a>
       <a href="#trust" data-i18n="nav_trust">Why trust us</a>
       <a href="#advertise" data-i18n="nav_advertise">Advertise</a>
       <a href="#feedback" data-i18n="nav_feedback">Feedback</a>
@@ -855,9 +879,140 @@
 
 <hr class="divider" />
 
+<!-- BLOG / SEO CONTENT -->
+<div class="wrap section" id="blog">
+  <div class="section-head"><span class="num">4</span></div>
+  <div class="ff-blog-head">
+    <div>
+      <div class="ff-blog-kicker" data-i18n="blog_kicker">Fit Finder Blog</div>
+      <h2 class="sec-title display" data-i18n="blog_title">Size Guides &amp; Brand Comparisons</h2>
+      <p class="sec-sub" data-i18n="blog_subtitle">Practical guides to help you understand shoe and clothing sizing before you shop.</p>
+    </div>
+  </div>
+
+  <div class="ff-blog-grid">
+    <article class="ff-blog-card reveal">
+      <div class="ff-blog-kicker" data-i18n="blog_category">Shoe Size Comparison</div>
+      <h3 data-i18n="blog_card_title">Nike vs Puma: Which Brand Has Better Shoe Fit?</h3>
+      <p data-i18n="blog_card_desc">Compare Nike and PUMA sizing, foot measurement guidance, fit considerations and what to check before buying online.</p>
+      <a class="ff-blog-read" href="#blog-nike-vs-puma" data-i18n="blog_read">Read the complete guide →</a>
+    </article>
+  </div>
+
+  <article class="ff-blog-article" id="blog-nike-vs-puma">
+    <div class="ff-blog-kicker">Nike vs PUMA Shoe Sizing Guide</div>
+    <h3 style="font-size:clamp(30px,5vw,44px);margin-top:0;">Nike vs Puma: Which Brand Has Better Shoe Fit?</h3>
+    <p class="article-meta"><strong>Primary topic:</strong> Nike vs Puma shoe fit &nbsp; • &nbsp; <strong>Updated:</strong> August 23, 2026</p>
+
+    <p>If you normally wear one shoe size in Nike, should you automatically choose the same size in PUMA? Not necessarily. The better approach is to compare your actual foot measurement with the current size guide for the brand and the specific shoe you are buying.</p>
+
+    <p><strong>Short answer:</strong> there is no universal winner for “better fit.” Nike and PUMA use their own sizing guidance, and the fit you prefer depends on your foot length, width, the shoe model and how you like your shoes to feel.</p>
+
+    <h3>Why Nike and PUMA Shoe Sizes Can Be Confusing</h3>
+    <p>A number on a shoe is only one part of the sizing picture. Different brands can present sizes using different regional systems, and individual shoe models can have different constructions and intended fits.</p>
+    <p>Nike's official footwear charts provide US, UK, EU and CM/JP conversions and a foot-length method. Nike also notes that the CM value printed on a shoe label is different from the actual Foot Length measurement. <a href="https://www.nike.com/size-fit/mens-footwear" target="_blank" rel="noopener noreferrer">See Nike's official footwear size chart</a>.</p>
+    <p>For shoppers using the PUMA India website, PUMA states that its shoes follow <strong>UK sizing</strong>. <a href="https://in.puma.com/in/en/help/how-to-place-an-order-faq" target="_blank" rel="noopener noreferrer">See PUMA India's sizing information</a>.</p>
+
+    <h3>Nike Shoe Fit: What the Official Guide Says</h3>
+    <p>Nike recommends measuring foot length rather than relying only on a previous shoe label. Its official method involves standing on a hard, flat surface, marking the longest toe and the outermost part of the heel, measuring the distance, repeating the process for the other foot and using the longer measurement against the size chart.</p>
+    <p>Nike also says that if your measurement falls between sizes, it recommends sizing up. For some footwear, Nike offers wide and extra-wide options, so width can be an important part of the decision when a standard shoe feels too narrow.</p>
+
+    <h3>PUMA Shoe Fit: What You Should Check</h3>
+    <p>PUMA's official India help page says that shoes on its website follow UK sizing. That makes the regional size system especially important for Indian shoppers comparing PUMA with brands that may display US, EU or other size labels more prominently.</p>
+    <p>Before buying a PUMA shoe, check the size information shown on the specific product page and compare it with your measured foot length. Do not assume that the number you normally wear in another brand automatically maps one-to-one.</p>
+
+    <h3>Nike vs PUMA: Quick Size &amp; Fit Comparison</h3>
+    <table class="ff-blog-table">
+      <thead><tr><th>Factor</th><th>Nike</th><th>PUMA</th></tr></thead>
+      <tbody>
+        <tr><td>Official sizing information</td><td>US, UK, EU and CM/JP footwear charts are provided.</td><td>PUMA India states that shoes follow UK sizing on its website.</td></tr>
+        <tr><td>Foot measurement</td><td>Official foot-length measurement instructions are provided.</td><td>Use the current PUMA product/size information and your measured foot length.</td></tr>
+        <tr><td>Width consideration</td><td>Wide and extra-wide options exist for applicable footwear.</td><td>Width and construction depend on the specific model.</td></tr>
+        <tr><td>Best comparison method</td><td colspan="2">Measure your foot, check the current official chart, then review the specific shoe model and your preferred fit.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Which Brand Is Better for Wide Feet?</h3>
+    <p>There is no reliable brand-wide answer because shoe shape and width can vary by model. Nike explicitly provides wide and extra-wide options for applicable footwear, which can be useful if standard-width shoes feel restrictive. PUMA fit should be evaluated from the particular model's construction and available options.</p>
+    <p>If width is your main concern, don't choose solely from the size number. Look at the shoe's fit information and, where available, width options.</p>
+
+    <h3>How to Measure Your Foot Before Buying</h3>
+    <ol style="color:var(--muted);font-size:14px;line-height:1.8;padding-left:22px;">
+      <li>Place a sheet of paper on a hard, flat surface.</li>
+      <li>Stand on the paper with your weight evenly distributed.</li>
+      <li>Mark the tip of your longest toe and the back/outermost point of your heel.</li>
+      <li>Measure the distance between the two marks.</li>
+      <li>Repeat for your other foot.</li>
+      <li>Use the longer foot measurement when comparing against a brand's size chart.</li>
+      <li>Check the current size guide for the exact shoe you want to buy.</li>
+    </ol>
+    <p>This follows the core measurement approach described by Nike's official footwear guidance. <a href="https://www.nike.com/a/how-to-measure-foot-size/" target="_blank" rel="noopener noreferrer">Read Nike's foot-measurement guide</a>.</p>
+
+    <h3>Should You Buy the Same Size in Nike and PUMA?</h3>
+    <p><strong>Don't assume it.</strong> If your usual size happens to match between the two brands, that's fine—but the safer method is to use your foot measurement and each brand's current chart. The specific shoe model and your preferred fit can also influence the final choice.</p>
+
+    <h3>Frequently Asked Questions</h3>
+    <h4>Is Nike sizing the same as PUMA?</h4>
+    <p>Not necessarily. Nike and PUMA provide their own sizing information, and PUMA India states that its shoes use UK sizing. Compare measurements rather than relying only on the label.</p>
+
+    <h4>Should I buy the same shoe size in Nike and PUMA?</h4>
+    <p>Not automatically. Measure your feet and check the current size chart for each brand and product.</p>
+
+    <h4>Does Nike run smaller than PUMA?</h4>
+    <p>There is no universal brand-wide rule that one always runs smaller. Fit can vary by shoe model, construction and foot shape.</p>
+
+    <h4>Does PUMA run smaller than Nike?</h4>
+    <p>There is no universal answer. Use the specific PUMA product's current sizing information rather than assuming a fixed difference.</p>
+
+    <h4>How do I choose between two shoe sizes?</h4>
+    <p>Start with your measured foot length and compare it with the current official chart. Nike says to size up if your measurement falls between sizes on its chart. For other brands and products, follow the current product-specific guidance.</p>
+
+    <h4>What if one foot is bigger than the other?</h4>
+    <p>Measure both feet and use the longer measurement when checking the size chart. Nike's official guidance specifically recommends this approach.</p>
+
+    <div class="ff-blog-cta">
+      <p><strong>Still not sure about your size?</strong> Use Fit Finder to enter your measurement and get an estimated size recommendation before you shop.</p>
+      <a class="btn btn-brass" href="#tool">Find my size →</a>
+    </div>
+
+    <p class="ff-blog-source" style="margin-top:22px;"><strong>Sources:</strong> <a href="https://www.nike.com/size-fit/mens-footwear" target="_blank" rel="noopener noreferrer">Nike official footwear size chart</a> and <a href="https://in.puma.com/in/en/help/how-to-place-an-order-faq" target="_blank" rel="noopener noreferrer">PUMA India official help page</a>. Brand sizing can change, so always verify the current product page before purchasing.</p>
+  </article>
+
+  <article class="ff-blog-article ff-blog-hi" id="blog-nike-vs-puma-hi" hidden>
+    <div class="ff-blog-kicker">Nike vs PUMA Shoe Sizing Guide</div>
+    <h3 style="font-size:clamp(30px,5vw,44px);margin-top:0;">Nike vs Puma: किस Brand की Shoe Fit बेहतर है?</h3>
+    <p class="article-meta"><strong>मुख्य विषय:</strong> Nike vs Puma shoe fit &nbsp; • &nbsp; <strong>Updated:</strong> 23 अगस्त 2026</p>
+    <p>अगर आप Nike में एक shoe size पहनते हैं, तो क्या PUMA में भी वही size अपने-आप सही होगा? जरूरी नहीं। बेहतर तरीका है कि अपने actual foot measurement को उस brand और specific shoe की current size guide से compare करें।</p>
+    <p><strong>संक्षिप्त उत्तर:</strong> “बेहतर fit” का कोई एक universal winner नहीं है। Nike और PUMA अपनी sizing guidance इस्तेमाल करते हैं और सही fit आपके foot length, width, shoe model और आपकी पसंद पर निर्भर करता है।</p>
+    <h3>Nike और PUMA की Shoe Sizing में Confusion क्यों होता है?</h3>
+    <p>जूते पर लिखा number sizing का सिर्फ एक हिस्सा है। अलग-अलग brands अलग regional sizing systems दिखा सकते हैं और individual shoe models की construction तथा intended fit भी अलग हो सकती है।</p>
+    <p>Nike की official footwear charts में US, UK, EU और CM/JP conversions तथा foot-length measurement method दिया गया है। Nike यह भी बताता है कि shoe label पर लिखा CM value actual foot-length measurement के समान नहीं होता। <a href="https://www.nike.com/size-fit/mens-footwear" target="_blank" rel="noopener noreferrer">Nike की official footwear size chart देखें</a>।</p>
+    <p>PUMA India website पर shoppers के लिए PUMA बताता है कि उसके shoes में <strong>UK sizing</strong> follow की जाती है। <a href="https://in.puma.com/in/en/help/how-to-place-an-order-faq" target="_blank" rel="noopener noreferrer">PUMA India की sizing information देखें</a>।</p>
+    <h3>Nike Shoe Fit: Official Guide क्या कहती है?</h3>
+    <p>Nike केवल पुराने shoe label पर निर्भर रहने के बजाय foot length measure करने की सलाह देता है। Official method में hard, flat surface पर खड़े होकर longest toe और heel को mark करना, distance measure करना, दोनों feet के लिए repeat करना और longer measurement को size chart से compare करना शामिल है।</p>
+    <p>Nike यह भी कहता है कि measurement दो sizes के बीच आए तो size up करने की recommendation है। कुछ footwear में Wide और Extra Wide options भी मिलते हैं, इसलिए standard shoe narrow लगे तो width भी महत्वपूर्ण है।</p>
+    <h3>PUMA Shoe Fit: किन बातों को Check करें?</h3>
+    <p>PUMA के लिए भी specific product की current size guide और अपने foot measurement को देखना सबसे अच्छा तरीका है। केवल यह मान लेना कि Nike का एक particular number PUMA में भी बिल्कुल वैसा ही fit करेगा, सही approach नहीं है।</p>
+    <h3>Nike vs PUMA: Quick Comparison</h3>
+    <div class="ff-blog-table-wrap"><table><thead><tr><th>Factor</th><th>Nike</th><th>PUMA</th></tr></thead><tbody><tr><td>International sizing</td><td>US / UK / EU / CM/JP</td><td>International conversions</td></tr><tr><td>India website sizing</td><td>Product size chart देखें</td><td>UK sizing</td></tr><tr><td>Foot measurement guidance</td><td>Available</td><td>Official size guide available</td></tr><tr><td>Width options</td><td>कुछ footwear में Wide/Extra Wide</td><td>Model पर depend करता है</td></tr></tbody></table></div>
+    <h3>तो Nike या PUMA में कौन सा चुनें?</h3>
+    <p>जिस brand और specific model में आपके foot measurement, width और preferred feel के हिसाब से बेहतर match मिले, वही आपके लिए बेहतर choice है। Comfort और shoe model को सिर्फ brand name से ऊपर रखें।</p>
+    <h3>Fit Finder आपकी मदद कैसे कर सकता है?</h3>
+    <p>अगर size को लेकर confusion है, तो अपने measurements से शुरुआत करें और brand sizing information को compare करें। Fit Finder की recommendations guidance के लिए estimates हैं; actual fit brand, model, construction, materials और individual foot shape के कारण बदल सकता है।</p>
+    <p><strong>👉 अपना size check करने के लिए ऊपर Fit Finder calculator का इस्तेमाल करें।</strong></p>
+    <h3>Frequently Asked Questions</h3>
+    <h4>क्या Nike और PUMA का size समान होता है?</h4><p>जरूरी नहीं। दोनों brands की sizing guidance और regional systems अलग हो सकते हैं। PUMA India अपने shoes के लिए UK sizing बताता है।</p>
+    <h4>क्या मुझे Nike और PUMA में same size खरीदना चाहिए?</h4><p>सिर्फ label देखकर assume न करें। अपने foot measurement और specific product की current size chart check करें।</p>
+    <h4>क्या Nike, PUMA से छोटा चलता है?</h4><p>इसे सभी shoes पर लागू नहीं किया जा सकता। Fit model और foot shape के अनुसार बदलता है।</p>
+    <h4>Wide feet के लिए कौन बेहतर है?</h4><p>यह model पर depend करता है। Nike के कुछ footwear में Wide और Extra Wide options उपलब्ध हैं।</p>
+  </article>
+</div>
+
+<hr class="divider" />
+
 <!-- HOW IT WORKS / TRUST -->
 <div class="wrap section" id="trust">
-  <div class="section-head"><span class="num">4</span></div>
+  <div class="section-head"><span class="num">5</span></div>
   <h2 class="sec-title display" data-i18n="sec_trust">How Fit Finder works</h2>
   <p class="sec-sub">No login, no app, no guessing — just your measurement compared against how each brand actually cuts its clothes.</p>
   <div class="steps-grid" style="margin-bottom:28px;">
@@ -885,7 +1040,7 @@
 
 <!-- ADVERTISE WITH US -->
 <div class="wrap section" id="advertise">
-  <div class="section-head"><span class="num">5</span></div>
+  <div class="section-head"><span class="num">6</span></div>
   <h2 class="sec-title display" data-i18n="sec_advertise">Advertise with Fit Finder</h2>
   <p class="sec-sub">Reach shoppers at the exact moment they're deciding what size to buy — the highest-intent moment in the entire shopping journey.</p>
 
@@ -917,7 +1072,7 @@
 
 <!-- FEEDBACK -->
 <div class="wrap section" id="feedback">
-  <div class="section-head"><span class="num">6</span></div>
+  <div class="section-head"><span class="num">7</span></div>
   <h2 class="sec-title display" data-i18n="sec_feedback">Help us get more accurate</h2>
   <p class="sec-sub">Bought something using your Fit Finder size? Tell us how it fit — this is exactly what keeps the charts honest.</p>
   <form class="reveal feedback-card" id="feedback-form">
@@ -986,6 +1141,7 @@
         <h5>Site</h5>
         <a href="#tool">Find my size</a>
         <a href="#guides">Guides</a>
+        <a href="#blog">Blog</a>
         <a href="#trust">Why trust us</a>
         <a href="#advertise">Advertise</a>
         <a href="#feedback">Feedback</a>
@@ -1649,6 +1805,14 @@ try {
     nav_find:        { en:"Find my size", hi:"साइज़ खोजें" },
     nav_guides:      { en:"Guides", hi:"गाइड्स" },
      nav_help:        { en:"Help Center", hi:"हेल्प सेंटर" },
+    nav_blog:        { en:"Blog", hi:"ब्लॉग" },
+    blog_kicker:    { en:"Fit Finder Blog", hi:"Fit Finder ब्लॉग" },
+    blog_title:     { en:"Size Guides & Brand Comparisons", hi:"Size Guides और Brand Comparisons" },
+    blog_subtitle:  { en:"Practical guides to help you understand shoe and clothing sizing before you shop.", hi:"Shopping से पहले shoe और clothing sizing समझने के लिए practical guides." },
+    blog_category:  { en:"Shoe Size Comparison", hi:"Shoe Size Comparison" },
+    blog_card_title:{ en:"Nike vs Puma: Which Brand Has Better Shoe Fit?", hi:"Nike vs Puma: किस brand की shoe fitting बेहतर है?" },
+    blog_card_desc: { en:"Compare Nike and PUMA sizing, foot measurement guidance, fit considerations and what to check before buying online.", hi:"Nike और PUMA की sizing, foot measurement, fit और online खरीदने से पहले किन बातों को check करें—जानें." },
+    blog_read:      { en:"Read the complete guide →", hi:"पूरी guide पढ़ें →" },
     nav_trust:       { en:"Why trust us", hi:"हम पर भरोसा क्यों" },
     nav_advertise:   { en:"Advertise", hi:"विज्ञापन" },
     nav_feedback:    { en:"Feedback", hi:"फीडबैक" },
@@ -1696,6 +1860,12 @@ try {
     try { localStorage.setItem("fitfinder_lang", lang); } catch(e){}
     // Re-render category pills so their labels pick up the new language too
     if (typeof renderPills === "function") renderPills();
+    var blogEn = document.getElementById("blog-nike-vs-puma");
+    var blogHi = document.getElementById("blog-nike-vs-puma-hi");
+    if (blogEn && blogHi) {
+      blogEn.hidden = (lang === "hi");
+      blogHi.hidden = (lang !== "hi");
+    }
   }
 
   document.querySelectorAll(".lang-btn").forEach(function(btn){
