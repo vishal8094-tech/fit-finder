@@ -1252,15 +1252,22 @@ const CATEGORIES = {
 const MONETIZATION = {
   amazonTag: "fitfinder0a-21",
   affiliateRedirectBase: "", // Optional: set to your own redirect endpoint for Myntra/Ajio/other networks.
-  analyticsId: "G-XXXXXXXXXX"
+  analyticsId: "G-XXXXXXXXXX",
+  cuelinksId: "313518" // Cuelinks channel/publisher ID, used to wrap Myntra/Ajio/Flipkart links.
 };
+function cuelinksWrap(destinationUrl){
+  return `https://linksredirect.com/?cid=${MONETIZATION.cuelinksId}&source=linkkit&url=${encodeURIComponent(destinationUrl)}`;
+}
 function marketplaceLinks(brandName, searchTerm){
   const q = encodeURIComponent(`${brandName} ${searchTerm}`);
+  const myntraUrl = `https://www.myntra.com/${encodeURIComponent(searchTerm)}?rawQuery=${encodeURIComponent(brandName)}`;
+  const ajioUrl = `https://www.ajio.com/search/?text=${q}`;
+  const flipkartUrl = `https://www.flipkart.com/search?q=${q}`;
   const links = [
     { name:"Amazon", url:`https://www.amazon.in/s?k=${q}&tag=${MONETIZATION.amazonTag}`, affiliate:true },
-    { name:"Myntra", url:`https://www.myntra.com/${encodeURIComponent(searchTerm)}?rawQuery=${encodeURIComponent(brandName)}`, affiliate:true },
-    { name:"Ajio", url:`https://www.ajio.com/search/?text=${q}`, affiliate:true },
-    { name:"Flipkart", url:`https://www.flipkart.com/search?q=${q}`, affiliate:true }
+    { name:"Myntra", url:cuelinksWrap(myntraUrl), affiliate:true },
+    { name:"Ajio", url:cuelinksWrap(ajioUrl), affiliate:true },
+    { name:"Flipkart", url:cuelinksWrap(flipkartUrl), affiliate:true }
   ];
   return links;
 }
