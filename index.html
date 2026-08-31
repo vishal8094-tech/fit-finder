@@ -1,926 +1,1176 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- PRIMARY SEO -->
-  <title>Fit Finder — Universal Clothing Size Calculator & Converter (Zara, H&M, Uniqlo, Levi's)</title>
-  <meta name="description" content="Stop guessing your size! Enter your measurement once and find your exact size across Zara, H&M, Uniqlo, Levi's, Nike, Adidas, Myntra & more. Free universal clothing size calculator & converter.">
-  <meta name="keywords" content="size converter, Zara to H&M size, clothing size calculator, Myntra size chart, Uniqlo size guide, fit finder, online shopping size tool, Zara size chart, H&M size converter, Levi's size guide, Nike shoe size, Adidas size chart, clothing size finder, body measurement to size, international size converter">
-  <meta name="author" content="Fit Finder">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://fitfinderapp.vercel.app/">
+<!-- ===== SEO META TAGS (NEW) ===== -->
+<title>Fit Finder — Universal Clothing Size Calculator & Converter (Zara, H&M, Uniqlo, Levi's)</title>
+<meta name="description" content="Stop guessing your size! Enter your measurement once and find your exact size across Zara, H&M, Uniqlo, Levi's, Nike, Adidas, Myntra & more. Free universal clothing size calculator.">
+<meta name="keywords" content="size converter, Zara to H&M size, clothing size calculator, Myntra size chart, Uniqlo size guide, fit finder, online shopping size tool, Zara size chart, H&M size converter, Levi's size guide, Nike shoe size, Adidas size chart">
+<meta name="author" content="Fit Finder">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://fitfinderapp.vercel.app/">
 
-  <!-- OPEN GRAPH (WhatsApp, Facebook, LinkedIn) -->
-  <meta property="og:title" content="Fit Finder: Never Buy the Wrong Size Again">
-  <meta property="og:description" content="Find your perfect fit across 50+ brands with one single measurement. Free, fast, and accurate clothing size calculator.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://fitfinderapp.vercel.app/">
-  <meta property="og:site_name" content="Fit Finder">
-  <meta property="og:locale" content="en_IN">
+<meta property="og:title" content="Fit Finder: Never Buy the Wrong Size Again">
+<meta property="og:description" content="Find your perfect fit across 50+ brands with one single measurement. Free, fast, and accurate.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://fitfinderapp.vercel.app/">
+<meta property="og:site_name" content="Fit Finder">
 
-  <!-- TWITTER CARD -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Fit Finder: Universal Clothing Size Converter">
-  <meta name="twitter:description" content="Find your exact size across Zara, H&M, Uniqlo, Nike, Adidas and more with one measurement. Free tool.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Fit Finder: Universal Clothing Size Converter">
+<meta name="twitter:description" content="Find your exact size across Zara, H&M, Uniqlo, Nike, Adidas and more with one measurement.">
 
-  <!-- JSON-LD STRUCTURED DATA (Google Rich Results) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Fit Finder",
-    "description": "Universal clothing size calculator and converter. Find your exact size across Zara, H&M, Uniqlo, Levi's, Nike, Adidas and more.",
-    "url": "https://fitfinderapp.vercel.app/",
-    "applicationCategory": "ShoppingApplication",
-    "operatingSystem": "Web",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" },
-    "author": { "@type": "Organization", "name": "Fit Finder" }
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Fit Finder",
+  "description": "Universal clothing size calculator and converter across Zara, H&M, Uniqlo, Levi's, Nike, Adidas and more.",
+  "url": "https://fitfinderapp.vercel.app/",
+  "applicationCategory": "ShoppingApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
+}
+</script>
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1f2937; line-height: 1.6; background: #fff; }
+  a { color: #4f46e5; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  img { max-width: 100%; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+  /* Navbar */
+  .navbar { position: sticky; top: 0; background: #fff; border-bottom: 1px solid #e5e7eb; z-index: 100; padding: 14px 0; }
+  .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-size: 20px; font-weight: 800; color: #4f46e5; }
+  .nav-links { display: flex; gap: 22px; font-size: 14px; font-weight: 500; }
+  .nav-links a { color: #4b5563; }
+  .nav-links a:hover { color: #4f46e5; text-decoration: none; }
+  .lang-toggle { font-size: 13px; color: #6b7280; }
+  .mobile-menu-btn { display: none; background: none; border: none; font-size: 24px; cursor: pointer; }
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .mobile-menu-btn { display: block; }
+    .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: #fff; padding: 20px; border-bottom: 1px solid #e5e7eb; }
   }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      { "@type": "Question", "name": "How does Fit Finder calculate my size?", "acceptedAnswer": { "@type": "Answer", "text": "It compares your entered measurement with the size bands used by the selected category and brands, then applies your fit preference." }},
-      { "@type": "Question", "name": "Is Fit Finder free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The basic size calculator is completely free to use." }},
-      { "@type": "Question", "name": "Why can my size differ between brands?", "acceptedAnswer": { "@type": "Answer", "text": "Brand charts, cuts, fabrics, fit philosophies and regional standards can all differ, causing the same person to be different sizes across brands." }}
-    ]
-  }
-  </script>
 
-  <!-- TAILWIND CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: { 50:'#eef2ff',100:'#e0e7ff',200:'#c7d2fe',300:'#a5b4fc',400:'#818cf8',500:'#6366f1',600:'#4f46e5',700:'#4338ca',800:'#3730a3',900:'#312e81' }
-          }
-        }
-      }
-    }
-  </script>
+  /* Hero */
+  .hero { background: linear-gradient(135deg, #4f46e5, #6366f1, #312e81); color: #fff; padding: 80px 20px; text-align: center; }
+  .hero .eyebrow { color: #c7d2fe; font-size: 13px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+  .hero h1 { font-size: 42px; font-weight: 800; line-height: 1.2; margin-bottom: 16px; }
+  .hero h1 span { color: #fde047; }
+  .hero p { font-size: 18px; color: #e0e7ff; max-width: 700px; margin: 0 auto 28px; }
+  .hero .cta { display: inline-block; background: #fde047; color: #1f2937; font-weight: 700; padding: 14px 32px; border-radius: 10px; font-size: 17px; }
+  .hero .cta:hover { background: #facc15; text-decoration: none; }
+  @media (max-width: 768px) { .hero h1 { font-size: 28px; } .hero p { font-size: 16px; } }
 
-  <style>
-    html { scroll-behavior: smooth; }
-    .fade-in { animation: fadeIn 0.4s ease-out; }
-    @keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
-    .panel-overlay { background: rgba(0,0,0,0.5); }
-    details summary { cursor: pointer; }
-    details summary::-webkit-details-marker { display: none; }
-    details[open] summary .chevron { transform: rotate(180deg); }
-    .chevron { transition: transform 0.2s; }
-  </style>
+  /* Sections */
+  section { padding: 60px 20px; }
+  h2 { font-size: 28px; font-weight: 800; margin-bottom: 12px; color: #111827; }
+  h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; color: #111827; }
+  .section-title { text-align: center; margin-bottom: 40px; }
+  .section-subtitle { text-align: center; color: #6b7280; margin-bottom: 30px; }
+
+  /* Tool */
+  .tool-box { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
+  .tool-header { background: #4f46e5; color: #fff; padding: 20px; border-radius: 14px 14px 0 0; text-align: center; margin: -30px -30px 24px; }
+  .tool-header h2 { color: #fff; margin: 0; }
+  .tool-header p { color: #e0e7ff; font-size: 14px; margin-top: 4px; }
+  .step-label { font-weight: 700; font-size: 14px; margin-bottom: 10px; color: #374151; }
+  .categories { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .cat-btn { padding: 8px 16px; border: 2px solid #e5e7eb; background: #fff; border-radius: 999px; font-size: 14px; font-weight: 600; cursor: pointer; color: #4b5563; transition: all 0.2s; }
+  .cat-btn:hover { border-color: #a5b4fc; }
+  .cat-btn.active { border-color: #4f46e5; background: #eef2ff; color: #4f46e5; }
+  .tool-grid { display: grid; grid-template-columns: 1fr 1fr auto; gap: 12px; margin-bottom: 14px; }
+  @media (max-width: 768px) { .tool-grid { grid-template-columns: 1fr; } }
+  .tool-grid input, .tool-grid select { padding: 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 16px; width: 100%; }
+  .fit-btns { display: flex; gap: 4px; }
+  .fit-btn { flex: 1; padding: 12px; border: 2px solid #e5e7eb; background: #fff; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; }
+  .fit-btn.active { border-color: #4f46e5; background: #eef2ff; color: #4f46e5; }
+  .find-btn { padding: 12px 24px; background: #4f46e5; color: #fff; border: none; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer; }
+  .find-btn:hover { background: #4338ca; }
+  .fit-note { font-size: 12px; color: #9ca3af; margin-bottom: 16px; }
+  .results-placeholder { text-align: center; padding: 40px 20px; color: #9ca3af; }
+  .results-placeholder .arrow { font-size: 40px; margin-bottom: 10px; }
+  .result-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-top: 16px; }
+  .result-card { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 10px; padding: 14px; display: flex; justify-content: space-between; align-items: center; }
+  .result-card .brand { font-weight: 700; color: #1f2937; }
+  .result-card .size { background: #eef2ff; color: #4f46e5; font-weight: 800; padding: 6px 14px; border-radius: 8px; font-size: 16px; }
+  .disclaimer { font-size: 12px; color: #9ca3af; margin-top: 14px; }
+
+  /* Profile */
+  .profile-box { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 30px; margin-top: 30px; }
+  .profile-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+  .profile-badge { background: #dcfce7; color: #166534; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; }
+  .profile-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin: 14px 0; }
+  .profile-grid input { padding: 10px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px; }
+  .profile-grid label { font-size: 12px; color: #6b7280; display: block; margin-bottom: 4px; }
+  .profile-actions { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+  .btn-primary { background: #4f46e5; color: #fff; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; }
+  .btn-secondary { background: #f3f4f6; color: #374151; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; }
+  .privacy-note { font-size: 12px; color: #9ca3af; margin-top: 10px; }
+
+  /* NEW: Estimator */
+  .estimator-box { background: linear-gradient(135deg, #eff6ff, #eef2ff); border: 1px solid #bfdbfe; border-radius: 14px; padding: 30px; margin-bottom: 30px; }
+  .estimator-box .new-badge { display: inline-block; background: #dbeafe; color: #1e40af; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 999px; margin-bottom: 10px; }
+  .estimator-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin: 16px 0; }
+  .estimator-grid input, .estimator-grid select { padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 15px; width: 100%; }
+  .estimator-grid label { font-size: 13px; font-weight: 600; color: #374151; display: block; margin-bottom: 4px; }
+  .estimate-result { background: #f0fdf4; border: 1px solid #86efac; border-radius: 10px; padding: 20px; margin-top: 16px; display: none; }
+  .estimate-result.show { display: block; }
+  .estimate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; text-align: center; }
+  .estimate-card { background: #fff; padding: 14px; border-radius: 8px; }
+  .estimate-card .num { font-size: 28px; font-weight: 800; color: #166534; }
+  .estimate-card .lbl { font-size: 12px; color: #6b7280; }
+  .error-msg { background: #fef2f2; border: 1px solid #fca5a5; color: #991b1b; padding: 10px; border-radius: 8px; margin-top: 10px; display: none; }
+  .error-msg.show { display: block; }
+
+  /* NEW: Community Vote */
+  .vote-box { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 14px; padding: 30px; margin-top: 30px; }
+  .vote-bar { margin-bottom: 12px; }
+  .vote-bar-label { display: flex; justify-content: space-between; font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .vote-bar-track { background: #e5e7eb; border-radius: 999px; height: 14px; overflow: hidden; }
+  .vote-bar-fill { height: 100%; border-radius: 999px; transition: width 0.7s; }
+  .vote-bar-fill.green { background: #22c55e; }
+  .vote-bar-fill.yellow { background: #eab308; }
+  .vote-bar-fill.red { background: #ef4444; }
+  .vote-buttons { display: flex; justify-content: center; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+  .vote-btn { padding: 10px 18px; border: 2px solid #e5e7eb; background: #fff; border-radius: 10px; font-weight: 600; font-size: 14px; cursor: pointer; }
+  .vote-btn:hover { background: #f9fafb; }
+  .vote-thanks { text-align: center; padding: 14px; color: #166534; font-weight: 700; display: none; }
+
+  /* NEW: Data Backup */
+  .backup-box { background: linear-gradient(135deg, #eff6ff, #ecfeff); border: 1px solid #bae6fd; border-radius: 10px; padding: 18px; margin-top: 18px; }
+  .backup-box h4 { font-size: 15px; font-weight: 700; color: #075985; margin-bottom: 6px; }
+  .backup-box p { font-size: 13px; color: #475569; margin-bottom: 12px; }
+  .backup-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  .backup-btn { padding: 9px 16px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; }
+  .backup-btn.download { background: #0284c7; color: #fff; }
+  .backup-btn.import { background: #16a34a; color: #fff; }
+
+  /* Ad slot */
+  .ad-slot { text-align: center; padding: 16px; border: 1px dashed #d1d5db; border-radius: 8px; color: #9ca3af; font-size: 12px; margin: 20px 0; }
+
+  /* Why sizes differ */
+  .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+  .why-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 22px; }
+  .why-card h3 { font-size: 17px; }
+  .why-card p { font-size: 14px; color: #4b5563; }
+
+  /* Table */
+  .brand-table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden; font-size: 14px; }
+  .brand-table th { background: #f9fafb; padding: 12px 16px; text-align: left; font-weight: 700; }
+  .brand-table td { padding: 12px 16px; border-top: 1px solid #e5e7eb; }
+  .brand-table tr:nth-child(even) td { background: #f9fafb; }
+
+  /* Blog */
+  .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  .blog-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 22px; transition: box-shadow 0.2s; }
+  .blog-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.06); text-decoration: none; }
+  .blog-tag { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; margin-bottom: 10px; }
+  .blog-tag.sneakers { background: #dbeafe; color: #1e40af; }
+  .blog-tag.clothing { background: #fce7f3; color: #9d174d; }
+  .blog-tag.guide { background: #dcfce7; color: #166534; }
+  .blog-card h3 { font-size: 16px; margin-bottom: 8px; }
+  .blog-card p { font-size: 13px; color: #6b7280; margin-bottom: 10px; }
+  .blog-card .read-more { color: #4f46e5; font-size: 13px; font-weight: 600; }
+
+  /* Help Center */
+  .help-section { background: #f9fafb; }
+  .help-item { background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; margin-bottom: 10px; overflow: hidden; }
+  .help-item summary { padding: 16px 20px; font-weight: 700; cursor: pointer; display: flex; justify-content: space-between; align-items: center; list-style: none; }
+  .help-item summary::-webkit-details-marker { display: none; }
+  .help-item .chevron { transition: transform 0.2s; color: #9ca3af; }
+  .help-item[open] .chevron { transform: rotate(180deg); }
+  .help-item .content { padding: 0 20px 16px; font-size: 14px; color: #4b5563; }
+
+  /* How it works */
+  .how-section { background: #4338ca; color: #fff; text-align: center; }
+  .how-section h2 { color: #fff; }
+  .how-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; margin-top: 30px; }
+  .how-step .num { font-size: 40px; font-weight: 800; color: #fde047; margin-bottom: 10px; }
+  .how-step h3 { color: #fff; font-size: 18px; margin-bottom: 6px; }
+  .how-step p { color: #c7d2fe; font-size: 14px; }
+
+  /* Advertise */
+  .advertise-box { background: linear-gradient(135deg, #111827, #1f2937); color: #fff; border-radius: 14px; padding: 40px; text-align: center; }
+  .advertise-box .launched { display: inline-block; background: #fde047; color: #1f2937; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px; margin-bottom: 14px; }
+  .advertise-box h2 { color: #fff; }
+  .advertise-box p { color: #d1d5db; max-width: 600px; margin: 10px auto 24px; }
+  .partner-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 24px; }
+  .partner-tag { background: #374151; padding: 8px 14px; border-radius: 999px; font-size: 13px; }
+
+  /* Feedback */
+  .feedback-form { max-width: 600px; margin: 0 auto; background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 30px; }
+  .feedback-form input, .feedback-form textarea { width: 100%; padding: 12px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 15px; margin-bottom: 12px; font-family: inherit; }
+  .feedback-form textarea { min-height: 100px; resize: vertical; }
+  .feedback-thanks { text-align: center; color: #166534; font-weight: 700; margin-top: 14px; display: none; }
+
+  /* Share */
+  .share-section { text-align: center; padding: 40px 20px; }
+  .share-btns { display: flex; justify-content: center; gap: 12px; margin-top: 14px; flex-wrap: wrap; }
+  .share-btn { padding: 12px 22px; border-radius: 10px; font-weight: 700; border: none; cursor: pointer; font-size: 15px; }
+  .share-btn.wa { background: #22c55e; color: #fff; }
+  .share-btn.copy { background: #374151; color: #fff; }
+
+  /* Footer */
+  footer { background: #111827; color: #9ca3af; padding: 50px 20px 30px; }
+  .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto 30px; }
+  footer h4 { color: #fff; font-size: 16px; margin-bottom: 12px; }
+  footer ul { list-style: none; }
+  footer ul li { margin-bottom: 8px; font-size: 14px; }
+  footer a { color: #9ca3af; }
+  footer a:hover { color: #fff; }
+  .footer-bottom { max-width: 1100px; margin: 0 auto; padding-top: 24px; border-top: 1px solid #374151; text-align: center; font-size: 12px; }
+  .footer-bottom p { margin-bottom: 8px; }
+
+  /* Legal panels */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; display: none; }
+  .modal-overlay.open { display: block; }
+  .modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; border-radius: 14px; padding: 30px; max-width: 700px; width: 90%; max-height: 85vh; overflow-y: auto; z-index: 201; display: none; }
+  .modal.open { display: block; }
+  .modal-close { position: absolute; top: 14px; right: 18px; background: none; border: none; font-size: 26px; cursor: pointer; color: #9ca3af; }
+  .modal h2 { margin-bottom: 14px; }
+  .modal p { font-size: 14px; color: #4b5563; margin-bottom: 12px; }
+
+  /* Cookie banner */
+  .cookie-banner { position: fixed; bottom: 0; left: 0; right: 0; background: #111827; color: #fff; padding: 14px 20px; z-index: 150; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .cookie-banner.hidden { display: none; }
+  .cookie-banner p { font-size: 13px; color: #d1d5db; flex: 1; }
+  .cookie-banner button { padding: 8px 16px; border-radius: 8px; font-weight: 600; font-size: 13px; cursor: pointer; border: none; }
+  .cookie-btn-essential { background: #374151; color: #fff; }
+  .cookie-btn-accept { background: #fde047; color: #1f2937; }
+
+  /* Profile modal */
+  .profile-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; display: none; align-items: center; justify-content: center; }
+  .profile-modal.open { display: flex; }
+  .profile-modal-inner { background: #fff; border-radius: 14px; padding: 30px; max-width: 500px; width: 90%; max-height: 90vh; overflow-y: auto; }
+</style>
 </head>
+<body>
 
-<body class="bg-gray-50 text-gray-800 font-sans antialiased">
-
-  <!-- ========== NAVBAR ========== -->
-  <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-gray-200 shadow-sm">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-      <a href="#" class="text-xl font-extrabold text-brand-700 tracking-tight">👕 Fit Finder</a>
-      <div class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
-        <a href="#tool" class="hover:text-brand-600 transition">Find my size</a>
-        <a href="#estimator" class="hover:text-brand-600 transition">Estimator</a>
-        <a href="#guides" class="hover:text-brand-600 transition">Guides</a>
-        <a href="#blog" class="hover:text-brand-600 transition">Blog</a>
-        <a href="#help-center" class="hover:text-brand-600 transition">Help</a>
-        <a href="#trust" class="hover:text-brand-600 transition">Why trust us</a>
-        <a href="#feedback" class="hover:text-brand-600 transition">Feedback</a>
-      </div>
-      <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="md:hidden p-2 rounded-lg hover:bg-gray-100">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-      </button>
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+  <div class="container nav-inner">
+    <div class="logo">👕 Fit Finder</div>
+    <div class="nav-links" id="navLinks">
+      <a href="#tool">Find my size</a>
+      <a href="#guides">Guides</a>
+      <a href="#blog">Blog</a>
+      <a href="#help-center">Help Center</a>
+      <a href="#trust">Why trust us</a>
+      <a href="#advertise">Advertise</a>
+      <a href="#feedback">Feedback</a>
     </div>
-    <div id="mobile-menu" class="hidden md:hidden px-4 pb-4 space-y-2 text-sm font-medium text-gray-600">
-      <a href="#tool" class="block py-2 hover:text-brand-600">Find my size</a>
-      <a href="#estimator" class="block py-2 hover:text-brand-600">Estimator</a>
-      <a href="#guides" class="block py-2 hover:text-brand-600">Guides</a>
-      <a href="#blog" class="block py-2 hover:text-brand-600">Blog</a>
-      <a href="#help-center" class="block py-2 hover:text-brand-600">Help</a>
-      <a href="#feedback" class="block py-2 hover:text-brand-600">Feedback</a>
-    </div>
-  </nav>
+    <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
+  </div>
+</nav>
 
-  <!-- ========== HERO ========== -->
-  <header class="bg-gradient-to-br from-brand-600 via-brand-700 to-indigo-900 text-white py-16 md:py-24">
-    <div class="max-w-4xl mx-auto px-4 text-center">
-      <p class="text-brand-200 text-sm font-semibold uppercase tracking-widest mb-3">One measurement, every brand's size</p>
-      <h1 class="text-3xl md:text-5xl font-extrabold leading-tight mb-4">Every brand sizes differently.<br><span class="text-yellow-300">Your fit stays the same.</span></h1>
-      <p class="text-lg md:text-xl text-brand-100 max-w-2xl mx-auto mb-8">Enter your measurement once — see your exact size across Zara, H&M, Uniqlo, Levi's, Nike, Adidas, and more. No guessing, just numbers.</p>
-      <a href="#tool" class="inline-block bg-yellow-400 text-gray-900 font-bold px-8 py-4 rounded-xl hover:bg-yellow-300 transition shadow-lg text-lg">Find My Size →</a>
-    </div>
-  </header>
+<!-- ===== HERO ===== -->
+<header class="hero">
+  <div class="container">
+    <div class="eyebrow">One measurement, every brand's size</div>
+    <h1>Every brand sizes differently.<br><span>Your fit stays the same.</span></h1>
+    <p>Enter your measurement once — see your exact size across Zara, H&M, Uniqlo, Levi's, and more. No guessing, just numbers.</p>
+    <a href="#tool" class="cta">Find My Size →</a>
+  </div>
+</header>
 
-  <!-- ========== 🆕 SIZE ESTIMATOR (NEW FEATURE #1) ========== -->
-  <section id="estimator" class="max-w-4xl mx-auto px-4 py-10">
-    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-200 p-6 md:p-10 shadow-sm">
-      <div class="text-center mb-6">
-        <span class="inline-block bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full mb-3">🆕 NEW FEATURE</span>
-        <h2 class="text-2xl md:text-3xl font-bold text-blue-900 mb-2">📏 टेप नहीं है? कोई बात नहीं!</h2>
-        <p class="text-gray-600">Height और Weight डालें — अनुमानित Chest/Waist नाप तुरंत पाएं</p>
-      </div>
+<!-- ===== 🆕 SIZE ESTIMATOR (NEW FEATURE #1) ===== -->
+<section id="estimator">
+  <div class="container">
+    <div class="estimator-box">
+      <span class="new-badge">🆕 NEW FEATURE</span>
+      <h2>📏 No Measuring Tape? No Problem!</h2>
+      <p style="color:#475569;margin-top:6px;">Enter your height and weight to get an estimated chest/waist measurement.</p>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <div class="estimator-grid">
         <div>
-          <label class="block text-sm font-semibold text-gray-700 mb-1">Height (cm)</label>
-          <input type="number" id="est-height" placeholder="e.g. 175" min="100" max="250" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg">
+          <label>Height (cm)</label>
+          <input type="number" id="est-height" placeholder="e.g. 175" min="100" max="250">
         </div>
         <div>
-          <label class="block text-sm font-semibold text-gray-700 mb-1">Weight (kg)</label>
-          <input type="number" id="est-weight" placeholder="e.g. 70" min="30" max="200" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg">
+          <label>Weight (kg)</label>
+          <input type="number" id="est-weight" placeholder="e.g. 70" min="30" max="200">
         </div>
         <div>
-          <label class="block text-sm font-semibold text-gray-700 mb-1">Body Type</label>
-          <select id="est-bodytype" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg">
-            <option value="slim">Slim (पतला)</option>
-            <option value="average" selected>Average (सामान्य)</option>
-            <option value="athletic">Athletic (चौड़ा)</option>
+          <label>Body Type</label>
+          <select id="est-bodytype">
+            <option value="slim">Slim</option>
+            <option value="average" selected>Average</option>
+            <option value="athletic">Athletic</option>
           </select>
         </div>
       </div>
 
-      <button onclick="calculateEstimate()" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-6 rounded-lg hover:from-blue-700 hover:to-indigo-700 font-bold text-lg transition shadow-lg">
-        🔮 मेरा अनुमानित नाप पता करें
-      </button>
+      <button class="find-btn" onclick="calculateEstimate()" style="width:100%;">🔮 Get My Estimated Measurement</button>
 
-      <div id="est-error" class="hidden mt-4 p-4 bg-red-50 border border-red-300 rounded-lg text-red-700 text-center font-medium"></div>
+      <div class="error-msg" id="est-error"></div>
 
-      <div id="est-result" class="hidden mt-6 fade-in">
-        <div class="p-6 bg-green-50 border border-green-300 rounded-xl">
-          <h3 class="text-lg font-bold text-green-800 mb-4 text-center">✅ अनुमानित नाप (Estimated Measurement)</h3>
-          <div class="grid grid-cols-2 gap-4 text-center">
-            <div class="bg-white p-4 rounded-lg shadow-sm">
-              <p class="text-sm text-gray-500">Chest / Bust</p>
-              <p class="text-3xl font-extrabold text-green-700" id="est-chest">--</p>
-              <p class="text-xs text-gray-400">cm</p>
-            </div>
-            <div class="bg-white p-4 rounded-lg shadow-sm">
-              <p class="text-sm text-gray-500">Waist</p>
-              <p class="text-3xl font-extrabold text-green-700" id="est-waist">--</p>
-              <p class="text-xs text-gray-400">cm</p>
-            </div>
+      <div class="estimate-result" id="est-result">
+        <h3 style="text-align:center;color:#166534;margin-bottom:14px;">✅ Estimated Measurement</h3>
+        <div class="estimate-grid">
+          <div class="estimate-card">
+            <div class="lbl">Chest / Bust</div>
+            <div class="num" id="est-chest">--</div>
+            <div class="lbl">cm</div>
           </div>
-          <p class="text-xs text-green-600 mt-4 text-center">*यह एक अनुमान है। बेहतर फिटिंग के लिए measuring tape से नाप लें।</p>
-          <button onclick="useEstimateInTool()" class="mt-4 w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 font-bold transition">
-            📋 इस नाप को Size Tool में Use करें →
-          </button>
+          <div class="estimate-card">
+            <div class="lbl">Waist</div>
+            <div class="num" id="est-waist">--</div>
+            <div class="lbl">cm</div>
+          </div>
+        </div>
+        <p style="font-size:12px;color:#166534;text-align:center;margin-top:12px;">*This is an estimate. For best fit, use a measuring tape.</p>
+        <button class="btn-primary" style="width:100%;margin-top:12px;" onclick="useEstimateInTool()">📋 Use This in Size Tool →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MAIN TOOL ===== -->
+<section id="tool">
+  <div class="container">
+    <div class="tool-box">
+      <div class="tool-header">
+        <h2>Find Your Size Across Every Brand</h2>
+        <p>1. Pick a category • 2. Enter one measurement • 3. See every brand's size</p>
+      </div>
+
+      <div class="step-label">1️⃣ Pick a category</div>
+      <div class="categories" id="category-buttons">
+        <button class="cat-btn active" data-cat="shirts" onclick="selectCategory('shirts')">👔 Shirts</button>
+        <button class="cat-btn" data-cat="jeans" onclick="selectCategory('jeans')">👖 Jeans</button>
+        <button class="cat-btn" data-cat="dresses" onclick="selectCategory('dresses')">👗 Dresses / Tops</button>
+        <button class="cat-btn" data-cat="tshirts" onclick="selectCategory('tshirts')">👕 T-Shirts</button>
+        <button class="cat-btn" data-cat="hoodies" onclick="selectCategory('hoodies')">🧥 Hoodies</button>
+        <button class="cat-btn" data-cat="trousers" onclick="selectCategory('trousers')">👖 Trousers</button>
+        <button class="cat-btn" data-cat="shoes" onclick="selectCategory('shoes')">👟 Shoes</button>
+        <button class="cat-btn" data-cat="kurtis" onclick="selectCategory('kurtis')">👘 Kurtis</button>
+        <button class="cat-btn" data-cat="salwar" onclick="selectCategory('salwar')">👗 Salwar Suits</button>
+        <button class="cat-btn" data-cat="palazzo" onclick="selectCategory('palazzo')">👖 Palazzo / Pants</button>
+      </div>
+
+      <div class="tool-grid">
+        <div>
+          <div class="step-label">2️⃣ Your measurement</div>
+          <div style="display:flex;">
+            <input type="number" id="measurement-input" placeholder="e.g. 92">
+            <select id="unit-select" style="border-left:none;border-radius:0 8px 8px 0;background:#f9fafb;">
+              <option value="cm">cm</option>
+              <option value="in">in</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <div class="step-label">Fit preference</div>
+          <div class="fit-btns">
+            <button class="fit-btn" data-fit="loose" onclick="selectFit('loose')">Loose</button>
+            <button class="fit-btn active" data-fit="regular" onclick="selectFit('regular')">Regular</button>
+            <button class="fit-btn" data-fit="tight" onclick="selectFit('tight')">Tight</button>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-end;">
+          <button class="find-btn" onclick="findMySize()">🔍 Find My Size</button>
+        </div>
+      </div>
+
+      <div class="fit-note">Loose = one size up • Tight = one size down • Regular = exact match</div>
+
+      <div id="results-area">
+        <div class="results-placeholder">
+          <div class="arrow">👆</div>
+          <p>Enter your measurement and press "Find my size" — sizes across all brands will show up here.</p>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- ========== MAIN TOOL ========== -->
-  <section id="tool" class="max-w-5xl mx-auto px-4 py-10">
-    <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
-      <div class="bg-brand-600 text-white p-6 text-center">
-        <h2 class="text-2xl font-bold">Find Your Size Across Every Brand</h2>
-        <p class="text-brand-100 text-sm mt-1">Pick a category → Enter one measurement → See every brand's size</p>
-      </div>
-
-      <div class="p-6 md:p-8">
-        <!-- Category Picker -->
-        <div class="mb-6">
-          <label class="block text-sm font-bold text-gray-700 mb-3">1️⃣ Pick a category</label>
-          <div class="flex flex-wrap gap-2" id="category-buttons">
-            <button onclick="selectCategory('shirts')" class="cat-btn px-4 py-2 rounded-full border-2 border-brand-500 bg-brand-50 text-brand-700 font-semibold text-sm transition hover:bg-brand-100" data-cat="shirts">👔 Shirts</button>
-            <button onclick="selectCategory('jeans')" class="cat-btn px-4 py-2 rounded-full border-2 border-gray-200 text-gray-600 font-semibold text-sm transition hover:border-brand-400" data-cat="jeans">👖 Jeans</button>
-            <button onclick="selectCategory('dresses')" class="cat-btn px-4 py-2 rounded-full border-2 border-gray-200 text-gray-600 font-semibold text-sm transition hover:border-brand-400" data-cat="dresses">👗 Dresses / Tops</button>
-            <button onclick="selectCategory('tshirts')" class="cat-btn px-4 py-2 rounded-full border-2 border-gray-200 text-gray-600 font-semibold text-sm transition hover:border-brand-400" data-cat="tshirts">👕 T-Shirts</button>
-            <button onclick="selectCategory('hoodies')" class="cat-btn px-4 py-2 rounded-full border-2 border-gray-200 text-gray-600 font-semibold text-sm transition hover:border-brand-400" data-cat="hoodies">🧥 Hoodies</button>
-            <button onclick="selectCategory('trousers')" class="cat-btn px-4 py-2 rounded-full border-2 border-gray-200 text-gray-600 font-semibold text-sm transition hover:border-brand-400" data-cat="trousers">👖 Trousers</button>
-            <button onclick="selectCategory('shoes')" class="cat-btn px-4 py-2 rounded-full border-2 border-gray-200 text-gray-600 font-semibold text-sm transition hover:border-brand-400" data-cat="shoes">👟 Shoes</button>
-            <button onclick="selectCategory('kurtis')" class="cat-btn px-4 py-2 rounded-full border-2 border-gray-200 text-gray-600 font-semibold text-sm transition hover:border-brand-400" data-cat="kurtis">👘 Kurtis</button>
-            <button onclick="selectCategory('salwar')" class="cat-btn px-4 py-2 rounded-full border-2 border-gray-200 text-gray-600 font-semibold text-sm transition hover:border-brand-400" data-cat="salwar">👗 Salwar Suits</button>
-            <button onclick="selectCategory('palazzo')" class="cat-btn px-4 py-2 rounded-full border-2 border-gray-200 text-gray-600 font-semibold text-sm transition hover:border-brand-400" data-cat="palazzo">👖 Palazzo / Pants</button>
-          </div>
-        </div>
-
-        <!-- Measurement Input -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-          <div>
-            <label class="block text-sm font-bold text-gray-700 mb-1">2️⃣ Your measurement</label>
-            <div class="flex">
-              <input type="number" id="measurement-input" placeholder="e.g. 92" class="flex-1 px-4 py-3 border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-brand-500 text-lg">
-              <select id="unit-select" class="px-3 py-3 border border-l-0 border-gray-300 rounded-r-lg bg-gray-50 font-semibold">
-                <option value="cm">cm</option>
-                <option value="in">in</option>
-              </select>
-            </div>
-          </div>
-          <div>
-            <label class="block text-sm font-bold text-gray-700 mb-1">3️⃣ Fit preference</label>
-            <div class="flex gap-1">
-              <button onclick="selectFit('loose')" class="fit-btn flex-1 py-3 rounded-lg border-2 border-gray-200 text-sm font-semibold hover:border-yellow-400 transition" data-fit="loose">Loose</button>
-              <button onclick="selectFit('regular')" class="fit-btn flex-1 py-3 rounded-lg border-2 border-brand-500 bg-brand-50 text-brand-700 text-sm font-semibold transition" data-fit="regular">Regular</button>
-              <button onclick="selectFit('tight')" class="fit-btn flex-1 py-3 rounded-lg border-2 border-gray-200 text-sm font-semibold hover:border-yellow-400 transition" data-fit="tight">Tight</button>
-            </div>
-          </div>
-          <div class="flex items-end">
-            <button onclick="findMySize()" class="w-full bg-brand-600 text-white py-3 px-6 rounded-lg hover:bg-brand-700 font-bold text-lg transition shadow-md">
-              🔍 Find My Size
-            </button>
-          </div>
-        </div>
-
-        <p class="text-xs text-gray-400 mb-2">Loose = one size up • Tight = one size down • Regular = exact match</p>
-
-        <!-- Results -->
-        <div id="results-area" class="mt-6">
-          <div class="text-center py-10 text-gray-400">
-            <p class="text-4xl mb-3">👆</p>
-            <p class="font-medium">Enter your measurement and press "Find my size" — sizes across all brands will show up here.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== PROFILE SECTION + 🆕 DATA BACKUP (NEW FEATURE #4) ========== -->
-  <section class="max-w-4xl mx-auto px-4 py-8">
-    <div class="bg-white rounded-2xl shadow-md border border-gray-200 p-6 md:p-8">
-      <div class="flex items-center justify-between mb-4">
+    <!-- ===== PROFILE + 🆕 BACKUP ===== -->
+    <div class="profile-box">
+      <div class="profile-header">
         <div>
-          <h3 class="text-xl font-bold text-gray-800">👤 My Profile</h3>
-          <p class="text-sm text-gray-500">Saved on this device</p>
+          <h3>👤 My Profile</h3>
+          <p style="font-size:13px;color:#6b7280;">Saved on this device</p>
         </div>
-        <span class="bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full">Local Storage</span>
+        <span class="profile-badge">Local Storage</span>
       </div>
 
-      <p class="text-sm text-gray-600 mb-4">Save your measurements once. Choose a profile next time and Fit Finder fills the right measurement automatically.</p>
+      <p style="font-size:14px;color:#4b5563;margin-bottom:14px;">Save your measurements once. Choose a profile next time and Fit Finder fills the right measurement automatically.</p>
 
-      <div id="profile-form" class="space-y-4">
-        <div>
-          <label class="block text-sm font-semibold text-gray-700 mb-1">Profile name</label>
-          <input type="text" id="profile-name" placeholder="e.g. My Profile" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500">
-        </div>
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
-          <div>
-            <label class="block text-xs font-medium text-gray-600 mb-1">Chest/Bust (cm)</label>
-            <input type="number" id="prof-chest" placeholder="92" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
-          </div>
-          <div>
-            <label class="block text-xs font-medium text-gray-600 mb-1">Waist (cm)</label>
-            <input type="number" id="prof-waist" placeholder="80" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
-          </div>
-          <div>
-            <label class="block text-xs font-medium text-gray-600 mb-1">Hip (cm)</label>
-            <input type="number" id="prof-hip" placeholder="96" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
-          </div>
-          <div>
-            <label class="block text-xs font-medium text-gray-600 mb-1">Shoulder (cm)</label>
-            <input type="number" id="prof-shoulder" placeholder="44" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
-          </div>
-          <div>
-            <label class="block text-xs font-medium text-gray-600 mb-1">Foot (cm)</label>
-            <input type="number" id="prof-foot" placeholder="26" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
-          </div>
-        </div>
-        <p class="text-xs text-gray-400">🔒 Profiles stay in your browser's local storage. Fit Finder does not send these measurements to a server.</p>
-        <div class="flex gap-3">
-          <button onclick="saveProfile()" class="bg-brand-600 text-white px-6 py-2 rounded-lg hover:bg-brand-700 font-semibold transition">Save Profile</button>
-          <button onclick="loadProfile()" class="bg-gray-200 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-300 font-semibold transition">Load Profile</button>
-        </div>
-      </div>
+      <button class="btn-primary" onclick="openProfileModal()">Create profile</button>
 
-      <!-- 🆕 DATA BACKUP SECTION -->
-      <div class="mt-6 p-5 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl border border-blue-200">
-        <h4 class="font-bold text-blue-900 mb-2">🔒 Data Backup & Restore</h4>
-        <p class="text-sm text-gray-600 mb-4">आपका डेटा सिर्फ इस ब्राउज़र में है। डिवाइस बदलने पर डेटा खो सकता है। Backup download करें और कभी भी restore करें।</p>
-        <div class="flex flex-wrap gap-3">
-          <button onclick="exportBackup()" class="bg-blue-600 text-white px-5 py-2.5 rounded-lg hover:bg-blue-700 font-semibold transition flex items-center gap-2">
-            📥 Download Backup
-          </button>
-          <label class="bg-green-600 text-white px-5 py-2.5 rounded-lg hover:bg-green-700 font-semibold transition flex items-center gap-2 cursor-pointer">
+      <!-- 🆕 DATA BACKUP -->
+      <div class="backup-box">
+        <h4>🔒 Data Backup & Restore</h4>
+        <p>Your data is stored only in this browser. If you change devices, you may lose it. Download a backup and restore it anytime.</p>
+        <div class="backup-actions">
+          <button class="backup-btn download" onclick="exportBackup()">📥 Download Backup</button>
+          <label class="backup-btn import" style="display:inline-block;">
             📤 Import Backup
-            <input type="file" accept=".json" onchange="importBackup(event)" class="hidden">
+            <input type="file" accept=".json" onchange="importBackup(event)" style="display:none;">
           </label>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ========== 🆕 COMMUNITY VOTE (NEW FEATURE #3) ========== -->
-  <section class="max-w-4xl mx-auto px-4 py-6">
-    <div class="bg-white rounded-2xl shadow-md border border-gray-200 p-6 md:p-8">
-      <h3 class="text-xl font-bold text-gray-800 mb-1">👥 Community Fit Feedback</h3>
-      <p class="text-sm text-gray-500 mb-5">Real shoppers, real feedback. <span id="total-votes" class="font-bold text-brand-600">100</span> votes so far.</p>
+<!-- ===== 🆕 COMMUNITY VOTE (NEW FEATURE #3) ===== -->
+<section>
+  <div class="container">
+    <div class="vote-box">
+      <h3>👥 Community Fit Feedback</h3>
+      <p style="font-size:14px;color:#6b7280;margin-bottom:20px;">Real shoppers, real feedback. <span id="total-votes" style="font-weight:700;color:#4f46e5;">100</span> votes so far.</p>
 
-      <div class="space-y-4 mb-6">
-        <div>
-          <div class="flex justify-between text-sm font-semibold mb-1">
-            <span>✅ True to Size</span><span id="true-pct">65%</span>
-          </div>
-          <div class="w-full bg-gray-200 rounded-full h-4"><div id="true-bar" class="bg-green-500 h-4 rounded-full transition-all duration-700" style="width:65%"></div></div>
-        </div>
-        <div>
-          <div class="flex justify-between text-sm font-semibold mb-1">
-            <span>⚠️ Runs Small</span><span id="small-pct">12%</span>
-          </div>
-          <div class="w-full bg-gray-200 rounded-full h-4"><div id="small-bar" class="bg-yellow-500 h-4 rounded-full transition-all duration-700" style="width:12%"></div></div>
-        </div>
-        <div>
-          <div class="flex justify-between text-sm font-semibold mb-1">
-            <span>⚠️ Runs Large</span><span id="large-pct">23%</span>
-          </div>
-          <div class="w-full bg-gray-200 rounded-full h-4"><div id="large-bar" class="bg-red-500 h-4 rounded-full transition-all duration-700" style="width:23%"></div></div>
-        </div>
+      <div class="vote-bar">
+        <div class="vote-bar-label"><span>✅ True to Size</span><span id="true-pct">65%</span></div>
+        <div class="vote-bar-track"><div class="vote-bar-fill green" id="true-bar" style="width:65%;"></div></div>
+      </div>
+      <div class="vote-bar">
+        <div class="vote-bar-label"><span>⚠️ Runs Small</span><span id="small-pct">12%</span></div>
+        <div class="vote-bar-track"><div class="vote-bar-fill yellow" id="small-bar" style="width:12%;"></div></div>
+      </div>
+      <div class="vote-bar">
+        <div class="vote-bar-label"><span>⚠️ Runs Large</span><span id="large-pct">23%</span></div>
+        <div class="vote-bar-track"><div class="vote-bar-fill red" id="large-bar" style="width:23%;"></div></div>
       </div>
 
       <div id="vote-area">
-        <p class="text-sm text-gray-600 mb-3 text-center">Bought something recently? How did it fit?</p>
-        <div class="flex flex-wrap justify-center gap-3">
-          <button onclick="castVote('small')" class="px-5 py-2.5 bg-white border-2 border-yellow-300 rounded-xl hover:bg-yellow-50 font-semibold text-sm transition">😕 छोटा था</button>
-          <button onclick="castVote('true')" class="px-5 py-2.5 bg-white border-2 border-green-300 rounded-xl hover:bg-green-50 font-semibold text-sm transition">😍 बिल्कुल सही</button>
-          <button onclick="castVote('large')" class="px-5 py-2.5 bg-white border-2 border-red-300 rounded-xl hover:bg-red-50 font-semibold text-sm transition">😕 बड़ा था</button>
+        <p style="text-align:center;font-size:14px;color:#4b5563;margin-top:20px;">Bought something recently? How did it fit?</p>
+        <div class="vote-buttons">
+          <button class="vote-btn" onclick="castVote('small')">😕 Runs Small</button>
+          <button class="vote-btn" onclick="castVote('true')">😍 True to Size</button>
+          <button class="vote-btn" onclick="castVote('large')">😕 Runs Large</button>
         </div>
       </div>
-      <div id="vote-thanks" class="hidden text-center py-4 fade-in">
-        <p class="text-green-700 font-bold text-lg">✅ धन्यवाद! आपका वोट दर्ज हो गया।</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== HOW TO MEASURE ========== -->
-  <section class="max-w-4xl mx-auto px-4 py-8">
-    <div class="bg-amber-50 rounded-2xl border border-amber-200 p-6 md:p-8">
-      <h3 class="text-xl font-bold text-amber-900 mb-4">📐 How to Measure Correctly</h3>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-amber-800">
-        <div><strong>Chest/Bust:</strong> Measure around the fullest part, under the arms, tape horizontal and snug.</div>
-        <div><strong>Waist:</strong> Measure around the narrowest part without pulling tight.</div>
-        <div><strong>Hip:</strong> Measure around the fullest part of your hips with tape level.</div>
-        <div><strong>Foot length:</strong> Heel against wall, measure to longest toe. Evening is best.</div>
-      </div>
-      <p class="text-xs text-amber-600 mt-4">Keep the tape relaxed — not squeezing and not hanging loose.</p>
-    </div>
-  </section>
-
-  <!-- ========== AD SLOT ========== -->
-  <div class="max-w-4xl mx-auto px-4 py-4 text-center text-xs text-gray-400 border border-dashed border-gray-300 rounded-lg">Advertisement — 728×90 leaderboard slot</div>
-
-  <!-- ========== WHY SIZES DIFFER ========== -->
-  <section class="max-w-4xl mx-auto px-4 py-12">
-    <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">Why does the same size fit differently everywhere?</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-        <h3 class="font-bold text-lg mb-2">🏷️ Vanity sizing is real</h3>
-        <p class="text-sm text-gray-600">Many brands quietly widen their size charts over the years so a "medium" feels more flattering. A medium from one label can be a small — or a large — somewhere else.</p>
-      </div>
-      <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-        <h3 class="font-bold text-lg mb-2">✂️ Cut philosophy differs</h3>
-        <p class="text-sm text-gray-600">A "fitted" brand and a "relaxed" brand can use the exact same size label for garments with several centimetres of difference in ease.</p>
-      </div>
-      <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-        <h3 class="font-bold text-lg mb-2">🧵 Fabric changes the fit</h3>
-        <p class="text-sm text-gray-600">Stretch fabrics forgive a size or two. Rigid fabrics don't. Two "medium" tops in different fabrics can sit completely differently.</p>
-      </div>
-      <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-        <h3 class="font-bold text-lg mb-2">🌍 Region changes the chart</h3>
-        <p class="text-sm text-gray-600">A US-cut and an EU-cut of the "same" item are rarely identical — always check the region the chart was built for.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== BRAND COMPARISON TABLE ========== -->
-  <section class="max-w-4xl mx-auto px-4 py-8">
-    <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Zara vs H&M vs Uniqlo: who runs small?</h2>
-    <div class="overflow-x-auto">
-      <table class="w-full bg-white rounded-xl border border-gray-200 shadow-sm text-sm">
-        <thead class="bg-gray-50">
-          <tr><th class="px-6 py-3 text-left font-bold">Brand</th><th class="px-6 py-3 text-left font-bold">Typical Cut</th><th class="px-6 py-3 text-left font-bold">Sizing Behaviour</th></tr>
-        </thead>
-        <tbody>
-          <tr class="border-t"><td class="px-6 py-3 font-semibold">Zara</td><td class="px-6 py-3">Fitted</td><td class="px-6 py-3 text-yellow-700">Runs small — size up if between sizes</td></tr>
-          <tr class="border-t bg-gray-50"><td class="px-6 py-3 font-semibold">H&M</td><td class="px-6 py-3">Relaxed</td><td class="px-6 py-3 text-green-700">Runs large — true size usually works</td></tr>
-          <tr class="border-t"><td class="px-6 py-3 font-semibold">Uniqlo</td><td class="px-6 py-3">Standard</td><td class="px-6 py-3 text-blue-700">True to size — most consistent</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- ========== BLOG ========== -->
-  <section id="blog" class="max-w-5xl mx-auto px-4 py-12">
-    <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">From the Fit Finder Blog</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <a href="blog/nike-vs-puma-shoe-fit.html" class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition group">
-        <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded">Sneakers</span>
-        <h3 class="font-bold mt-3 mb-2 group-hover:text-brand-600 transition">Nike vs Puma: Which Brand Has Better Shoe Fit?</h3>
-        <p class="text-sm text-gray-500">The same US size can feel completely different. Here's how they compare.</p>
-        <p class="text-brand-600 text-sm font-semibold mt-3">Read the full guide →</p>
-      </a>
-      <a href="blog/adidas-vs-nike-shoe-fit.html" class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition group">
-        <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded">Sneakers</span>
-        <h3 class="font-bold mt-3 mb-2 group-hover:text-brand-600 transition">Adidas vs Nike: Which Brand Has Better Shoe Fit?</h3>
-        <p class="text-sm text-gray-500">"True to size" in one doesn't carry over to the other.</p>
-        <p class="text-brand-600 text-sm font-semibold mt-3">Read the full guide →</p>
-      </a>
-      <a href="blog/zara-vs-hm-clothing-fit.html" class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition group">
-        <span class="text-xs font-bold text-pink-600 bg-pink-50 px-2 py-1 rounded">Clothing</span>
-        <h3 class="font-bold mt-3 mb-2 group-hover:text-brand-600 transition">Zara vs H&M: Which Brand Has Better Clothing Fit?</h3>
-        <p class="text-sm text-gray-500">A "Medium" from one rarely matches a "Medium" from the other.</p>
-        <p class="text-brand-600 text-sm font-semibold mt-3">Read the full guide →</p>
-      </a>
-      <a href="blog/how-to-choose-right-size-online-shopping.html" class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition group">
-        <span class="text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded">Guide</span>
-        <h3 class="font-bold mt-3 mb-2 group-hover:text-brand-600 transition">How to Choose the Right Size When Shopping Online</h3>
-        <p class="text-sm text-gray-500">No fitting room, no problem. Measure accurately and avoid returns.</p>
-        <p class="text-brand-600 text-sm font-semibold mt-3">Read the full guide →</p>
-      </a>
-      <a href="blog/how-to-find-clothing-size-online.html" class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition group">
-        <span class="text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded">Guide</span>
-        <h3 class="font-bold mt-3 mb-2 group-hover:text-brand-600 transition">How to Find Your Clothing Size Online</h3>
-        <p class="text-sm text-gray-500">US, UK, or EU store? Here's how sizing systems convert.</p>
-        <p class="text-brand-600 text-sm font-semibold mt-3">Read the full guide →</p>
-      </a>
-      <a href="blog/regular-vs-loose-vs-tight-fit.html" class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition group">
-        <span class="text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded">Guide</span>
-        <h3 class="font-bold mt-3 mb-2 group-hover:text-brand-600 transition">Regular vs Loose vs Tight Fit: What's the Difference?</h3>
-        <p class="text-sm text-gray-500">Same size, different cut. Pick the right one for your body.</p>
-        <p class="text-brand-600 text-sm font-semibold mt-3">Read the full guide →</p>
-      </a>
-    </div>
-  </section>
-
-  <!-- ========== HELP CENTER ========== -->
-  <section id="help-center" class="max-w-4xl mx-auto px-4 py-12">
-    <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2 text-center">Fit Finder Help Center</h2>
-    <p class="text-center text-gray-500 mb-8">Fit Finder कैसे काम करता है — A simple user guide</p>
-
-    <div class="space-y-3">
-      <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
-        <summary class="px-6 py-4 font-bold flex justify-between items-center">1. How Fit Finder Works <span class="chevron text-gray-400">▼</span></summary>
-        <div class="px-6 pb-4 text-sm text-gray-600">Fit Finder compares your body measurement with the size bands used by selected category and brands, then applies your fit preference. Recommendations are estimates — actual fit can vary by brand, cut, fabric, and body shape.</div>
-      </details>
-      <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
-        <summary class="px-6 py-4 font-bold flex justify-between items-center">2. Getting Started <span class="chevron text-gray-400">▼</span></summary>
-        <div class="px-6 pb-4 text-sm text-gray-600">Select a category → Enter measurement → Select CM/Inch → Choose fit preference → Click "Find my size" → View results. Example: Shirt, chest 92 cm, Regular fit → Recommended: M.</div>
-      </details>
-      <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
-        <summary class="px-6 py-4 font-bold flex justify-between items-center">3. How to Measure Your Body <span class="chevron text-gray-400">▼</span></summary>
-        <div class="px-6 pb-4 text-sm text-gray-600"><strong>Chest:</strong> Fullest part under arms. <strong>Waist:</strong> Narrowest part. <strong>Hip:</strong> Fullest part. <strong>Shoulder:</strong> Across shoulder area. <strong>Foot:</strong> Heel to longest toe. Keep tape relaxed.</div>
-      </details>
-      <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
-        <summary class="px-6 py-4 font-bold flex justify-between items-center">4. CM & Inch Guide <span class="chevron text-gray-400">▼</span></summary>
-        <div class="px-6 pb-4 text-sm text-gray-600">76 cm ≈ 29.9 in | 80 cm ≈ 31.5 in | 92 cm ≈ 36.2 in | 100 cm ≈ 39.4 in | 106 cm ≈ 41.7 in</div>
-      </details>
-      <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
-        <summary class="px-6 py-4 font-bold flex justify-between items-center">5. Fit Preference Guide <span class="chevron text-gray-400">▼</span></summary>
-        <div class="px-6 pb-4 text-sm text-gray-600"><strong>Loose:</strong> Roomy, extra space. <strong>Regular:</strong> Balanced, everyday. <strong>Tight:</strong> Fitted, closer to body. This is a preference, not a guarantee.</div>
-      </details>
-      <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
-        <summary class="px-6 py-4 font-bold flex justify-between items-center">6. Full Body Profile <span class="chevron text-gray-400">▼</span></summary>
-        <div class="px-6 pb-4 text-sm text-gray-600">Save measurements in a profile → Select profile later → Fit Finder auto-fills. Multiple profiles supported for family members.</div>
-      </details>
-      <details class="bg-white rounded-xl border border-gray-200 shadow-sm">
-        <summary class="px-6 py-4 font-bold flex justify-between items-center">7. Privacy & Data <span class="chevron text-gray-400">▼</span></summary>
-        <div class="px-6 pb-4 text-sm text-gray-600">Profiles stored in browser local storage only. Not sent to any server. Use the Backup feature to save your data externally.</div>
-      </details>
-    </div>
-  </section>
-
-  <!-- ========== HOW IT WORKS (3 Steps) ========== -->
-  <section id="guides" class="bg-brand-700 text-white py-16">
-    <div class="max-w-4xl mx-auto px-4 text-center">
-      <h2 class="text-2xl md:text-3xl font-bold mb-10">How Fit Finder Works</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div>
-          <div class="text-4xl font-extrabold text-yellow-300 mb-3">01</div>
-          <h3 class="font-bold text-lg mb-2">You measure once</h3>
-          <p class="text-brand-200 text-sm">A single body measurement — chest, waist, bust, or foot length.</p>
-        </div>
-        <div>
-          <div class="text-4xl font-extrabold text-yellow-300 mb-3">02</div>
-          <h3 class="font-bold text-lg mb-2">We compare to brand data</h3>
-          <p class="text-brand-200 text-sm">Your number is checked against each brand's typical size bands.</p>
-        </div>
-        <div>
-          <div class="text-4xl font-extrabold text-yellow-300 mb-3">03</div>
-          <h3 class="font-bold text-lg mb-2">You shop with confidence</h3>
-          <p class="text-brand-200 text-sm">See your size across every brand at once.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== TRUST ========== -->
-  <section id="trust" class="max-w-4xl mx-auto px-4 py-12">
-    <h2 class="text-2xl font-bold text-gray-900 mb-4 text-center">Why Trust Fit Finder?</h2>
-    <p class="text-center text-gray-600 mb-6 max-w-2xl mx-auto">We're shopper-first, not brand-first. Our size charts are reviewed periodically against publicly available brand data. Some "Shop" buttons are affiliate links — we may earn a small commission at no extra cost to you. This never changes which size or brand we recommend.</p>
-  </section>
-
-  <!-- ========== ADVERTISE ========== -->
-  <section id="advertise" class="max-w-4xl mx-auto px-4 py-10">
-    <div class="bg-gradient-to-r from-gray-900 to-gray-800 text-white rounded-2xl p-8 md:p-12 text-center">
-      <span class="inline-block bg-yellow-400 text-gray-900 text-xs font-bold px-3 py-1 rounded-full mb-4">Just Launched</span>
-      <h2 class="text-2xl md:text-3xl font-bold mb-3">Advertise with Fit Finder</h2>
-      <p class="text-gray-300 mb-6 max-w-xl mx-auto">Reach shoppers at the exact moment they're deciding what size to buy — the highest-intent moment in the shopping journey.</p>
-      <div class="flex flex-wrap justify-center gap-4 mb-8 text-sm">
-        <span class="bg-gray-700 px-4 py-2 rounded-full">🏷️ Featured Brand Slot</span>
-        <span class="bg-gray-700 px-4 py-2 rounded-full">📝 Sponsored Guide</span>
-        <span class="bg-gray-700 px-4 py-2 rounded-full">📧 Newsletter Placement</span>
-        <span class="bg-gray-700 px-4 py-2 rounded-full">📊 Display Ads</span>
-      </div>
-      <a href="mailto:fitfinderclothes@gmail.com?subject=Advertising%20on%20Fit%20Finder" class="inline-block bg-yellow-400 text-gray-900 font-bold px-8 py-3 rounded-xl hover:bg-yellow-300 transition">Get in Touch →</a>
-    </div>
-  </section>
-
-  <!-- ========== FEEDBACK ========== -->
-  <section id="feedback" class="max-w-3xl mx-auto px-4 py-12">
-    <div class="bg-white rounded-2xl shadow-md border border-gray-200 p-6 md:p-8">
-      <h2 class="text-2xl font-bold text-gray-900 mb-2 text-center">Help Us Get More Accurate</h2>
-      <p class="text-gray-500 text-center mb-6">Bought something using your Fit Finder size? Tell us how it fit.</p>
-      <form onsubmit="submitFeedback(event)" class="space-y-4">
-        <input type="email" id="fb-email" placeholder="Email (optional)" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500">
-        <textarea id="fb-text" rows="4" placeholder="Your feedback — which brand, what size, how did it fit?" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500" required></textarea>
-        <button type="submit" class="w-full bg-brand-600 text-white py-3 rounded-lg hover:bg-brand-700 font-bold transition">Send Feedback</button>
-      </form>
-      <p id="fb-thanks" class="hidden text-center text-green-700 font-bold mt-4">✅ Thanks — this helps us improve the charts!</p>
-    </div>
-  </section>
-
-  <!-- ========== AD SLOT ========== -->
-  <div class="max-w-4xl mx-auto px-4 py-4 text-center text-xs text-gray-400 border border-dashed border-gray-300 rounded-lg">Advertisement — 728×90 leaderboard slot</div>
-
-  <!-- ========== SHARE ========== -->
-  <section class="max-w-3xl mx-auto px-4 py-8 text-center">
-    <h3 class="text-lg font-bold text-gray-700 mb-3">Share your size</h3>
-    <div class="flex justify-center gap-4">
-      <a href="https://wa.me/?text=Check%20your%20clothing%20size%20across%20all%20brands%20-%20https://fitfinderapp.vercel.app/" target="_blank" class="bg-green-500 text-white px-6 py-3 rounded-xl font-bold hover:bg-green-600 transition">WhatsApp</a>
-      <button onclick="navigator.clipboard.writeText('https://fitfinderapp.vercel.app/');this.textContent='Copied!'" class="bg-gray-700 text-white px-6 py-3 rounded-xl font-bold hover:bg-gray-800 transition">Copy Link</button>
-    </div>
-    <p class="text-xs text-gray-400 mt-2">Post to your Instagram/WhatsApp Story — friends tap the link and find their size too.</p>
-  </section>
-
-  <!-- ========== FOOTER ========== -->
-  <footer class="bg-gray-900 text-gray-400 py-12">
-    <div class="max-w-5xl mx-auto px-4">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-        <div>
-          <h3 class="text-white font-bold text-lg mb-3">👕 Fit Finder</h3>
-          <p class="text-sm">Measure once, get the right size every time — across every brand you shop.</p>
-        </div>
-        <div>
-          <h4 class="text-white font-semibold mb-3">Site</h4>
-          <ul class="space-y-2 text-sm">
-            <li><a href="#tool" class="hover:text-white transition">Find my size</a></li>
-            <li><a href="#guides" class="hover:text-white transition">Guides</a></li>
-            <li><a href="#trust" class="hover:text-white transition">Why trust us</a></li>
-            <li><a href="#advertise" class="hover:text-white transition">Advertise</a></li>
-            <li><a href="#feedback" class="hover:text-white transition">Feedback</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="text-white font-semibold mb-3">Legal</h4>
-          <ul class="space-y-2 text-sm">
-            <li><button onclick="openPanel('privacy')" class="hover:text-white transition">Privacy Policy</button></li>
-            <li><button onclick="openPanel('terms')" class="hover:text-white transition">Terms of Service</button></li>
-            <li><button onclick="openPanel('disclaimer')" class="hover:text-white transition">Disclaimer</button></li>
-            <li><button onclick="openPanel('about')" class="hover:text-white transition">About Fit Finder</button></li>
-            <li><a href="mailto:fitfinderclothes@gmail.com" class="hover:text-white transition">Contact Us</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="border-t border-gray-700 pt-6 text-center text-xs">
-        <p>Affiliate disclosure: Fit Finder may earn commissions from qualifying purchases. Recommendations are based on size-matching data, not commission rates.</p>
-        <p class="mt-2">Amazon Associates | Flipkart, Myntra & Ajio via Cuelinks</p>
-        <p class="mt-4 text-gray-500">© 2026 Fit Finder. Not affiliated with any brand listed above. Measure once, get the right size every time.</p>
-      </div>
-    </div>
-  </footer>
-
-  <!-- ========== LEGAL PANELS (Modals) ========== -->
-  <div id="legal-panel" class="fixed inset-0 z-[100] hidden">
-    <div class="panel-overlay absolute inset-0" onclick="closePanel()"></div>
-    <div class="relative max-w-2xl mx-auto mt-10 mb-10 bg-white rounded-2xl shadow-2xl p-8 max-h-[85vh] overflow-y-auto z-10">
-      <button onclick="closePanel()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl">&times;</button>
-      <div id="panel-content"></div>
+      <div class="vote-thanks" id="vote-thanks">✅ Thank you! Your vote has been recorded.</div>
     </div>
   </div>
+</section>
 
-  <!-- ========== COOKIE BANNER ========== -->
-  <div id="cookie-banner" class="fixed bottom-0 left-0 right-0 z-50 bg-gray-900 text-white p-4 shadow-2xl">
-    <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-      <p class="text-sm text-gray-300">We use analytics and advertising cookies to improve Fit Finder. See our <button onclick="openPanel('privacy')" class="underline text-yellow-300">Privacy Policy</button>.</p>
-      <div class="flex gap-3">
-        <button onclick="dismissCookie('essential')" class="px-4 py-2 bg-gray-700 rounded-lg text-sm font-semibold hover:bg-gray-600 transition">Essential only</button>
-        <button onclick="dismissCookie('all')" class="px-4 py-2 bg-yellow-400 text-gray-900 rounded-lg text-sm font-bold hover:bg-yellow-300 transition">Accept All</button>
+<!-- ===== AD SLOT ===== -->
+<div class="container">
+  <div class="ad-slot">Advertisement — 728×90 leaderboard slot</div>
+</div>
+
+<!-- ===== WHY SIZES DIFFER ===== -->
+<section>
+  <div class="container">
+    <h2 class="section-title">Why does the same size fit differently everywhere?</h2>
+    <p class="section-subtitle">It's not you — it's the industry. Here's what's actually going on behind every size label.</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <h3>🏷️ Vanity sizing is real</h3>
+        <p>Many brands quietly widen their size charts over the years so a "medium" feels more flattering. That's why a medium from one label can be a small — or a large — somewhere else.</p>
+      </div>
+      <div class="why-card">
+        <h3>✂️ Cut philosophy differs by brand</h3>
+        <p>A "fitted" brand and a "relaxed" brand can use the exact same size label for garments with several centimetres of difference in ease.</p>
+      </div>
+      <div class="why-card">
+        <h3>🧵 Fabric changes the fit</h3>
+        <p>Stretch fabrics forgive a size or two. Rigid fabrics don't. Two "medium" tops in different fabrics can sit completely differently.</p>
+      </div>
+      <div class="why-card">
+        <h3>🌍 Region changes the chart</h3>
+        <p>The same global brand often ships different size charts for different markets. A US-cut and an EU-cut of the "same" item are rarely identical.</p>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- ========== ALL JAVASCRIPT ========== -->
-  <script>
-  // ===== SIZE DATA =====
-  const sizeData = {
-    shirts: {
-      measure: 'Chest',
-      brands: {
-        'Zara':    { XS:[78,84], S:[84,90], M:[90,96], L:[96,102], XL:[102,108], XXL:[108,114] },
-        'H&M':     { XS:[80,86], S:[86,92], M:[92,98], L:[98,104], XL:[104,110], XXL:[110,116] },
-        'Uniqlo':  { XS:[79,85], S:[85,91], M:[91,97], L:[97,103], XL:[103,109], XXL:[109,115] },
-        "Levi's":  { XS:[80,86], S:[86,92], M:[92,98], L:[98,104], XL:[104,110], XXL:[110,116] },
-        'Allen Solly': { XS:[78,84], S:[84,90], M:[90,96], L:[96,102], XL:[102,108], XXL:[108,114] }
-      }
-    },
-    jeans: {
-      measure: 'Waist',
-      brands: {
-        "Levi's":  { 28:[70,74], 30:[74,78], 32:[78,82], 34:[82,86], 36:[86,90], 38:[90,94] },
-        'Wrangler':{ 28:[71,75], 30:[75,79], 32:[79,83], 34:[83,87], 36:[87,91], 38:[91,95] },
-        'Pepe Jeans':{ 28:[70,74], 30:[74,78], 32:[78,82], 34:[82,86], 36:[86,90], 38:[90,94] },
-        'H&M':     { 28:[72,76], 30:[76,80], 32:[80,84], 34:[84,88], 36:[88,92], 38:[92,96] },
-        'Uniqlo':  { 28:[71,75], 30:[75,79], 32:[79,83], 34:[83,87], 36:[87,91], 38:[91,95] }
-      }
-    },
-    tshirts: {
-      measure: 'Chest',
-      brands: {
-        'Zara':    { XS:[78,84], S:[84,90], M:[90,96], L:[96,102], XL:[102,108] },
-        'H&M':     { XS:[80,86], S:[86,92], M:[92,98], L:[98,104], XL:[104,110] },
-        'Uniqlo':  { XS:[79,85], S:[85,91], M:[91,97], L:[97,103], XL:[103,109] },
-        'Nike':    { XS:[78,84], S:[84,90], M:[90,97], L:[97,104], XL:[104,110] },
-        'Adidas':  { XS:[79,85], S:[85,91], M:[91,97], L:[97,103], XL:[103,109] }
-      }
-    },
-    hoodies: {
-      measure: 'Chest',
-      brands: {
-        'Nike':    { S:[86,92], M:[92,98], L:[98,106], XL:[106,112] },
-        'Adidas':  { S:[86,92], M:[92,98], L:[98,106], XL:[106,112] },
-        'H&M':     { S:[88,94], M:[94,100], L:[100,108], XL:[108,114] },
-        'Uniqlo':  { S:[86,92], M:[92,98], L:[98,106], XL:[106,112] },
-        'Puma':    { S:[86,92], M:[92,98], L:[98,106], XL:[106,112] }
-      }
-    },
-    dresses: {
-      measure: 'Bust',
-      brands: {
-        'Zara':    { XS:[76,82], S:[82,88], M:[88,94], L:[94,100], XL:[100,106] },
-        'H&M':     { XS:[78,84], S:[84,90], M:[90,96], L:[96,102], XL:[102,108] },
-        'Uniqlo':  { XS:[77,83], S:[83,89], M:[89,95], L:[95,101], XL:[101,107] },
-        'Mango':   { XS:[78,84], S:[84,90], M:[90,96], L:[96,102], XL:[102,108] }
-      }
-    },
-    trousers: {
-      measure: 'Waist',
-      brands: {
-        'Zara':    { S:[74,78], M:[78,82], L:[82,86], XL:[86,90] },
-        'H&M':     { S:[76,80], M:[80,84], L:[84,88], XL:[88,92] },
-        'Uniqlo':  { S:[75,79], M:[79,83], L:[83,87], XL:[87,91] }
-      }
-    },
-    shoes: {
-      measure: 'Foot Length',
-      brands: {
-        'Nike':    { 'US 6':[23,24], 'US 7':[24,25], 'US 8':[25,26], 'US 9':[26,27], 'US 10':[27,28], 'US 11':[28,29] },
-        'Adidas':  { 'US 6':[23.5,24.5], 'US 7':[24.5,25.5], 'US 8':[25.5,26.5], 'US 9':[26.5,27.5], 'US 10':[27.5,28.5], 'US 11':[28.5,29.5] },
-        'Puma':    { 'US 6':[23,24], 'US 7':[24,25], 'US 8':[25,26], 'US 9':[26,27], 'US 10':[27,28], 'US 11':[28,29] }
-      }
-    },
-    kurtis: {
-      measure: 'Bust',
-      brands: {
-        'Biba':    { S:[82,86], M:[86,92], L:[92,98], XL:[98,104], XXL:[104,110] },
-        'W for Woman': { S:[82,86], M:[86,92], L:[92,98], XL:[98,104], XXL:[104,110] },
-        'Libas':   { S:[82,86], M:[86,92], L:[92,98], XL:[98,104], XXL:[104,110] }
-      }
-    },
-    salwar: {
-      measure: 'Bust',
-      brands: {
-        'Biba':    { S:[82,86], M:[86,92], L:[92,98], XL:[98,104] },
-        'W for Woman': { S:[82,86], M:[86,92], L:[92,98], XL:[98,104] }
-      }
-    },
-    palazzo: {
-      measure: 'Waist',
-      brands: {
-        'H&M':     { S:[66,70], M:[70,76], L:[76,82], XL:[82,88] },
-        'Zara':    { S:[64,68], M:[68,74], L:[74,80], XL:[80,86] },
-        'Uniqlo':  { S:[65,69], M:[69,75], L:[75,81], XL:[81,87] }
-      }
+<!-- ===== AD SLOT ===== -->
+<div class="container">
+  <div class="ad-slot">Advertisement — In-feed native slot</div>
+</div>
+
+<!-- ===== BRAND COMPARISON TABLE ===== -->
+<section>
+  <div class="container">
+    <h2 class="section-title">Zara vs H&M vs Uniqlo: who runs small?</h2>
+    <p class="section-subtitle">A quick reference for the three brands people ask about most.</p>
+    <table class="brand-table">
+      <thead>
+        <tr><th>Brand</th><th>Typical cut</th><th>Sizing behaviour</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Zara</strong></td><td>Fitted</td><td style="color:#a16207;">Runs small — size up if between sizes</td></tr>
+        <tr><td><strong>H&M</strong></td><td>Relaxed</td><td style="color:#166534;">Runs large — true size usually works</td></tr>
+        <tr><td><strong>Uniqlo</strong></td><td>Standard</td><td style="color:#1e40af;">True to size — most consistent of the three</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ===== BLOG ===== -->
+<section id="blog">
+  <div class="container">
+    <h2 class="section-title">From the Fit Finder blog</h2>
+    <p class="section-subtitle">In-depth, brand-by-brand fit guides — so you can shop with confidence.</p>
+    <div class="blog-grid">
+      <a href="blog/nike-vs-puma-shoe-fit.html" class="blog-card">
+        <span class="blog-tag sneakers">Sneakers</span>
+        <h3>Nike vs Puma: Which Brand Has Better Shoe Fit?</h3>
+        <p>The same US size can feel completely different between the two. Here's how they actually compare.</p>
+        <span class="read-more">Read the full guide →</span>
+      </a>
+      <a href="blog/adidas-vs-nike-shoe-fit.html" class="blog-card">
+        <span class="blog-tag sneakers">Sneakers</span>
+        <h3>Adidas vs Nike: Which Brand Has Better Shoe Fit?</h3>
+        <p>"True to size" in one doesn't always carry over to the other.</p>
+        <span class="read-more">Read the full guide →</span>
+      </a>
+      <a href="blog/zara-vs-hm-clothing-fit.html" class="blog-card">
+        <span class="blog-tag clothing">Clothing</span>
+        <h3>Zara vs H&M: Which Brand Has Better Clothing Fit?</h3>
+        <p>A "Medium" from one rarely matches a "Medium" from the other.</p>
+        <span class="read-more">Read the full guide →</span>
+      </a>
+      <a href="blog/how-to-choose-right-size-online-shopping.html" class="blog-card">
+        <span class="blog-tag guide">Guide</span>
+        <h3>How to Choose the Right Size When Shopping Online</h3>
+        <p>No fitting room, no problem. Measure accurately and avoid returns.</p>
+        <span class="read-more">Read the full guide →</span>
+      </a>
+      <a href="blog/how-to-find-clothing-size-online.html" class="blog-card">
+        <span class="blog-tag guide">Guide</span>
+        <h3>How to Find Your Clothing Size Online</h3>
+        <p>Shopping from a US, UK, or EU store? Here's how those sizing systems convert.</p>
+        <span class="read-more">Read the full guide →</span>
+      </a>
+      <a href="blog/regular-vs-loose-vs-tight-fit.html" class="blog-card">
+        <span class="blog-tag guide">Guide</span>
+        <h3>Regular vs Loose vs Tight Fit: What's the Difference?</h3>
+        <p>Same size, different cut. Pick the right one for your body and style.</p>
+        <span class="read-more">Read the full guide →</span>
+      </a>
+      <a href="blog/cm-vs-inches-which-to-use.html" class="blog-card">
+        <span class="blog-tag guide">Guide</span>
+        <h3>CM vs Inches: Which Should You Use?</h3>
+        <p>Which unit is more precise for measuring yourself, and why do brand size charts use different ones?</p>
+        <span class="read-more">Read the full guide →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HELP CENTER ===== -->
+<section id="help-center" class="help-section">
+  <div class="container">
+    <h2 class="section-title">Fit Finder Help Center</h2>
+    <p class="section-subtitle">A simple user guide for finding clothing sizes, measuring correctly, saving profiles and understanding recommendations.</p>
+
+    <details class="help-item">
+      <summary>1. How Fit Finder Works <span class="chevron">▼</span></summary>
+      <div class="content">Fit Finder helps you find a suitable clothing size based on your body measurement, selected clothing category, brand sizing information and preferred fit. Size recommendations are estimates. Actual fit can vary by brand, product cut, fabric, size chart, region and individual body shape.</div>
+    </details>
+
+    <details class="help-item">
+      <summary>2. Getting Started <span class="chevron">▼</span></summary>
+      <div class="content">
+        <p>01 Select a category<br>02 Enter your measurement<br>03 Select CM or Inch<br>04 Select your fit preference<br>05 Click "Find my size"<br>06 View the recommended sizes</p>
+        <p style="margin-top:10px;"><strong>Example:</strong> For a shirt, if your chest is 92 cm and you prefer Regular fit, select Shirts, enter 92, keep CM selected, choose Regular and calculate your size.</p>
+      </div>
+    </details>
+
+    <details class="help-item">
+      <summary>3. How to Measure Your Body <span class="chevron">▼</span></summary>
+      <div class="content">
+        <p><strong>Chest / Bust</strong> — Measure around the fullest part, keeping the tape horizontal and comfortably snug.</p>
+        <p><strong>Waist</strong> — Measure around the narrowest part of your waist without pulling the tape tight.</p>
+        <p><strong>Hip</strong> — Measure around the fullest part of your hips with the tape level.</p>
+        <p><strong>Shoulder</strong> — Measure across the shoulder area, keeping the tape level.</p>
+        <p><strong>Foot length</strong> — Stand with your heel against a wall and measure from the heel to your longest toe. Measuring in the evening can be useful because feet may be slightly larger.</p>
+        <p style="margin-top:10px;">Keep the tape relaxed: not squeezing the body and not hanging loose.</p>
+      </div>
+    </details>
+
+    <details class="help-item">
+      <summary>4. CM & Inch Guide <span class="chevron">▼</span></summary>
+      <div class="content">
+        <p>Fit Finder supports both centimetres (cm) and inches (in). Select your preferred unit and enter your measurement in that unit.</p>
+        <table class="brand-table" style="margin-top:10px;">
+          <thead><tr><th>Centimetres</th><th>Approx. inches</th></tr></thead>
+          <tbody>
+            <tr><td>76 cm</td><td>29.9 in</td></tr>
+            <tr><td>80 cm</td><td>31.5 in</td></tr>
+            <tr><td>92 cm</td><td>36.2 in</td></tr>
+            <tr><td>100 cm</td><td>39.4 in</td></tr>
+            <tr><td>106 cm</td><td>41.7 in</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <details class="help-item">
+      <summary>5. Fit Preference Guide <span class="chevron">▼</span></summary>
+      <div class="content">
+        <p><strong>LOOSE</strong> — More relaxed and roomy. Useful if you prefer extra space.</p>
+        <p><strong>REGULAR</strong> — Balanced and comfortable for everyday wear.</p>
+        <p><strong>TIGHT</strong> — More fitted and closer to the body.</p>
+        <p style="margin-top:10px;">Your fit preference can influence the recommended size. It is a preference setting, not a guarantee of exact fit.</p>
+      </div>
+    </details>
+
+    <details class="help-item">
+      <summary>6. Size Calculator Guide <span class="chevron">▼</span></summary>
+      <div class="content">
+        <p><strong>Category → Measurement → Unit → Fit → Calculate → Recommended Size</strong></p>
+        <p style="margin-top:10px;">For example, the result may say "Recommended Size: M". This means M is the estimated match for the information you entered and the brand/category data used by the tool.</p>
+      </div>
+    </details>
+
+    <details class="help-item">
+      <summary>7. Full Body Profile <span class="chevron">▼</span></summary>
+      <div class="content">
+        <p>Save your measurements once in a profile, then select that profile later so Fit Finder can fill the relevant measurement automatically.</p>
+        <ul style="margin:10px 0 10px 20px;">
+          <li>Create a profile such as "My Profile".</li>
+          <li>Save the available body measurements.</li>
+          <li>Select the saved profile for another category.</li>
+          <li>Edit measurements whenever they change.</li>
+        </ul>
+        <p>Multiple profiles are supported, so you can keep separate profiles for family members.</p>
+      </div>
+    </details>
+
+    <details class="help-item">
+      <summary>8. Men's Clothing Categories <span class="chevron">▼</span></summary>
+      <div class="content">
+        <p>Shirts • Jeans • T-Shirts • Hoodies • Trousers • Shoes</p>
+        <p style="margin-top:10px;">Shirts, T-shirts and hoodies use chest; jeans and trousers use waist; shoes use foot length. Always check the product's official chart before buying.</p>
+      </div>
+    </details>
+
+    <details class="help-item">
+      <summary>9. Women's Clothing Categories <span class="chevron">▼</span></summary>
+      <div class="content">
+        <p>Dresses / Tops • Co-ord Sets • Kurtis • Salwar Suits • Palazzo / Pants</p>
+        <p style="margin-top:10px;">Dresses / Tops and the listed ethnic categories use bust for the calculator; Palazzo / Pants uses waist. Use the measurement guidance above and check the product chart before purchase.</p>
+      </div>
+    </details>
+
+    <details class="help-item">
+      <summary>10. Brand Sizing Guide <span class="chevron">▼</span></summary>
+      <div class="content">
+        <p>Different brands can use different size charts, cuts, fit philosophies, fabrics and regional standards. The same person may be recommended M by one brand and L by another.</p>
+        <p style="margin-top:10px;">Fit Finder is a comparison aid, not a replacement for the current official product size chart.</p>
+      </div>
+    </details>
+
+    <details class="help-item">
+      <summary>11. Shopping & Affiliate Links <span class="chevron">▼</span></summary>
+      <div class="content">
+        <p>Some Shop or product links may be affiliate links. If you purchase through certain links, Fit Finder may receive a commission at no additional cost to you.</p>
+        <p style="margin-top:10px;">Fit Finder's disclosure also states that recommendations are based on size-matching data, not commission rates.</p>
+      </div>
+    </details>
+
+    <details class="help-item">
+      <summary>12. Fit Finder PRO <span class="chevron">▼</span></summary>
+      <div class="content">
+        <p>There is currently no implemented Fit Finder PRO feature set in this version of the website, so this guide does not advertise advanced PRO features as available.</p>
+        <p style="margin-top:10px;">The basic size calculator remains free.</p>
+      </div>
+    </details>
+
+    <details class="help-item">
+      <summary>13. Referral Program <span class="chevron">▼</span></summary>
+      <div class="content">
+        <p>No referral system is currently implemented in this version, so no referral rewards or requirements are advertised here.</p>
+      </div>
+    </details>
+
+    <details class="help-item">
+      <summary>14. Privacy & Saved Measurements <span class="chevron">▼</span></summary>
+      <div class="content">
+        <p>Saved body profiles are stored in your browser's local storage. The current profile interface states that these measurements are not sent to a server. Feedback submissions are handled separately according to the site's Privacy Policy.</p>
+        <p style="margin-top:10px;"><a href="#" onclick="openModal('privacy');return false;">Privacy Policy</a> • <a href="#" onclick="openModal('terms');return false;">Terms & Conditions</a> • <a href="#" onclick="openModal('disclaimer');return false;">Disclaimer</a></p>
+      </div>
+    </details>
+
+    <details class="help-item">
+      <summary>15. Size Recommendation Disclaimer <span class="chevron">▼</span></summary>
+      <div class="content">
+        <p>Fit Finder provides size recommendations for guidance. Actual fit may vary depending on the brand, product design, fabric, cut, size chart and individual body shape.</p>
+      </div>
+    </details>
+
+    <details class="help-item">
+      <summary>16. Frequently Asked Questions <span class="chevron">▼</span></summary>
+      <div class="content">
+        <p><strong>How does Fit Finder calculate my size?</strong><br>It compares your entered measurement with the size bands used by the selected category and brands, then applies your fit preference.</p>
+        <p style="margin-top:10px;"><strong>How do I measure my chest?</strong><br>Measure around the fullest part of your chest, under the arms, keeping the tape horizontal and comfortably snug.</p>
+        <p style="margin-top:10px;"><strong>Should I enter measurements in cm or inches?</strong><br>Either is fine. Select cm or in and enter the measurement in that unit.</p>
+        <p style="margin-top:10px;"><strong>What is Loose, Regular and Tight fit?</strong><br>Loose is roomier, Regular is balanced, and Tight is closer to the body. The choice can influence the recommendation.</p>
+        <p style="margin-top:10px;"><strong>Can I save my measurements?</strong><br>Yes. Use Full Body Profile to save measurements locally in your browser.</p>
+        <p style="margin-top:10px;"><strong>Can I create profiles for family members?</strong><br>Yes. The site supports multiple saved profiles.</p>
+        <p style="margin-top:10px;"><strong>Why can my size differ between brands?</strong><br>Brand charts, cuts, fabrics, fit and regional standards can differ.</p>
+        <p style="margin-top:10px;"><strong>Is Fit Finder free?</strong><br>The basic size calculator is free.</p>
+        <p style="margin-top:10px;"><strong>Are Fit Finder recommendations 100% accurate?</strong><br>No. They are estimates for guidance and actual fit can vary.</p>
+        <p style="margin-top:10px;"><strong>What should I do if the recommended size doesn't fit?</strong><br>Check the retailer's current official size chart and product details, and use the site's feedback option to report the real-world fit.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ===== HOW IT WORKS ===== -->
+<section id="guides" class="how-section">
+  <div class="container">
+    <h2>How Fit Finder works</h2>
+    <p style="color:#c7d2fe;">No login, no app, no guessing — just your measurement compared against how each brand actually cuts its clothes.</p>
+    <div class="how-grid">
+      <div class="how-step">
+        <div class="num">01</div>
+        <h3>You measure once</h3>
+        <p>A single body measurement — chest, waist, bust, or foot length — using the guide below.</p>
+      </div>
+      <div class="how-step">
+        <div class="num">02</div>
+        <h3>We compare it to brand data</h3>
+        <p>Your number is checked against each brand's typical size bands to find where you land.</p>
+      </div>
+      <div class="how-step">
+        <div class="num">03</div>
+        <h3>You shop with confidence</h3>
+        <p>See your size across every brand at once, then jump straight to that brand's store.</p>
+      </div>
+    </div>
+    <p id="trust" style="color:#c7d2fe;font-size:13px;margin-top:30px;max-width:800px;margin-left:auto;margin-right:auto;">We're shopper-first, not brand-first. Our size charts are reviewed periodically against publicly available brand data — they're a strong estimate, not an official chart. Some "Shop" buttons above are affiliate links: if you buy through them, we may earn a small commission at no extra cost to you. This never changes which size or brand we recommend.</p>
+  </div>
+</section>
+
+<!-- ===== ADVERTISE ===== -->
+<section id="advertise">
+  <div class="container">
+    <div class="advertise-box">
+      <span class="launched">Just Launched</span>
+      <h2>Advertise with Fit Finder</h2>
+      <p>Reach shoppers at the exact moment they're deciding what size to buy — the highest-intent moment in the entire shopping journey.</p>
+      <div class="partner-tags">
+        <span class="partner-tag">🏷️ Featured brand slot</span>
+        <span class="partner-tag">📝 Sponsored guide</span>
+        <span class="partner-tag">📧 Newsletter placement</span>
+        <span class="partner-tag">📊 Display ad placement</span>
+      </div>
+      <p style="font-size:13px;"><strong>Best fit for:</strong> Clothing, footwear, and D2C fashion brands — especially ones wanting to reduce size-related returns.</p>
+      <a href="mailto:fitfinderclothes@gmail.com?subject=Advertising%20on%20Fit%20Finder" class="cta" style="display:inline-block;margin-top:16px;">Get in touch →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEEDBACK ===== -->
+<section id="feedback">
+  <div class="container">
+    <h2 class="section-title">Help us get more accurate</h2>
+    <p class="section-subtitle">Bought something using your Fit Finder size? Tell us how it fit — this is exactly what keeps the charts honest.</p>
+    <form class="feedback-form" onsubmit="submitFeedback(event)">
+      <input type="email" id="fb-email" placeholder="Email (optional)">
+      <textarea id="fb-text" placeholder="Your feedback" required></textarea>
+      <button type="submit" class="btn-primary" style="width:100%;">Send feedback</button>
+      <div class="feedback-thanks" id="fb-thanks">✅ Thanks — this helps us improve the charts.</div>
+    </form>
+  </div>
+</section>
+
+<!-- ===== AD SLOT ===== -->
+<div class="container">
+  <div class="ad-slot">Advertisement — 728×90 leaderboard slot</div>
+</div>
+
+<!-- ===== SHARE ===== -->
+<section class="share-section">
+  <h3>Share your size</h3>
+  <div class="share-btns">
+    <a href="https://wa.me/?text=Check%20your%20clothing%20size%20across%20all%20brands%20-%20https://fitfinderapp.vercel.app/" target="_blank" class="share-btn wa">WhatsApp</a>
+    <button class="share-btn copy" onclick="navigator.clipboard.writeText('https://fitfinderapp.vercel.app/');this.textContent='Copied!'">Copy Link</button>
+  </div>
+  <p style="font-size:12px;color:#9ca3af;margin-top:10px;">Post it to your Instagram/WhatsApp Story — friends tap the link and find their size too.</p>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <h4>👕 Fit Finder</h4>
+      <p style="font-size:14px;">Measure once, get the right size every time — across every brand you shop.</p>
+    </div>
+    <div>
+      <h4>Site</h4>
+      <ul>
+        <li><a href="#tool">Find my size</a></li>
+        <li><a href="#guides">Guides</a></li>
+        <li><a href="#trust">Why trust us</a></li>
+        <li><a href="#advertise">Advertise</a></li>
+        <li><a href="#feedback">Feedback</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="#" onclick="openModal('privacy');return false;">Privacy policy</a></li>
+        <li><a href="#" onclick="openModal('terms');return false;">Terms of service</a></li>
+        <li><a href="#" onclick="openModal('disclaimer');return false;">Disclaimer</a></li>
+        <li><a href="#" onclick="openModal('about');return false;">About Fit Finder</a></li>
+        <li><a href="mailto:fitfinderclothes@gmail.com">Contact us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p><strong>Affiliate disclosure:</strong> Fit Finder may earn commissions from qualifying purchases made through some outbound shopping links. Recommendations are based on the size-matching data, not commission rates.</p>
+    <p><strong>Amazon Associates:</strong> As an Amazon Associate I earn from qualifying purchases.</p>
+    <p><strong>Flipkart, Myntra & Ajio:</strong> Fit Finder participates in affiliate programs for Flipkart, Myntra, and Ajio (via the Cuelinks affiliate network).</p>
+    <p style="margin-top:14px;">© <span id="year"></span> Fit Finder. Not affiliated with any brand listed above. Measure once, get the right size every time.</p>
+  </div>
+</footer>
+
+<!-- ===== LEGAL MODALS ===== -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal()"></div>
+<div class="modal" id="modalBox">
+  <button class="modal-close" onclick="closeModal()">&times;</button>
+  <div id="modalContent"></div>
+</div>
+
+<!-- ===== PROFILE MODAL ===== -->
+<div class="profile-modal" id="profileModal">
+  <div class="profile-modal-inner">
+    <h3>Create a body profile</h3>
+    <p style="font-size:14px;color:#6b7280;margin:10px 0 16px;">Save your full measurements once. You can create separate profiles for family members too.</p>
+    <div style="margin-bottom:10px;">
+      <label style="font-size:13px;font-weight:600;">Profile name</label>
+      <input type="text" id="profile-name" placeholder="e.g. My Profile" style="width:100%;padding:10px;border:1px solid #d1d5db;border-radius:8px;margin-top:4px;">
+    </div>
+    <div class="profile-grid">
+      <div><label>Chest / Bust (cm)</label><input type="number" id="prof-chest" placeholder="92"></div>
+      <div><label>Waist (cm)</label><input type="number" id="prof-waist" placeholder="80"></div>
+      <div><label>Hip (cm)</label><input type="number" id="prof-hip" placeholder="96"></div>
+      <div><label>Shoulder (cm)</label><input type="number" id="prof-shoulder" placeholder="44"></div>
+      <div><label>Foot length (cm)</label><input type="number" id="prof-foot" placeholder="26"></div>
+    </div>
+    <p class="privacy-note">🔒 Profiles stay in your browser's local storage. Fit Finder does not send these measurements to a server.</p>
+    <div class="profile-actions">
+      <button class="btn-secondary" onclick="closeProfileModal()">Close</button>
+      <button class="btn-secondary" onclick="deleteProfile()" style="background:#fee2e2;color:#991b1b;">Delete profile</button>
+      <button class="btn-primary" onclick="saveProfile()">Save profile</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== COOKIE BANNER ===== -->
+<div class="cookie-banner" id="cookieBanner">
+  <p>We use analytics and, if enabled, advertising cookies to understand site usage and improve Fit Finder. See our <a href="#" onclick="openModal('privacy');return false;" style="color:#fde047;">Privacy Policy</a>.</p>
+  <div style="display:flex;gap:8px;">
+    <button class="cookie-btn-essential" onclick="dismissCookie('essential')">Essential only</button>
+    <button class="cookie-btn-accept" onclick="dismissCookie('all')">Accept</button>
+  </div>
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+// ===== SIZE DATA =====
+const sizeData = {
+  shirts: {
+    measure: 'Chest',
+    brands: {
+      'Zara':    { XS:[78,84], S:[84,90], M:[90,96], L:[96,102], XL:[102,108], XXL:[108,114] },
+      'H&M':     { XS:[80,86], S:[86,92], M:[92,98], L:[98,104], XL:[104,110], XXL:[110,116] },
+      'Uniqlo':  { XS:[79,85], S:[85,91], M:[91,97], L:[97,103], XL:[103,109], XXL:[109,115] },
+      "Levi's":  { XS:[80,86], S:[86,92], M:[92,98], L:[98,104], XL:[104,110], XXL:[110,116] },
+      'Allen Solly': { XS:[78,84], S:[84,90], M:[90,96], L:[96,102], XL:[102,108], XXL:[108,114] }
     }
+  },
+  jeans: {
+    measure: 'Waist',
+    brands: {
+      "Levi's":  { 28:[70,74], 30:[74,78], 32:[78,82], 34:[82,86], 36:[86,90], 38:[90,94] },
+      'Wrangler':{ 28:[71,75], 30:[75,79], 32:[79,83], 34:[83,87], 36:[87,91], 38:[91,95] },
+      'Pepe Jeans':{ 28:[70,74], 30:[74,78], 32:[78,82], 34:[82,86], 36:[86,90], 38:[90,94] },
+      'H&M':     { 28:[72,76], 30:[76,80], 32:[80,84], 34:[84,88], 36:[88,92], 38:[92,96] },
+      'Uniqlo':  { 28:[71,75], 30:[75,79], 32:[79,83], 34:[83,87], 36:[87,91], 38:[91,95] }
+    }
+  },
+  tshirts: {
+    measure: 'Chest',
+    brands: {
+      'Zara':    { XS:[78,84], S:[84,90], M:[90,96], L:[96,102], XL:[102,108] },
+      'H&M':     { XS:[80,86], S:[86,92], M:[92,98], L:[98,104], XL:[104,110] },
+      'Uniqlo':  { XS:[79,85], S:[85,91], M:[91,97], L:[97,103], XL:[103,109] },
+      'Nike':    { XS:[78,84], S:[84,90], M:[90,97], L:[97,104], XL:[104,110] },
+      'Adidas':  { XS:[79,85], S:[85,91], M:[91,97], L:[97,103], XL:[103,109] }
+    }
+  },
+  hoodies: {
+    measure: 'Chest',
+    brands: {
+      'Nike':    { S:[86,92], M:[92,98], L:[98,106], XL:[106,112] },
+      'Adidas':  { S:[86,92], M:[92,98], L:[98,106], XL:[106,112] },
+      'H&M':     { S:[88,94], M:[94,100], L:[100,108], XL:[108,114] },
+      'Uniqlo':  { S:[86,92], M:[92,98], L:[98,106], XL:[106,112] },
+      'Puma':    { S:[86,92], M:[92,98], L:[98,106], XL:[106,112] }
+    }
+  },
+  dresses: {
+    measure: 'Bust',
+    brands: {
+      'Zara':    { XS:[76,82], S:[82,88], M:[88,94], L:[94,100], XL:[100,106] },
+      'H&M':     { XS:[78,84], S:[84,90], M:[90,96], L:[96,102], XL:[102,108] },
+      'Uniqlo':  { XS:[77,83], S:[83,89], M:[89,95], L:[95,101], XL:[101,107] },
+      'Mango':   { XS:[78,84], S:[84,90], M:[90,96], L:[96,102], XL:[102,108] }
+    }
+  },
+  trousers: {
+    measure: 'Waist',
+    brands: {
+      'Zara':    { S:[74,78], M:[78,82], L:[82,86], XL:[86,90] },
+      'H&M':     { S:[76,80], M:[80,84], L:[84,88], XL:[88,92] },
+      'Uniqlo':  { S:[75,79], M:[79,83], L:[83,87], XL:[87,91] }
+    }
+  },
+  shoes: {
+    measure: 'Foot Length',
+    brands: {
+      'Nike':    { 'US 6':[23,24], 'US 7':[24,25], 'US 8':[25,26], 'US 9':[26,27], 'US 10':[27,28], 'US 11':[28,29] },
+      'Adidas':  { 'US 6':[23.5,24.5], 'US 7':[24.5,25.5], 'US 8':[25.5,26.5], 'US 9':[26.5,27.5], 'US 10':[27.5,28.5], 'US 11':[28.5,29.5] },
+      'Puma':    { 'US 6':[23,24], 'US 7':[24,25], 'US 8':[25,26], 'US 9':[26,27], 'US 10':[27,28], 'US 11':[28,29] }
+    }
+  },
+  kurtis: {
+    measure: 'Bust',
+    brands: {
+      'Biba':    { S:[82,86], M:[86,92], L:[92,98], XL:[98,104], XXL:[104,110] },
+      'W for Woman': { S:[82,86], M:[86,92], L:[92,98], XL:[98,104], XXL:[104,110] },
+      'Libas':   { S:[82,86], M:[86,92], L:[92,98], XL:[98,104], XXL:[104,110] }
+    }
+  },
+  salwar: {
+    measure: 'Bust',
+    brands: {
+      'Biba':    { S:[82,86], M:[86,92], L:[92,98], XL:[98,104] },
+      'W for Woman': { S:[82,86], M:[86,92], L:[92,98], XL:[98,104] }
+    }
+  },
+  palazzo: {
+    measure: 'Waist',
+    brands: {
+      'H&M':     { S:[66,70], M:[70,76], L:[76,82], XL:[82,88] },
+      'Zara':    { S:[64,68], M:[68,74], L:[74,80], XL:[80,86] },
+      'Uniqlo':  { S:[65,69], M:[69,75], L:[75,81], XL:[81,87] }
+    }
+  }
+};
+
+let currentCategory = 'shirts';
+let currentFit = 'regular';
+
+function selectCategory(cat) {
+  currentCategory = cat;
+  document.querySelectorAll('.cat-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.cat === cat);
+  });
+}
+
+function selectFit(fit) {
+  currentFit = fit;
+  document.querySelectorAll('.fit-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.fit === fit);
+  });
+}
+
+function findMySize() {
+  let val = parseFloat(document.getElementById('measurement-input').value);
+  const unit = document.getElementById('unit-select').value;
+  if (unit === 'in') val = val * 2.54;
+  if (!val || val <= 0) { alert('Please enter a valid measurement'); return; }
+
+  const data = sizeData[currentCategory];
+  if (!data) return;
+
+  let html = '<h3 style="margin-bottom:14px;">Based on your ' + data.measure + ' measurement (' + Math.round(val) + ' cm)</h3>';
+  html += '<div class="result-grid">';
+
+  for (const [brand, sizes] of Object.entries(data.brands)) {
+    let matched = '—';
+    let closest = Infinity;
+    for (const [size, [min, max]] of Object.entries(sizes)) {
+      let adjMin = min, adjMax = max;
+      if (currentFit === 'loose') { adjMin -= 3; adjMax -= 3; }
+      if (currentFit === 'tight') { adjMin += 3; adjMax += 3; }
+      if (val >= adjMin && val <= adjMax) { matched = size; break; }
+      const mid = (adjMin + adjMax) / 2;
+      if (Math.abs(val - mid) < closest) { closest = Math.abs(val - mid); matched = size; }
+    }
+    html += '<div class="result-card"><span class="brand">' + brand + '</span><span class="size">' + matched + '</span></div>';
+  }
+
+  html += '</div>';
+  html += '<p class="disclaimer">These charts are approximate, based on typical brand sizing — always check the brand\'s official size chart before you buy. Some links may be affiliate links. We may earn a commission at no extra cost to you — see our <a href="#trust">trust section</a> and affiliate disclosure below.</p>';
+  document.getElementById('results-area').innerHTML = html;
+}
+
+// ===== SIZE ESTIMATOR =====
+function calculateEstimate() {
+  const h = parseFloat(document.getElementById('est-height').value);
+  const w = parseFloat(document.getElementById('est-weight').value);
+  const bt = document.getElementById('est-bodytype').value;
+  const errDiv = document.getElementById('est-error');
+  const resDiv = document.getElementById('est-result');
+  errDiv.classList.remove('show');
+  resDiv.classList.remove('show');
+
+  if (!h || !w) { errDiv.textContent = '⚠️ Please enter both Height and Weight'; errDiv.classList.add('show'); return; }
+  if (h < 100 || h > 250) { errDiv.textContent = '⚠️ Height should be between 100-250 cm'; errDiv.classList.add('show'); return; }
+  if (w < 30 || w > 200) { errDiv.textContent = '⚠️ Weight should be between 30-200 kg'; errDiv.classList.add('show'); return; }
+
+  let chest, waist;
+  if (bt === 'slim') { chest = w * 0.9 + 40; waist = w * 0.4 + 20; }
+  else if (bt === 'athletic') { chest = w * 1.1 + 50; waist = w * 0.42 + 30; }
+  else { chest = w * 1.0 + 45; waist = w * 0.45 + 25; }
+
+  document.getElementById('est-chest').textContent = Math.round(chest);
+  document.getElementById('est-waist').textContent = Math.round(waist);
+  window._est = { chest: Math.round(chest), waist: Math.round(waist) };
+  resDiv.classList.add('show');
+}
+
+function useEstimateInTool() {
+  if (!window._est) return;
+  document.getElementById('measurement-input').value = window._est.chest;
+  document.getElementById('tool').scrollIntoView({ behavior: 'smooth' });
+}
+
+// ===== PROFILE =====
+function openProfileModal() { document.getElementById('profileModal').classList.add('open'); }
+function closeProfileModal() { document.getElementById('profileModal').classList.remove('open'); }
+
+function saveProfile() {
+  const name = document.getElementById('profile-name').value || 'My Profile';
+  const data = {
+    chest: document.getElementById('prof-chest').value,
+    waist: document.getElementById('prof-waist').value,
+    hip: document.getElementById('prof-hip').value,
+    shoulder: document.getElementById('prof-shoulder').value,
+    foot: document.getElementById('prof-foot').value
   };
+  const profiles = JSON.parse(localStorage.getItem('ff_profiles') || '{}');
+  profiles[name] = data;
+  localStorage.setItem('ff_profiles', JSON.stringify(profiles));
+  alert('✅ Profile "' + name + '" saved!');
+  closeProfileModal();
+}
 
-  // ===== STATE =====
-  let currentCategory = 'shirts';
-  let currentFit = 'regular';
-
-  // ===== CATEGORY SELECTION =====
-  function selectCategory(cat) {
-    currentCategory = cat;
-    document.querySelectorAll('.cat-btn').forEach(b => {
-      if (b.dataset.cat === cat) {
-        b.className = 'cat-btn px-4 py-2 rounded-full border-2 border-brand-500 bg-brand-50 text-brand-700 font-semibold text-sm transition';
-      } else {
-        b.className = 'cat-btn px-4 py-2 rounded-full border-2 border-gray-200 text-gray-600 font-semibold text-sm transition hover:border-brand-400';
-      }
-    });
-  }
-
-  // ===== FIT SELECTION =====
-  function selectFit(fit) {
-    currentFit = fit;
-    document.querySelectorAll('.fit-btn').forEach(b => {
-      if (b.dataset.fit === fit) {
-        b.className = 'fit-btn flex-1 py-3 rounded-lg border-2 border-brand-500 bg-brand-50 text-brand-700 text-sm font-semibold transition';
-      } else {
-        b.className = 'fit-btn flex-1 py-3 rounded-lg border-2 border-gray-200 text-sm font-semibold hover:border-brand-400 transition';
-      }
-    });
-  }
-
-  // ===== FIND SIZE =====
-  function findMySize() {
-    let val = parseFloat(document.getElementById('measurement-input').value);
-    const unit = document.getElementById('unit-select').value;
-    if (unit === 'in') val = val * 2.54;
-    if (!val || val <= 0) { alert('Please enter a valid measurement'); return; }
-
-    const data = sizeData[currentCategory];
-    if (!data) return;
-
-    let html = `<div class="fade-in"><h3 class="font-bold text-lg text-gray-800 mb-4">Based on your ${data.measure} measurement (${Math.round(val)} cm)</h3>`;
-    html += `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">`;
-
-    for (const [brand, sizes] of Object.entries(data.brands)) {
-      let matched = '—';
-      let closest = Infinity;
-      for (const [size, [min, max]] of Object.entries(sizes)) {
-        let adjMin = min, adjMax = max;
-        if (currentFit === 'loose') { adjMin -= 3; adjMax -= 3; }
-        if (currentFit === 'tight') { adjMin += 3; adjMax += 3; }
-        if (val >= adjMin && val <= adjMax) { matched = size; break; }
-        const mid = (adjMin + adjMax) / 2;
-        if (Math.abs(val - mid) < closest) { closest = Math.abs(val - mid); matched = size; }
-      }
-      html += `<div class="bg-gray-50 border border-gray-200 rounded-xl p-4 flex items-center justify-between">
-        <span class="font-bold text-gray-800">${brand}</span>
-        <span class="bg-brand-100 text-brand-800 font-extrabold px-4 py-1.5 rounded-lg text-lg">${matched}</span>
-      </div>`;
-    }
-
-    html += `</div><p class="text-xs text-gray-400 mt-4">These are approximate. Always check the brand's official size chart before buying.</p></div>`;
-    document.getElementById('results-area').innerHTML = html;
-  }
-
-  // ===== SIZE ESTIMATOR =====
-  function calculateEstimate() {
-    const h = parseFloat(document.getElementById('est-height').value);
-    const w = parseFloat(document.getElementById('est-weight').value);
-    const bt = document.getElementById('est-bodytype').value;
-    const errDiv = document.getElementById('est-error');
-    const resDiv = document.getElementById('est-result');
-    errDiv.classList.add('hidden'); resDiv.classList.add('hidden');
-
-    if (!h || !w) { errDiv.textContent = '⚠️ कृपया Height और Weight दोनों डालें'; errDiv.classList.remove('hidden'); return; }
-    if (h < 100 || h > 250) { errDiv.textContent = '⚠️ Height 100-250 cm होनी चाहिए'; errDiv.classList.remove('hidden'); return; }
-    if (w < 30 || w > 200) { errDiv.textContent = '⚠️ Weight 30-200 kg होना चाहिए'; errDiv.classList.remove('hidden'); return; }
-
-    let chest, waist;
-    if (bt === 'slim') { chest = w * 0.9 + 40; waist = w * 0.4 + 20; }
-    else if (bt === 'athletic') { chest = w * 1.1 + 50; waist = w * 0.42 + 30; }
-    else { chest = w * 1.0 + 45; waist = w * 0.45 + 25; }
-
-    document.getElementById('est-chest').textContent = Math.round(chest);
-    document.getElementById('est-waist').textContent = Math.round(waist);
-    window._est = { chest: Math.round(chest), waist: Math.round(waist) };
-    resDiv.classList.remove('hidden');
-  }
-
-  function useEstimateInTool() {
-    if (!window._est) return;
-    document.getElementById('measurement-input').value = window._est.chest;
-    document.getElementById('tool').scrollIntoView({ behavior: 'smooth' });
-  }
-
-  // ===== PROFILE =====
-  function saveProfile() {
-    const name = document.getElementById('profile-name').value || 'My Profile';
-    const data = {
-      chest: document.getElementById('prof-chest').value,
-      waist: document.getElementById('prof-waist').value,
-      hip: document.getElementById('prof-hip').value,
-      shoulder: document.getElementById('prof-shoulder').value,
-      foot: document.getElementById('prof-foot').value
-    };
-    const profiles = JSON.parse(localStorage.getItem('ff_profiles') || '{}');
-    profiles[name] = data;
+function deleteProfile() {
+  const name = document.getElementById('profile-name').value;
+  if (!name) { alert('Enter profile name to delete'); return; }
+  const profiles = JSON.parse(localStorage.getItem('ff_profiles') || '{}');
+  if (profiles[name]) {
+    delete profiles[name];
     localStorage.setItem('ff_profiles', JSON.stringify(profiles));
-    alert('✅ Profile "' + name + '" saved!');
+    alert('Profile deleted');
+  } else {
+    alert('Profile not found');
   }
+}
 
-  function loadProfile() {
-    const profiles = JSON.parse(localStorage.getItem('ff_profiles') || '{}');
-    const names = Object.keys(profiles);
-    if (names.length === 0) { alert('No saved profiles found.'); return; }
-    const name = prompt('Available profiles:\n' + names.join(', ') + '\n\nType profile name:');
-    if (!name || !profiles[name]) return;
-    const d = profiles[name];
-    document.getElementById('profile-name').value = name;
-    document.getElementById('prof-chest').value = d.chest || '';
-    document.getElementById('prof-waist').value = d.waist || '';
-    document.getElementById('prof-hip').value = d.hip || '';
-    document.getElementById('prof-shoulder').value = d.shoulder || '';
-    document.getElementById('prof-foot').value = d.foot || '';
-  }
-
-  // ===== DATA BACKUP =====
-  function exportBackup() {
-    const data = {
-      profiles: JSON.parse(localStorage.getItem('ff_profiles') || '{}'),
-      votes: JSON.parse(localStorage.getItem('ff_votes') || '{}'),
-      exportDate: new Date().toISOString(),
-      version: '2.0'
-    };
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'fitfinder_backup_' + Date.now() + '.json';
-    a.click();
-  }
-
-  function importBackup(e) {
-    const file = e.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = function(ev) {
-      try {
-        const data = JSON.parse(ev.target.result);
-        if (data.profiles) localStorage.setItem('ff_profiles', JSON.stringify(data.profiles));
-        if (data.votes) localStorage.setItem('ff_votes', JSON.stringify(data.votes));
-        alert('✅ Backup imported! Refreshing page...');
-        location.reload();
-      } catch { alert('❌ Invalid backup file!'); }
-    };
-    reader.readAsText(file);
-  }
-
-  // ===== COMMUNITY VOTE =====
-  let votes = JSON.parse(localStorage.getItem('ff_votes') || '{"small":12,"true":65,"large":23}');
-
-  function updateVoteUI() {
-    const total = votes.small + votes.true + votes.large;
-    const tp = Math.round(votes.true / total * 100);
-    const sp = Math.round(votes.small / total * 100);
-    const lp = Math.round(votes.large / total * 100);
-    document.getElementById('total-votes').textContent = total;
-    document.getElementById('true-pct').textContent = tp + '%';
-    document.getElementById('small-pct').textContent = sp + '%';
-    document.getElementById('large-pct').textContent = lp + '%';
-    document.getElementById('true-bar').style.width = tp + '%';
-    document.getElementById('small-bar').style.width = sp + '%';
-    document.getElementById('large-bar').style.width = lp + '%';
-  }
-
-  function castVote(type) {
-    votes[type]++;
-    localStorage.setItem('ff_votes', JSON.stringify(votes));
-    document.getElementById('vote-area').classList.add('hidden');
-    document.getElementById('vote-thanks').classList.remove('hidden');
-    updateVoteUI();
-  }
-  updateVoteUI();
-
-  // ===== FEEDBACK =====
-  function submitFeedback(e) {
-    e.preventDefault();
-    document.getElementById('fb-thanks').classList.remove('hidden');
-    e.target.reset();
-  }
-
-  // ===== LEGAL PANELS =====
-  const legalContent = {
-    privacy: `<h2 class="text-2xl font-bold mb-4">Privacy Policy</h2><p class="text-sm text-gray-600 mb-3">Last updated: August 22, 2026.</p><p class="text-sm text-gray-700 mb-3">Fit Finder processes information you choose to enter into the size calculator. Optional saved body profiles are stored locally in your browser. If you send feedback, we may receive the message and any optional email address.</p><p class="text-sm text-gray-700 mb-3">Fit Finder does not sell personal information. We may use essential browser storage and analytics technologies to operate and improve the site.</p><p class="text-sm text-gray-700">Contact: <a href="mailto:fitfinderclothes@gmail.com" class="text-brand-600 underline">fitfinderclothes@gmail.com</a></p>`,
-    terms: `<h2 class="text-2xl font-bold mb-4">Terms of Service</h2><p class="text-sm text-gray-600 mb-3">Last updated: August 22, 2026.</p><p class="text-sm text-gray-700 mb-3">Fit Finder provides approximate size estimates for informational purposes. Brand charts, cuts, fabric, and individual fit can differ. Always confirm the current official size chart before purchasing.</p><p class="text-sm text-gray-700">Fit Finder does not guarantee fit and is not responsible for returns, exchanges, or losses from reliance on an estimate.</p>`,
-    disclaimer: `<h2 class="text-2xl font-bold mb-4">Disclaimer</h2><p class="text-sm text-gray-700 mb-3">Fit Finder size recommendations are estimates, not official brand size charts. Results can vary by brand, product cut, fabric, region, and individual body shape.</p><p class="text-sm text-gray-700">Fit Finder may earn commissions from affiliate links. Affiliate relationships do not determine the size recommendation.</p>`,
-    about: `<h2 class="text-2xl font-bold mb-4">About Fit Finder</h2><p class="text-sm text-gray-700 mb-3">Fit Finder is a shopper-first size comparison tool designed to make online clothing purchases easier when different brands use different sizing systems.</p><p class="text-sm text-gray-700">The recommendations are estimates based on publicly available sizing information. Fit Finder is independent and not affiliated with any brand listed on the site.</p>`
+// ===== DATA BACKUP =====
+function exportBackup() {
+  const data = {
+    profiles: JSON.parse(localStorage.getItem('ff_profiles') || '{}'),
+    votes: JSON.parse(localStorage.getItem('ff_votes') || '{}'),
+    exportDate: new Date().toISOString(),
+    version: '2.0'
   };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'fitfinder_backup_' + Date.now() + '.json';
+  a.click();
+}
 
-  function openPanel(key) {
-    document.getElementById('panel-content').innerHTML = legalContent[key] || '';
-    document.getElementById('legal-panel').classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-  }
-  function closePanel() {
-    document.getElementById('legal-panel').classList.add('hidden');
-    document.body.style.overflow = '';
-  }
+function importBackup(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(ev) {
+    try {
+      const data = JSON.parse(ev.target.result);
+      if (data.profiles) localStorage.setItem('ff_profiles', JSON.stringify(data.profiles));
+      if (data.votes) localStorage.setItem('ff_votes', JSON.stringify(data.votes));
+      alert('✅ Backup imported! Refreshing page...');
+      location.reload();
+    } catch { alert('❌ Invalid backup file!'); }
+  };
+  reader.readAsText(file);
+}
 
-  // ===== COOKIE BANNER =====
-  function dismissCookie(choice) {
-    localStorage.setItem('ff_cookies', choice);
-    document.getElementById('cookie-banner').classList.add('hidden');
-  }
-  if (localStorage.getItem('ff_cookies')) {
-    document.getElementById('cookie-banner').classList.add('hidden');
-  }
-  </script>
+// ===== COMMUNITY VOTE =====
+let votes = JSON.parse(localStorage.getItem('ff_votes') || '{"small":12,"true":65,"large":23}');
+
+function updateVoteUI() {
+  const total = votes.small + votes.true + votes.large;
+  const tp = Math.round(votes.true / total * 100);
+  const sp = Math.round(votes.small / total * 100);
+  const lp = Math.round(votes.large / total * 100);
+  document.getElementById('total-votes').textContent = total;
+  document.getElementById('true-pct').textContent = tp + '%';
+  document.getElementById('small-pct').textContent = sp + '%';
+  document.getElementById('large-pct').textContent = lp + '%';
+  document.getElementById('true-bar').style.width = tp + '%';
+  document.getElementById('small-bar').style.width = sp + '%';
+  document.getElementById('large-bar').style.width = lp + '%';
+}
+
+function castVote(type) {
+  votes[type]++;
+  localStorage.setItem('ff_votes', JSON.stringify(votes));
+  document.getElementById('vote-area').style.display = 'none';
+  document.getElementById('vote-thanks').style.display = 'block';
+  updateVoteUI();
+}
+updateVoteUI();
+
+// ===== FEEDBACK =====
+function submitFeedback(e) {
+  e.preventDefault();
+  document.getElementById('fb-thanks').style.display = 'block';
+  e.target.reset();
+}
+
+// ===== LEGAL MODALS =====
+const legalContent = {
+  privacy: '<h2>Privacy Policy</h2><p>Last updated: August 22, 2026.</p><p>Fit Finder processes information you choose to enter into the size calculator, including measurements used to produce size estimates. Optional saved body profiles are stored locally in your browser. If you send feedback, we may receive the message and any optional email address you provide so we can respond and improve the service.</p><p>Fit Finder does not sell personal information. We may use essential browser storage and, if enabled in the future, analytics or advertising technologies to operate, measure, and improve the site.</p><p>When Google advertising is enabled, Google and its partners may use advertising cookies to serve ads based on a user\'s prior visits. Users can control personalized advertising through <a href="https://adssettings.google.com/">Google Ads Settings</a>.</p><p>Contact: <a href="mailto:fitfinderclothes@gmail.com">fitfinderclothes@gmail.com</a></p>',
+  terms: '<h2>Terms of Service</h2><p>Last updated: August 22, 2026.</p><p>Fit Finder provides approximate size estimates for informational and shopping-assistance purposes. Brand charts, cuts, product construction, region, fabric, and individual fit can differ. Always confirm the current official size chart and product details before purchasing.</p><p>Fit Finder does not guarantee that a recommended size will fit, and is not responsible for returns, exchanges, purchases, shipping, product quality, or losses resulting from reliance on an estimate.</p><p>Some outbound shopping links may be affiliate links and may generate a commission at no extra cost to you. Recommendations are based on the size-matching information used by Fit Finder and are not changed by commission rates.</p>',
+  disclaimer: '<h2>Disclaimer</h2><p>Fit Finder size recommendations are estimates, not official brand size charts. Results can vary by brand, product cut, fabric, region, construction, measurement method, and individual body shape or fit preference.</p><p>Fit Finder does not guarantee fit and does not provide medical, legal, financial, or professional advice. Use the tool as a shopping aid and make your final purchasing decision using the retailer\'s current information.</p><p>Fit Finder may earn commissions from qualifying purchases made through some outbound shopping links. Affiliate relationships do not determine the size recommendation.</p>',
+  about: '<h2>About Fit Finder</h2><p>Fit Finder is a shopper-first size comparison tool designed to make online clothing purchases easier when different brands use different sizing systems. Enter a measurement once and Fit Finder compares it with the size bands used by the brands covered by the tool.</p><p>The recommendations are estimates based on publicly available sizing information and the data used by the tool. Fit Finder is independent and is not affiliated with the brands listed on the site.</p><p>Contact: <a href="mailto:fitfinderclothes@gmail.com">fitfinderclothes@gmail.com</a></p>'
+};
+
+function openModal(key) {
+  document.getElementById('modalContent').innerHTML = legalContent[key] || '';
+  document.getElementById('modalBox').classList.add('open');
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('modalBox').classList.remove('open');
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ===== COOKIE BANNER =====
+function dismissCookie(choice) {
+  localStorage.setItem('ff_cookies', choice);
+  document.getElementById('cookieBanner').classList.add('hidden');
+}
+if (localStorage.getItem('ff_cookies')) {
+  document.getElementById('cookieBanner').classList.add('hidden');
+}
+
+// ===== YEAR =====
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
 
 </body>
 </html>
