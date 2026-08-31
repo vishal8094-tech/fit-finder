@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>(function(){try{var t=localStorage.getItem("ff-theme");if(t==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
 <meta name="google-site-verification" content="__R_GaWT64rrJ4w2k0E_Cl5sfvAaXSwKQAlmSsMqRuM" />
 <meta name="p:domain_verify" content="bbeebfb505cc423cbd9da61689df2c9f"/>
 <meta charset="UTF-8" />
@@ -34,6 +35,7 @@
 <meta name="apple-mobile-web-app-title" content="Fit Finder">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,340;0,9..144,500;0,9..144,600;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://chatzy-kb-store.s3.amazonaws.com/icons/5ab07987-b5db-477c-82ff-1287e0883acb"/>
 <link rel="stylesheet" href="/css/site.css">
 
 <script type="application/ld+json" id="fit-finder-guide-faq-schema">
@@ -55,6 +57,7 @@
 }
 </script>
 
+<script src="https://chatzy-kb-store.s3.amazonaws.com/icons/56706cc4-b3ba-4eba-9610-f2fb07008a5c" id="0a2e4c5e-02cc-4599-9791-2278d0a1323f" class="chatzy_widget_script" defer></script>
 </head>
 <body>
 <div class="noise-overlay" aria-hidden="true"></div>
@@ -81,6 +84,52 @@
   </div>
 </nav>
 
+<!-- SIZE ESTIMATOR (height/weight based, no tape measure needed) -->
+<div class="wrap section" id="estimator" style="padding-bottom:0;">
+  <div class="estimator-card reveal">
+    <span class="estimator-badge">New feature</span>
+    <h2 class="sec-title display" style="font-size:28px;margin-top:14px;">No Measuring Tape? No Problem.</h2>
+    <p class="sec-sub" style="margin-top:6px;max-width:560px;">Enter your height and weight and we'll estimate your chest and waist measurement — a starting point when you can't measure directly. For the most accurate size, a real tape measurement is always better.</p>
+
+    <div class="estimator-grid">
+      <div class="profile-field">
+        <label for="est-height">Height <span class="profile-unit-text">(cm)</span></label>
+        <input id="est-height" type="number" min="100" max="250" step="1" placeholder="e.g. 170" />
+      </div>
+      <div class="profile-field">
+        <label for="est-weight">Weight <span class="profile-unit-text">(kg)</span></label>
+        <input id="est-weight" type="number" min="30" max="200" step="1" placeholder="e.g. 65" />
+      </div>
+      <div class="profile-field">
+        <label for="est-bodytype">Body type</label>
+        <select id="est-bodytype">
+          <option value="slim">Slim</option>
+          <option value="average" selected>Average</option>
+          <option value="athletic">Athletic</option>
+        </select>
+      </div>
+    </div>
+
+    <button type="button" class="btn btn-brass" id="est-calc-btn" style="margin-top:18px;">Get My Estimated Measurement</button>
+    <div id="est-error" class="estimator-error" style="display:none;"></div>
+
+    <div id="est-result" class="estimator-result" style="display:none;">
+      <div class="estimator-result-grid">
+        <div class="estimator-result-box">
+          <div class="estimator-result-label">Estimated Chest / Bust</div>
+          <div class="estimator-result-value"><span id="est-chest-value">—</span> <span class="estimator-result-unit">cm</span></div>
+        </div>
+        <div class="estimator-result-box">
+          <div class="estimator-result-label">Estimated Waist</div>
+          <div class="estimator-result-value"><span id="est-waist-value">—</span> <span class="estimator-result-unit">cm</span></div>
+        </div>
+      </div>
+      <p class="estimator-disclaimer">This is a rough estimate based on height, weight and body type — not a substitute for an actual measurement. Use it as a starting point, and switch to a real tape measurement when you can for the most accurate size.</p>
+      <button type="button" class="btn" id="est-use-btn" style="border:1px solid var(--stroke-strong);background:transparent;color:var(--text);">Use This in Size Tool</button>
+    </div>
+  </div>
+</div>
+
 <!-- HERO + TOOL -->
 <div class="wrap section hero-stage" id="tool" style="padding-bottom:0;">
   <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
@@ -90,6 +139,46 @@
   <div class="eyebrow" data-i18n="hero_eyebrow">One measurement, every brand's size</div>
   <h1 class="hero-title display" id="hero-title-el">Every brand sizes differently.<br />Your <em>fit</em> stays the same.</h1>
   <p class="hero-sub" data-i18n="hero_sub">Enter your measurement once — see your exact size across Zara, H&M, Uniqlo, Levi's, and more. No guessing, just numbers.</p>
+
+  <!-- SILENT WALKTHROUGH — autoplaying demo showing how the tool works, no sound needed -->
+  <div aria-hidden="true">
+    <div class="demo-steps" id="demo-steps">
+      <div class="demo-step active" data-step="0"><span class="demo-step-num">1</span><span class="demo-step-text">Pick a category</span></div>
+      <div class="demo-step" data-step="1"><span class="demo-step-num">2</span><span class="demo-step-text">Enter one measurement</span></div>
+      <div class="demo-step" data-step="2"><span class="demo-step-num">3</span><span class="demo-step-text">See every brand's size</span></div>
+    </div>
+    <div class="demo-card">
+      <div class="demo-bar">
+        <span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span>
+        <span class="demo-url">fitfinderapp.vercel.app</span>
+      </div>
+      <div class="demo-body">
+        <div class="demo-row-top">
+          <span class="demo-label">Your foot length</span>
+          <span class="demo-value" id="demo-value">24.5 cm</span>
+        </div>
+        <div class="demo-slider-track">
+          <div class="demo-slider-fill" id="demo-slider-fill"></div>
+          <div class="demo-slider-knob" id="demo-slider-knob"></div>
+        </div>
+        <div class="demo-results" id="demo-results">
+          <div class="demo-result-row" id="demo-row-0">
+            <div class="demo-result-brand"><span class="demo-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l2.5 2.5L10 3" stroke="#0D0F11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Nike</div>
+            <span class="demo-result-val">US 8 / UK 5.5 / EU 39</span>
+          </div>
+          <div class="demo-result-row" id="demo-row-1">
+            <div class="demo-result-brand"><span class="demo-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l2.5 2.5L10 3" stroke="#0D0F11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Adidas</div>
+            <span class="demo-result-val">US 8.5 / UK 6 / EU 40</span>
+          </div>
+          <div class="demo-result-row" id="demo-row-2">
+            <div class="demo-result-brand"><span class="demo-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l2.5 2.5L10 3" stroke="#0D0F11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Puma</div>
+            <span class="demo-result-val">US 8 / UK 5.5 / EU 39</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <div class="pill-row" id="pill-row"></div>
 
@@ -1804,6 +1893,192 @@ try {
         s.src = (document.location.protocol == 'https:' ? 'https://cdn0.cuelinks.com/js/' : 'http://cdn0.cuelinks.com/js/')  + 'cuelinksv2.js';
         document.getElementsByTagName('body')[0].appendChild(s);
       }());
+</script>
+
+<script src="/js/theme.js" defer></script>
+
+<!-- SILENT WALKTHROUGH: autoplaying demo loop, purely visual, respects prefers-reduced-motion -->
+<script>
+(function () {
+  var fill = document.getElementById("demo-slider-fill");
+  var knob = document.getElementById("demo-slider-knob");
+  var valueEl = document.getElementById("demo-value");
+  var rows = [document.getElementById("demo-row-0"), document.getElementById("demo-row-1"), document.getElementById("demo-row-2")];
+  var steps = document.querySelectorAll("#demo-steps .demo-step");
+  if (!fill || !knob || !valueEl || !rows[0] || !steps.length) return;
+
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function setStep(i) {
+    steps.forEach(function (s, idx) { s.classList.toggle("active", idx === i); });
+  }
+  function setSlider(pct, label) {
+    fill.style.width = pct + "%";
+    knob.style.left = pct + "%";
+    valueEl.textContent = label;
+  }
+  function resetRows() {
+    rows.forEach(function (r) { r.classList.remove("show"); });
+  }
+
+  if (reduceMotion) {
+    // Static end-state only — no looping animation for reduced-motion users.
+    setStep(2); setSlider(62, "26.0 cm");
+    rows.forEach(function (r) { r.classList.add("show"); });
+    return;
+  }
+
+  var timers = [];
+  function clearTimers() { timers.forEach(clearTimeout); timers = []; }
+
+  function runCycle() {
+    clearTimers();
+    resetRows();
+    setStep(0);
+    setSlider(38, "24.5 cm");
+
+    timers.push(setTimeout(function () { setStep(1); setSlider(62, "26.0 cm"); }, 900));
+    timers.push(setTimeout(function () { setStep(2); }, 2500));
+    timers.push(setTimeout(function () { rows[0].classList.add("show"); }, 2700));
+    timers.push(setTimeout(function () { rows[1].classList.add("show"); }, 3050));
+    timers.push(setTimeout(function () { rows[2].classList.add("show"); }, 3400));
+    timers.push(setTimeout(runCycle, 6600)); // hold, then restart the loop
+  }
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) { runCycle(); } else { clearTimers(); }
+    });
+  }, { threshold: 0.3 });
+  var demoCard = document.querySelector(".demo-card");
+  if (demoCard) io.observe(demoCard);
+})();
+</script>
+
+<!-- SIZE ESTIMATOR: height/weight -> estimated chest & waist, with option to feed straight into the main tool -->
+<script>
+(function () {
+  var heightInput = document.getElementById("est-height");
+  var weightInput = document.getElementById("est-weight");
+  var bodyTypeSelect = document.getElementById("est-bodytype");
+  var calcBtn = document.getElementById("est-calc-btn");
+  var useBtn = document.getElementById("est-use-btn");
+  var errorBox = document.getElementById("est-error");
+  var resultBox = document.getElementById("est-result");
+  var chestValueEl = document.getElementById("est-chest-value");
+  var waistValueEl = document.getElementById("est-waist-value");
+
+  if (!heightInput || !weightInput || !calcBtn) return; // section not present, do nothing
+
+  var lastEstimate = null; // {chest, waist} in cm
+
+  function showError(msg) {
+    errorBox.textContent = msg;
+    errorBox.style.display = "block";
+    resultBox.style.display = "none";
+  }
+
+  function calculateEstimate() {
+    var height = parseFloat(heightInput.value);
+    var weight = parseFloat(weightInput.value);
+    var bodyType = bodyTypeSelect.value;
+
+    if (!heightInput.value || isNaN(height)) {
+      showError("Enter your height first.");
+      return;
+    }
+    if (height < 100 || height > 250) {
+      showError("Enter a height between 100–250 cm.");
+      return;
+    }
+    if (!weightInput.value || isNaN(weight)) {
+      showError("Enter your weight first.");
+      return;
+    }
+    if (weight < 30 || weight > 200) {
+      showError("Enter a weight between 30–200 kg.");
+      return;
+    }
+
+    // Heuristic estimate only — not a medical or tailoring-grade measurement.
+    // Base linear relationship between height/weight and typical chest & waist circumference,
+    // adjusted by a simple body-type multiplier (slim / average / athletic).
+    var chest = (height * 0.5) + (weight * 0.4) - 10;
+    var waist = (height * 0.4) + (weight * 0.5) - 15;
+
+    var adjustments = {
+      slim:     { chest: 0.95, waist: 0.92 },
+      average:  { chest: 1.00, waist: 1.00 },
+      athletic: { chest: 1.06, waist: 0.95 }
+    };
+    var adj = adjustments[bodyType] || adjustments.average;
+    chest = chest * adj.chest;
+    waist = waist * adj.waist;
+
+    // Clamp to plausible human-body ranges so a rough formula never shows a silly number.
+    chest = Math.min(Math.max(chest, 70), 150);
+    waist = Math.min(Math.max(waist, 55), 140);
+
+    chest = Math.round(chest * 10) / 10;
+    waist = Math.round(waist * 10) / 10;
+
+    lastEstimate = { chest: chest, waist: waist };
+
+    errorBox.style.display = "none";
+    chestValueEl.textContent = chest.toFixed(1);
+    waistValueEl.textContent = waist.toFixed(1);
+    resultBox.style.display = "block";
+  }
+
+  function useEstimateInTool() {
+    if (!lastEstimate) return;
+
+    // These globals (measureInput, unit, categoryKey, CATEGORIES, cmToUnit, fmt, errMsg, renderResults, renderTape)
+    // come from the main calculator script earlier on this page.
+    if (typeof CATEGORIES === "undefined" || typeof measureInput === "undefined") {
+      document.getElementById("tool").scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+
+    var cat = CATEGORIES[categoryKey];
+    var dimension = cat ? cat.dimension : "";
+    var valueCm = null;
+
+    if (dimension === "Waist") {
+      valueCm = lastEstimate.waist;
+    } else if (dimension === "Chest" || dimension === "Bust") {
+      valueCm = lastEstimate.chest;
+    } else {
+      // e.g. "Foot length" — this estimator doesn't produce a footwear estimate.
+      document.getElementById("tool").scrollIntoView({ behavior: "smooth", block: "start" });
+      showError("This estimate is for chest/bust and waist only — pick a clothing category in the tool below, or measure your foot directly for shoes.");
+      return;
+    }
+
+    var clamped = Math.min(Math.max(valueCm, cat.min), cat.max);
+    var converted = cmToUnit(clamped, unit);
+    var stepVal = cat.step || 1;
+    var rounded = Math.round(converted / stepVal) * stepVal;
+    rounded = Math.round(rounded * 100) / 100; // clean up floating-point artifacts
+    measureInput.value = rounded;
+
+    document.getElementById("tool").scrollIntoView({ behavior: "smooth", block: "start" });
+
+    // Auto-submit the main form so results appear immediately, reusing the site's own validated logic.
+    var form = document.getElementById("measure-form");
+    if (form && typeof form.requestSubmit === "function") {
+      setTimeout(function () { form.requestSubmit(); }, 350);
+    }
+  }
+
+  calcBtn.addEventListener("click", calculateEstimate);
+  if (useBtn) useBtn.addEventListener("click", useEstimateInTool);
+  [heightInput, weightInput].forEach(function (el) {
+    el.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") { e.preventDefault(); calculateEstimate(); }
+    });
+  });
+})();
 </script>
 
 </body>
