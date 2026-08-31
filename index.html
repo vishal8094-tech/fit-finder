@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>(function(){try{var t=localStorage.getItem("ff-theme");if(t==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
 <meta name="google-site-verification" content="__R_GaWT64rrJ4w2k0E_Cl5sfvAaXSwKQAlmSsMqRuM" />
 <meta name="p:domain_verify" content="bbeebfb505cc423cbd9da61689df2c9f"/>
 <meta charset="UTF-8" />
@@ -35,7 +34,6 @@
 <meta name="apple-mobile-web-app-title" content="Fit Finder">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,340;0,9..144,500;0,9..144,600;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://chatzy-kb-store.s3.amazonaws.com/icons/5ab07987-b5db-477c-82ff-1287e0883acb"/>
 <link rel="stylesheet" href="/css/site.css">
 
 <script type="application/ld+json" id="fit-finder-guide-faq-schema">
@@ -57,7 +55,6 @@
 }
 </script>
 
-<script src="https://chatzy-kb-store.s3.amazonaws.com/icons/56706cc4-b3ba-4eba-9610-f2fb07008a5c" id="0a2e4c5e-02cc-4599-9791-2278d0a1323f" class="chatzy_widget_script" defer></script>
 </head>
 <body>
 <div class="noise-overlay" aria-hidden="true"></div>
@@ -93,46 +90,6 @@
   <div class="eyebrow" data-i18n="hero_eyebrow">One measurement, every brand's size</div>
   <h1 class="hero-title display" id="hero-title-el">Every brand sizes differently.<br />Your <em>fit</em> stays the same.</h1>
   <p class="hero-sub" data-i18n="hero_sub">Enter your measurement once — see your exact size across Zara, H&M, Uniqlo, Levi's, and more. No guessing, just numbers.</p>
-
-  <!-- SILENT WALKTHROUGH — autoplaying demo showing how the tool works, no sound needed -->
-  <div aria-hidden="true">
-    <div class="demo-steps" id="demo-steps">
-      <div class="demo-step active" data-step="0"><span class="demo-step-num">1</span><span class="demo-step-text">Pick a category</span></div>
-      <div class="demo-step" data-step="1"><span class="demo-step-num">2</span><span class="demo-step-text">Enter one measurement</span></div>
-      <div class="demo-step" data-step="2"><span class="demo-step-num">3</span><span class="demo-step-text">See every brand's size</span></div>
-    </div>
-    <div class="demo-card">
-      <div class="demo-bar">
-        <span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span>
-        <span class="demo-url">fitfinderapp.vercel.app</span>
-      </div>
-      <div class="demo-body">
-        <div class="demo-row-top">
-          <span class="demo-label">Your foot length</span>
-          <span class="demo-value" id="demo-value">24.5 cm</span>
-        </div>
-        <div class="demo-slider-track">
-          <div class="demo-slider-fill" id="demo-slider-fill"></div>
-          <div class="demo-slider-knob" id="demo-slider-knob"></div>
-        </div>
-        <div class="demo-results" id="demo-results">
-          <div class="demo-result-row" id="demo-row-0">
-            <div class="demo-result-brand"><span class="demo-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l2.5 2.5L10 3" stroke="#0D0F11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Nike</div>
-            <span class="demo-result-val">US 8 / UK 5.5 / EU 39</span>
-          </div>
-          <div class="demo-result-row" id="demo-row-1">
-            <div class="demo-result-brand"><span class="demo-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l2.5 2.5L10 3" stroke="#0D0F11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Adidas</div>
-            <span class="demo-result-val">US 8.5 / UK 6 / EU 40</span>
-          </div>
-          <div class="demo-result-row" id="demo-row-2">
-            <div class="demo-result-brand"><span class="demo-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l2.5 2.5L10 3" stroke="#0D0F11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Puma</div>
-            <span class="demo-result-val">US 8 / UK 5.5 / EU 39</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
 
   <div class="pill-row" id="pill-row"></div>
 
@@ -1847,66 +1804,6 @@ try {
         s.src = (document.location.protocol == 'https:' ? 'https://cdn0.cuelinks.com/js/' : 'http://cdn0.cuelinks.com/js/')  + 'cuelinksv2.js';
         document.getElementsByTagName('body')[0].appendChild(s);
       }());
-</script>
-
-<script src="/js/theme.js" defer></script>
-
-<!-- SILENT WALKTHROUGH: autoplaying demo loop, purely visual, respects prefers-reduced-motion -->
-<script>
-(function () {
-  var fill = document.getElementById("demo-slider-fill");
-  var knob = document.getElementById("demo-slider-knob");
-  var valueEl = document.getElementById("demo-value");
-  var rows = [document.getElementById("demo-row-0"), document.getElementById("demo-row-1"), document.getElementById("demo-row-2")];
-  var steps = document.querySelectorAll("#demo-steps .demo-step");
-  if (!fill || !knob || !valueEl || !rows[0] || !steps.length) return;
-
-  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  function setStep(i) {
-    steps.forEach(function (s, idx) { s.classList.toggle("active", idx === i); });
-  }
-  function setSlider(pct, label) {
-    fill.style.width = pct + "%";
-    knob.style.left = pct + "%";
-    valueEl.textContent = label;
-  }
-  function resetRows() {
-    rows.forEach(function (r) { r.classList.remove("show"); });
-  }
-
-  if (reduceMotion) {
-    // Static end-state only — no looping animation for reduced-motion users.
-    setStep(2); setSlider(62, "26.0 cm");
-    rows.forEach(function (r) { r.classList.add("show"); });
-    return;
-  }
-
-  var timers = [];
-  function clearTimers() { timers.forEach(clearTimeout); timers = []; }
-
-  function runCycle() {
-    clearTimers();
-    resetRows();
-    setStep(0);
-    setSlider(38, "24.5 cm");
-
-    timers.push(setTimeout(function () { setStep(1); setSlider(62, "26.0 cm"); }, 900));
-    timers.push(setTimeout(function () { setStep(2); }, 2500));
-    timers.push(setTimeout(function () { rows[0].classList.add("show"); }, 2700));
-    timers.push(setTimeout(function () { rows[1].classList.add("show"); }, 3050));
-    timers.push(setTimeout(function () { rows[2].classList.add("show"); }, 3400));
-    timers.push(setTimeout(runCycle, 6600)); // hold, then restart the loop
-  }
-
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) { runCycle(); } else { clearTimers(); }
-    });
-  }, { threshold: 0.3 });
-  var demoCard = document.querySelector(".demo-card");
-  if (demoCard) io.observe(demoCard);
-})();
 </script>
 
 </body>
