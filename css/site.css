@@ -1,12 +1,31 @@
 
   :root{
-    --bg:#070809; --bg-2:#0D0F11; --surface:#121416; --surface-2:#181A1D;
+    --bg:#070809; --bg-rgb:7,8,9; --bg-2:#0D0F11; --surface:#121416; --surface-2:#181A1D;
     --stroke:rgba(255,255,255,0.07); --stroke-strong:rgba(214,185,120,0.16);
     --text:#F3EFE6; --muted:#B7B2A8; --muted-2:#85827B;
     --brass:#D6B978; --brass-light:#E2CB98; --brass-soft:rgba(214,185,120,0.14);
     --thread:#B5675C; --thread-soft:rgba(181,103,92,0.16);
     --sage:#93A88C; --sage-soft:rgba(147,168,140,0.16);
   }
+  :root[data-theme="light"]{
+    --bg:#FAF7F1; --bg-rgb:250,247,241; --bg-2:#F3EEE3; --surface:#FFFFFF; --surface-2:#F6F1E7;
+    --stroke:rgba(28,26,22,0.09); --stroke-strong:rgba(166,129,60,0.28);
+    --text:#1C1A16; --muted:#6B6459; --muted-2:#8C867A;
+    --brass:#A6813C; --brass-light:#C9A15A; --brass-soft:rgba(166,129,60,0.12);
+    --thread:#96473D; --thread-soft:rgba(150,71,61,0.12);
+    --sage:#5F7658; --sage-soft:rgba(95,118,88,0.12);
+  }
+  /* smooth, elegant cross-fade when the theme is toggled — no jarring flip */
+  body,.nav,.form-card,.brand-card,.article-card,.step-card,.ff-help-card,
+  .advertise-card,.feedback-card,.trust-box,.stat-box,footer,.btn-brass,
+  .num-input,.fb-row input,.fb-row textarea,.compare-table,.tag-small,
+  .disclaimer,.legal-panel{transition:background-color .25s ease,color .25s ease,border-color .25s ease,box-shadow .25s ease;}
+  /* theme toggle — mirrors the existing lang-toggle pill pattern */
+  .theme-toggle{display:flex;align-items:center;border:1px solid var(--stroke-strong);border-radius:999px;overflow:hidden;flex-shrink:0;margin-left:8px;}
+  .theme-btn{background:transparent;border:none;color:var(--muted);padding:7px 9px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s ease,color .2s ease;line-height:0;}
+  .theme-btn svg{width:14px;height:14px;}
+  .theme-btn.active{background:var(--brass);color:var(--bg);}
+  .theme-btn:hover:not(.active){color:var(--text);}
   *{box-sizing:border-box;}
   body{margin:0;background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-serif;line-height:1.6;}
   .mono{font-family:'IBM Plex Mono',monospace;}
@@ -18,7 +37,7 @@
   @media (max-width:640px){ .wrap{padding:0 18px;} .section{padding:44px 0;} }
 
   /* ---- nav ---- */
-  .nav{position:sticky;top:0;z-index:20;background:rgba(20,23,31,0.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--stroke);}
+  .nav{position:sticky;top:0;z-index:20;background:rgba(var(--bg-rgb),0.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--stroke);}
   .nav-inner{max-width:1040px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;}
   @media (max-width:640px){.nav-inner{padding:14px 18px;}}
   .nav-brand{display:flex;align-items:center;gap:10px;}
@@ -66,7 +85,7 @@
   .num-input{padding-right:78px;}
   .btn{display:inline-flex;align-items:center;gap:8px;justify-content:center;border-radius:8px;padding:12px 20px;font-size:14.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:transform .15s,background .2s,border-color .2s;white-space:nowrap;text-decoration:none;border:none;}
   .btn-brass{background:var(--brass);color:#201a0e;}
-  .btn-brass:hover{background:#d8ac63;transform:translateY(-1px);}
+  .btn-brass:hover{background:var(--brass-light);transform:translateY(-1px);}
   .btn-brass:active{transform:scale(.98);}
   .btn svg{width:16px;height:16px;}
   .err-msg{color:var(--thread);font-size:12.5px;margin-top:10px;}
@@ -278,7 +297,7 @@
 
   /* ---- nav polish ---- */
   .nav{transition:background .35s ease,border-color .35s ease,box-shadow .35s ease;}
-  .nav.scrolled{background:rgba(20,23,31,0.86);box-shadow:0 12px 34px rgba(0,0,0,.35);border-bottom-color:var(--stroke-strong);}
+  .nav.scrolled{background:rgba(var(--bg-rgb),0.86);box-shadow:0 12px 34px rgba(0,0,0,.35);border-bottom-color:var(--stroke-strong);}
   .nav-mark{transition:box-shadow .3s ease,transform .3s ease;}
   .nav-mark:hover{box-shadow:0 0 0 4px var(--brass-soft);}
   .nav-links a{position:relative;padding-bottom:2px;}
@@ -412,3 +431,139 @@
     .ff-help-table{display:block;overflow-x:auto;white-space:nowrap;}
   }
 
+  /* ============================================================
+     SILENT WALKTHROUGH DEMO — autoplaying, looping product preview
+     Purely decorative/illustrative; the real functional tool follows
+     right below it, so this is marked aria-hidden.
+  ============================================================ */
+  .demo-steps{display:flex;gap:18px;flex-wrap:wrap;margin:26px 0 16px;}
+  .demo-step{display:flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.04em;color:var(--muted-2);transition:color .4s ease;}
+  .demo-step-num{width:18px;height:18px;border-radius:50%;border:1px solid var(--stroke-strong);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--muted-2);transition:all .4s ease;flex-shrink:0;}
+  .demo-step.active{color:var(--brass-light);}
+  .demo-step.active .demo-step-num{border-color:var(--brass);background:var(--brass-soft);color:var(--brass-light);}
+
+  .demo-card{background:var(--surface);border:1px solid var(--stroke-strong);border-radius:11px;overflow:hidden;max-width:520px;box-shadow:0 20px 50px rgba(0,0,0,.35);}
+  .demo-bar{display:flex;align-items:center;gap:8px;padding:13px 18px;background:var(--surface-2);border-bottom:1px solid var(--stroke);}
+  .demo-dot{width:9px;height:9px;border-radius:50%;}
+  .demo-dot:nth-child(1){background:#B5675C;}
+  .demo-dot:nth-child(2){background:var(--brass);}
+  .demo-dot:nth-child(3){background:#93A88C;}
+  .demo-url{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--muted);margin-left:8px;}
+
+  .demo-body{padding:26px 26px 22px;}
+  .demo-row-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;}
+  .demo-label{font-size:13px;color:var(--muted);}
+  .demo-value{font-family:'Fraunces',serif;font-weight:600;font-size:20px;color:var(--text);font-variant-numeric:tabular-nums;}
+  .demo-slider-track{position:relative;height:4px;border-radius:4px;background:var(--stroke-strong);margin-bottom:22px;}
+  .demo-slider-fill{position:absolute;left:0;top:0;height:100%;border-radius:4px;background:var(--brass);width:38%;transition:width 1.6s cubic-bezier(.65,0,.35,1);}
+  .demo-slider-knob{position:absolute;top:50%;width:13px;height:13px;border-radius:50%;background:var(--text);border:2px solid var(--brass);transform:translate(-50%,-50%);left:38%;transition:left 1.6s cubic-bezier(.65,0,.35,1);}
+
+  .demo-results{display:flex;flex-direction:column;gap:2px;border-top:1px solid var(--stroke);padding-top:14px;}
+  .demo-result-row{display:flex;align-items:center;justify-content:space-between;padding:9px 0;opacity:0;transform:translateY(6px);transition:opacity .5s ease,transform .5s ease;}
+  .demo-result-row.show{opacity:1;transform:translateY(0);}
+  .demo-result-brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:14.5px;color:var(--text);}
+  .demo-check{width:19px;height:19px;border-radius:50%;background:#93A88C;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .demo-check svg{width:10px;height:10px;}
+  .demo-result-val{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--brass-light);}
+
+  @media(max-width:640px){
+    .demo-body{padding:20px 18px 18px;}
+    .demo-steps{gap:10px;}
+    .demo-step span.demo-step-text{display:none;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .demo-slider-fill,.demo-slider-knob,.demo-result-row,.demo-step{transition:none;}
+  }
+
+
+  /* ---------------- SIZE ESTIMATOR (height/weight based) ---------------- */
+  .estimator-card{
+    background:var(--surface);
+    border:1px solid var(--stroke-strong);
+    border-radius:11px;
+    padding:32px;
+    box-shadow:0 4px 20px rgba(0,0,0,.22);
+  }
+  .estimator-badge{
+    display:inline-block;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--brass);
+    background:var(--brass-soft);
+    border:1px solid var(--stroke-strong);
+    border-radius:999px;
+    padding:5px 12px;
+  }
+  .estimator-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+    margin-top:22px;
+    max-width:640px;
+  }
+  .estimator-grid select{
+    width:100%;
+    background:var(--surface-2);
+    border:1px solid var(--stroke);
+    border-radius:9px;
+    color:var(--text);
+    padding:11px 12px;
+    font-size:15px;
+    font-family:inherit;
+    appearance:none;
+    -webkit-appearance:none;
+    cursor:pointer;
+    transition:border-color .2s;
+  }
+  .estimator-grid select:focus-visible{outline:2px solid var(--brass);outline-offset:1px;}
+  .estimator-error{
+    color:var(--thread);
+    background:var(--thread-soft);
+    border:1px solid rgba(181,103,92,.3);
+    border-radius:9px;
+    padding:10px 14px;
+    font-size:13.5px;
+    margin-top:14px;
+  }
+  .estimator-result{margin-top:26px;padding-top:24px;border-top:1px solid var(--stroke);}
+  .estimator-result-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    max-width:520px;
+  }
+  .estimator-result-box{
+    background:var(--surface-2);
+    border:1px solid var(--stroke-strong);
+    border-radius:9px;
+    padding:18px 20px;
+  }
+  .estimator-result-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:8px;
+  }
+  .estimator-result-value{
+    font-family:'Fraunces',serif;
+    font-size:32px;
+    font-weight:600;
+    color:var(--brass-light);
+  }
+  .estimator-result-unit{font-size:15px;color:var(--muted);font-family:'IBM Plex Sans',sans-serif;}
+  .estimator-disclaimer{
+    font-size:13px;
+    color:var(--muted);
+    margin-top:16px;
+    max-width:560px;
+    line-height:1.6;
+  }
+  @media(max-width:640px){
+    .estimator-card{padding:22px 18px;}
+    .estimator-grid{grid-template-columns:1fr;}
+    .estimator-result-grid{grid-template-columns:1fr;}
+  }
