@@ -84,52 +84,6 @@
   </div>
 </nav>
 
-<!-- SIZE ESTIMATOR (height/weight based, no tape measure needed) -->
-<div class="wrap section" id="estimator" style="padding-bottom:0;">
-  <div class="estimator-card reveal">
-    <span class="estimator-badge">New feature</span>
-    <h2 class="sec-title display" style="font-size:28px;margin-top:14px;">No Measuring Tape? No Problem.</h2>
-    <p class="sec-sub" style="margin-top:6px;max-width:560px;">Enter your height and weight and we'll estimate your chest and waist measurement — a starting point when you can't measure directly. For the most accurate size, a real tape measurement is always better.</p>
-
-    <div class="estimator-grid">
-      <div class="profile-field">
-        <label for="est-height">Height <span class="profile-unit-text">(cm)</span></label>
-        <input id="est-height" type="number" min="100" max="250" step="1" placeholder="e.g. 170" />
-      </div>
-      <div class="profile-field">
-        <label for="est-weight">Weight <span class="profile-unit-text">(kg)</span></label>
-        <input id="est-weight" type="number" min="30" max="200" step="1" placeholder="e.g. 65" />
-      </div>
-      <div class="profile-field">
-        <label for="est-bodytype">Body type</label>
-        <select id="est-bodytype">
-          <option value="slim">Slim</option>
-          <option value="average" selected>Average</option>
-          <option value="athletic">Athletic</option>
-        </select>
-      </div>
-    </div>
-
-    <button type="button" class="btn btn-brass" id="est-calc-btn" style="margin-top:18px;">Get My Estimated Measurement</button>
-    <div id="est-error" class="estimator-error" style="display:none;"></div>
-
-    <div id="est-result" class="estimator-result" style="display:none;">
-      <div class="estimator-result-grid">
-        <div class="estimator-result-box">
-          <div class="estimator-result-label">Estimated Chest / Bust</div>
-          <div class="estimator-result-value"><span id="est-chest-value">—</span> <span class="estimator-result-unit">cm</span></div>
-        </div>
-        <div class="estimator-result-box">
-          <div class="estimator-result-label">Estimated Waist</div>
-          <div class="estimator-result-value"><span id="est-waist-value">—</span> <span class="estimator-result-unit">cm</span></div>
-        </div>
-      </div>
-      <p class="estimator-disclaimer">This is a rough estimate based on height, weight and body type — not a substitute for an actual measurement. Use it as a starting point, and switch to a real tape measurement when you can for the most accurate size.</p>
-      <button type="button" class="btn" id="est-use-btn" style="border:1px solid var(--stroke-strong);background:transparent;color:var(--text);">Use This in Size Tool</button>
-    </div>
-  </div>
-</div>
-
 <!-- HERO + TOOL -->
 <div class="wrap section hero-stage" id="tool" style="padding-bottom:0;">
   <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
@@ -203,6 +157,50 @@
   </div>
   <div class="profile-footnote">🔒 Profiles stay in your browser's local storage. Fit Finder does not send these measurements to a server.</div>
   <div class="profile-panel-actions"><button type="button" class="profile-mini-btn" id="profile-delete" style="display:none;">Delete profile</button><button type="button" class="btn btn-brass" id="profile-save">Save profile</button></div>
+</div>
+
+<!-- SIZE ESTIMATOR (height/weight based, no tape measure needed) -->
+<div class="estimator-card reveal" id="estimator" style="margin-bottom:28px;">
+  <span class="estimator-badge">New feature</span>
+  <h2 class="sec-title display" style="font-size:28px;margin-top:14px;">No Measuring Tape? No Problem.</h2>
+  <p class="sec-sub" style="margin-top:6px;max-width:560px;">Enter your height and weight and we'll estimate your chest and waist measurement — a starting point when you can't measure directly. For the most accurate size, a real tape measurement is always better.</p>
+
+  <div class="estimator-grid">
+    <div class="profile-field">
+      <label for="est-height">Height <span class="profile-unit-text">(cm)</span></label>
+      <input id="est-height" type="number" min="100" max="250" step="1" placeholder="e.g. 170" />
+    </div>
+    <div class="profile-field">
+      <label for="est-weight">Weight <span class="profile-unit-text">(kg)</span></label>
+      <input id="est-weight" type="number" min="30" max="200" step="1" placeholder="e.g. 65" />
+    </div>
+    <div class="profile-field">
+      <label for="est-bodytype">Body type</label>
+      <select id="est-bodytype">
+        <option value="slim">Slim</option>
+        <option value="average" selected>Average</option>
+        <option value="athletic">Athletic</option>
+      </select>
+    </div>
+  </div>
+
+  <button type="button" class="btn btn-brass" id="est-calc-btn" style="margin-top:18px;">Get My Estimated Measurement</button>
+  <div id="est-error" class="estimator-error" style="display:none;"></div>
+
+  <div id="est-result" class="estimator-result" style="display:none;">
+    <div class="estimator-result-grid">
+      <div class="estimator-result-box">
+        <div class="estimator-result-label">Estimated Chest / Bust</div>
+        <div class="estimator-result-value"><span id="est-chest-value">—</span> <span class="estimator-result-unit">cm</span></div>
+      </div>
+      <div class="estimator-result-box">
+        <div class="estimator-result-label">Estimated Waist</div>
+        <div class="estimator-result-value"><span id="est-waist-value">—</span> <span class="estimator-result-unit">cm</span></div>
+      </div>
+    </div>
+    <p class="estimator-disclaimer">This is a rough estimate based on height, weight and body type — not a substitute for an actual measurement. Use it as a starting point, and switch to a real tape measurement when you can for the most accurate size.</p>
+    <button type="button" class="btn" id="est-use-btn" style="border:1px solid var(--stroke-strong);background:transparent;color:var(--text);">Use This in Size Tool</button>
+  </div>
 </div>
 
   <form class="form-card" id="measure-form">
