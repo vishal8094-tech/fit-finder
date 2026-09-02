@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>(function(){try{var t=localStorage.getItem("ff-theme");if(t!=="dark")document.documentElement.setAttribute("data-theme","light");}catch(e){document.documentElement.setAttribute("data-theme","light");}})();</script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Adidas vs Nike: Which Fits Better? | Fit Finder</title>
@@ -40,6 +41,7 @@
   ]
 }
 </script>
+<link rel="stylesheet" href="https://chatzy-kb-store.s3.amazonaws.com/icons/5ab07987-b5db-477c-82ff-1287e0883acb"/>
 <link rel="stylesheet" href="/css/site.css">
 <style>
 .blog-article-wrap{max-width:760px;margin:0 auto;padding:48px 32px 80px;}
@@ -49,6 +51,7 @@
 .blog-article-wrap p{margin:14px 0;}
 .blog-back{color:var(--muted);text-decoration:none;font-size:13.5px;}
 </style>
+<script src="https://chatzy-kb-store.s3.amazonaws.com/icons/56706cc4-b3ba-4eba-9610-f2fb07008a5c" id="0a2e4c5e-02cc-4599-9791-2278d0a1323f" class="chatzy_widget_script" defer></script>
 </head>
 <body>
 <div class="noise-overlay" aria-hidden="true"></div>
@@ -67,6 +70,14 @@
       <a href="/#trust">Why trust us</a>
       <a href="/#advertise">Advertise</a>
       <a href="/#feedback">Feedback</a>
+    </div>
+    <div class="theme-toggle" id="theme-toggle">
+      <button type="button" class="theme-btn" data-theme-choice="dark" aria-label="Dark mode" title="Dark mode">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button type="button" class="theme-btn" data-theme-choice="light" aria-label="Light mode" title="Light mode">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
     </div>
     </div>
 </nav>
@@ -236,6 +247,40 @@ try {
 } catch (err) {
   document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("in-view"); });
 }
+</script>
+<script src="/js/theme.js" defer></script>
+<!-- THEME TOGGLE: light / dark, persisted to localStorage, no flash on load -->
+<script>
+(function () {
+  var root = document.documentElement;
+  var buttons = document.querySelectorAll("#theme-toggle .theme-btn");
+  if (!buttons.length) return;
+
+  function currentTheme() {
+    return root.getAttribute("data-theme") === "light" ? "light" : "dark";
+  }
+  function setActiveButton(theme) {
+    buttons.forEach(function (btn) {
+      btn.classList.toggle("active", btn.getAttribute("data-theme-choice") === theme);
+    });
+  }
+  function applyTheme(theme) {
+    if (theme === "light") {
+      root.setAttribute("data-theme", "light");
+    } else {
+      root.removeAttribute("data-theme");
+    }
+    try { localStorage.setItem("ff-theme", theme); } catch (e) {}
+    setActiveButton(theme);
+  }
+
+  setActiveButton(currentTheme());
+  buttons.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      applyTheme(btn.getAttribute("data-theme-choice"));
+    });
+  });
+})();
 </script>
 </body>
 </html>
