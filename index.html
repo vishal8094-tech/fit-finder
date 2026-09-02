@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>(function(){try{var t=localStorage.getItem("ff-theme");if(t==="light")document.documentElement.setAttribute("data-theme","light");}catch(e){}})();</script>
+<script>(function(){try{var t=localStorage.getItem("ff-theme");if(t!=="dark")document.documentElement.setAttribute("data-theme","light");}catch(e){document.documentElement.setAttribute("data-theme","light");}})();</script>
 <meta name="google-site-verification" content="__R_GaWT64rrJ4w2k0E_Cl5sfvAaXSwKQAlmSsMqRuM" />
 <meta name="p:domain_verify" content="bbeebfb505cc423cbd9da61689df2c9f"/>
 <meta charset="UTF-8" />
@@ -80,6 +80,14 @@
     <div class="lang-toggle" id="lang-toggle">
       <button type="button" class="lang-btn active" data-lang="en">EN</button>
       <button type="button" class="lang-btn" data-lang="hi">हिं</button>
+    </div>
+    <div class="theme-toggle" id="theme-toggle">
+      <button type="button" class="theme-btn" data-theme-choice="dark" aria-label="Dark mode" title="Dark mode">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button type="button" class="theme-btn" data-theme-choice="light" aria-label="Light mode" title="Light mode">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </button>
     </div>
   </div>
 </nav>
@@ -2074,6 +2082,44 @@ try {
   [heightInput, weightInput].forEach(function (el) {
     el.addEventListener("keydown", function (e) {
       if (e.key === "Enter") { e.preventDefault(); calculateEstimate(); }
+    });
+  });
+})();
+</script>
+
+<!-- THEME TOGGLE: light / dark, persisted to localStorage, no flash on load (bootstrap script in <head> already applies saved theme before paint) -->
+<script>
+(function () {
+  var root = document.documentElement;
+  var buttons = document.querySelectorAll("#theme-toggle .theme-btn");
+  if (!buttons.length) return;
+
+  function currentTheme() {
+    return root.getAttribute("data-theme") === "light" ? "light" : "dark";
+  }
+
+  function setActiveButton(theme) {
+    buttons.forEach(function (btn) {
+      btn.classList.toggle("active", btn.getAttribute("data-theme-choice") === theme);
+    });
+  }
+
+  function applyTheme(theme) {
+    if (theme === "light") {
+      root.setAttribute("data-theme", "light");
+    } else {
+      root.removeAttribute("data-theme");
+    }
+    try { localStorage.setItem("ff-theme", theme); } catch (e) {}
+    setActiveButton(theme);
+  }
+
+  // Reflect whatever the head bootstrap script already applied, so the correct button shows active immediately.
+  setActiveButton(currentTheme());
+
+  buttons.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      applyTheme(btn.getAttribute("data-theme-choice"));
     });
   });
 })();
