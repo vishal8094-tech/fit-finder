@@ -530,9 +530,9 @@
   .estimator-result{margin-top:26px;padding-top:24px;border-top:1px solid var(--stroke);}
   .estimator-result-grid{
     display:grid;
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:repeat(3,1fr);
     gap:16px;
-    max-width:520px;
+    max-width:720px;
   }
   .estimator-result-box{
     background:var(--surface-2);
@@ -561,6 +561,9 @@
     margin-top:16px;
     max-width:560px;
     line-height:1.6;
+  }
+  @media(max-width:900px){
+    .estimator-result-grid{grid-template-columns:1fr 1fr;}
   }
   @media(max-width:640px){
     .estimator-card{padding:22px 18px;}
