@@ -205,8 +205,12 @@
         <div class="estimator-result-label">Estimated Waist</div>
         <div class="estimator-result-value"><span id="est-waist-value">—</span> <span class="estimator-result-unit">cm</span></div>
       </div>
+      <div class="estimator-result-box">
+        <div class="estimator-result-label">Estimated Foot Length</div>
+        <div class="estimator-result-value"><span id="est-foot-value">—</span> <span class="estimator-result-unit">cm</span></div>
+      </div>
     </div>
-    <p class="estimator-disclaimer">This is a rough estimate based on height, weight and body type — not a substitute for an actual measurement. Use it as a starting point, and switch to a real tape measurement when you can for the most accurate size.</p>
+    <p class="estimator-disclaimer">This is a rough estimate based on height, weight and body type — not a substitute for an actual measurement. The foot-length estimate in particular is only loosely linked to height, so it's less reliable than the chest/waist estimate — for shoes especially, a direct foot measurement is strongly recommended since even half a size off changes the fit. Use these numbers as a starting point, and switch to real measurements when you can.</p>
     <button type="button" class="btn" id="est-use-btn" style="border:1px solid var(--stroke-strong);background:transparent;color:var(--text);">Use This in Size Tool</button>
   </div>
 </div>
@@ -1973,10 +1977,11 @@ try {
   var resultBox = document.getElementById("est-result");
   var chestValueEl = document.getElementById("est-chest-value");
   var waistValueEl = document.getElementById("est-waist-value");
+  var footValueEl = document.getElementById("est-foot-value");
 
   if (!heightInput || !weightInput || !calcBtn) return; // section not present, do nothing
 
-  var lastEstimate = null; // {chest, waist} in cm
+  var lastEstimate = null; // {chest, waist, foot} in cm
 
   function showError(msg) {
     errorBox.textContent = msg;
@@ -2012,27 +2017,36 @@ try {
     var chest = (height * 0.5) + (weight * 0.4) - 10;
     var waist = (height * 0.4) + (weight * 0.5) - 15;
 
+    // Foot length: widely-used rough approximation is ~15% of height.
+    // This correlation is weaker than the chest/waist one, so it's flagged more
+    // strongly in the disclaimer and a real foot measurement is recommended for shoes.
+    var foot = height * 0.15;
+
     var adjustments = {
-      slim:     { chest: 0.95, waist: 0.92 },
-      average:  { chest: 1.00, waist: 1.00 },
-      athletic: { chest: 1.06, waist: 0.95 }
+      slim:     { chest: 0.95, waist: 0.92, foot: 0.98 },
+      average:  { chest: 1.00, waist: 1.00, foot: 1.00 },
+      athletic: { chest: 1.06, waist: 0.95, foot: 1.02 }
     };
     var adj = adjustments[bodyType] || adjustments.average;
     chest = chest * adj.chest;
     waist = waist * adj.waist;
+    foot = foot * adj.foot;
 
     // Clamp to plausible human-body ranges so a rough formula never shows a silly number.
     chest = Math.min(Math.max(chest, 70), 150);
     waist = Math.min(Math.max(waist, 55), 140);
+    foot = Math.min(Math.max(foot, 20), 32);
 
     chest = Math.round(chest * 10) / 10;
     waist = Math.round(waist * 10) / 10;
+    foot = Math.round(foot * 10) / 10;
 
-    lastEstimate = { chest: chest, waist: waist };
+    lastEstimate = { chest: chest, waist: waist, foot: foot };
 
     errorBox.style.display = "none";
     chestValueEl.textContent = chest.toFixed(1);
     waistValueEl.textContent = waist.toFixed(1);
+    footValueEl.textContent = foot.toFixed(1);
     resultBox.style.display = "block";
   }
 
@@ -2054,10 +2068,11 @@ try {
       valueCm = lastEstimate.waist;
     } else if (dimension === "Chest" || dimension === "Bust") {
       valueCm = lastEstimate.chest;
+    } else if (dimension === "Foot length") {
+      valueCm = lastEstimate.foot;
     } else {
-      // e.g. "Foot length" — this estimator doesn't produce a footwear estimate.
       document.getElementById("tool").scrollIntoView({ behavior: "smooth", block: "start" });
-      showError("This estimate is for chest/bust and waist only — pick a clothing category in the tool below, or measure your foot directly for shoes.");
+      showError("This estimator doesn't cover that category yet — pick Shirts, Jeans, Dresses, Shoes or another supported category.");
       return;
     }
 
