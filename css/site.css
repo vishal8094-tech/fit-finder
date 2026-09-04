@@ -63,8 +63,8 @@
   @keyframes rise{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
 
   /* ---- category pills ---- */
-  .pill-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px;opacity:0;animation:rise .7s ease .22s forwards;}
-  .pill{display:flex;align-items:center;gap:7px;padding:9px 16px;border-radius:999px;border:1px solid var(--stroke-strong);background:transparent;color:var(--muted);font-size:13.5px;cursor:pointer;transition:border-color .2s,color .2s,background .2s,transform .15s;font-family:inherit;}
+  .pill-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px;margin-bottom:28px;opacity:0;animation:rise .7s ease .22s forwards;}
+  .pill{display:flex;align-items:center;gap:7px;padding:9px 16px;border-radius:999px;border:1px solid var(--stroke-strong);background:var(--surface-2);color:var(--text);font-weight:500;font-size:13.5px;cursor:pointer;transition:border-color .2s,color .2s,background .2s,transform .15s,box-shadow .2s;font-family:inherit;box-shadow:0 1px 3px rgba(0,0,0,.06);}
   .pill:hover{border-color:var(--brass);color:var(--text);transform:translateY(-1px);}
   .pill.active{background:var(--brass-soft);border-color:var(--brass);color:var(--brass);}
   .pill svg{width:15px;height:15px;}
@@ -225,7 +225,7 @@
   .form-card{box-shadow:0 18px 50px rgba(0,0,0,.18);}
   .brand-card{box-shadow:0 8px 28px rgba(0,0,0,.10);}
   .brand-card .shop-btn{font-weight:600;}
-  .affiliate-note{font-size:11px;color:var(--muted);margin:12px 0 0;padding:9px 11px;border:1px solid var(--stroke);border-radius:7px;background:rgba(201,161,90,.05);}
+  .affiliate-note{font-size:11px;color:var(--muted);margin:12px 0 0;padding:9px 11px;border:1px solid var(--stroke);border-radius:7px;background:rgba(214,185,120,.08);}
   .cookie-banner{position:fixed;left:16px;right:16px;bottom:16px;z-index:100;background:var(--surface);border:1px solid var(--stroke-strong);border-radius:9px;padding:14px 16px;box-shadow:0 20px 60px rgba(0,0,0,.35);display:none;align-items:center;gap:14px;justify-content:space-between;}
   .cookie-banner.show{display:flex;}
   .cookie-banner p{margin:0;color:var(--muted);font-size:12px;max-width:760px;}
@@ -306,7 +306,7 @@
 
   /* ---- pills, refined ---- */
   .pill{position:relative;overflow:hidden;}
-  .pill.active{box-shadow:0 4px 16px rgba(201,161,90,.18);}
+  .pill.active{box-shadow:0 4px 16px rgba(214,185,120,.22);}
 
   /* ---- buttons: refined lift, no shine-sweep ---- */
   .btn-brass{position:relative;box-shadow:0 4px 14px rgba(214,185,120,.16);transition:transform .2s cubic-bezier(.22,1,.36,1),box-shadow .3s ease,background .2s,filter .2s;}
