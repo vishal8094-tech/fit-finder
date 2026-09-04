@@ -1914,6 +1914,7 @@ try {
   var knob = document.getElementById("demo-slider-knob");
   var valueEl = document.getElementById("demo-value");
   var rows = [document.getElementById("demo-row-0"), document.getElementById("demo-row-1"), document.getElementById("demo-row-2")];
+  var resultsEl = document.getElementById("demo-results");
   var steps = document.querySelectorAll("#demo-steps .demo-step");
   if (!fill || !knob || !valueEl || !rows[0] || !steps.length) return;
 
@@ -1929,11 +1930,13 @@ try {
   }
   function resetRows() {
     rows.forEach(function (r) { r.classList.remove("show"); });
+    if (resultsEl) resultsEl.classList.remove("expanded");
   }
 
   if (reduceMotion) {
     // Static end-state only — no looping animation for reduced-motion users.
     setStep(2); setSlider(62, "26.0 cm");
+    if (resultsEl) resultsEl.classList.add("expanded");
     rows.forEach(function (r) { r.classList.add("show"); });
     return;
   }
@@ -1948,10 +1951,10 @@ try {
     setSlider(38, "24.5 cm");
 
     timers.push(setTimeout(function () { setStep(1); setSlider(62, "26.0 cm"); }, 900));
-    timers.push(setTimeout(function () { setStep(2); }, 2500));
-    timers.push(setTimeout(function () { rows[0].classList.add("show"); }, 2700));
-    timers.push(setTimeout(function () { rows[1].classList.add("show"); }, 3050));
-    timers.push(setTimeout(function () { rows[2].classList.add("show"); }, 3400));
+    timers.push(setTimeout(function () { setStep(2); if (resultsEl) resultsEl.classList.add("expanded"); }, 2500));
+    timers.push(setTimeout(function () { rows[0].classList.add("show"); }, 2850));
+    timers.push(setTimeout(function () { rows[1].classList.add("show"); }, 3200));
+    timers.push(setTimeout(function () { rows[2].classList.add("show"); }, 3550));
     timers.push(setTimeout(runCycle, 6600)); // hold, then restart the loop
   }
 
