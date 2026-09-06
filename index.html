@@ -257,7 +257,7 @@
       <div class="results-note" id="results-note"></div>
     </div>
     <div class="brand-grid" id="brand-grid"></div>
-    <div class="disclaimer"><span id="icon-info-disc"></span><span>These charts are approximate, based on typical brand sizing — always check the brand's official size chart before you buy. Some links may be affiliate links. We may earn a commission at no extra cost to you — see our <a href="#trust" style="color:var(--brass);">trust section</a> and affiliate disclosure below.</span></div>
+    <div class="disclaimer" style="border:1px solid var(--stroke-strong);border-radius:9px;padding:14px 16px;background:var(--brass-soft);"><span id="icon-info-disc"></span><span><strong>Sizing can vary by product, collection, fabric, cut and region.</strong> Always verify the current official product size chart before purchasing — Fit Finder's numbers are typical estimates, not guarantees. Some links may be affiliate links. We may earn a commission at no extra cost to you — see our <a href="#trust" style="color:var(--brass);">trust section</a> and affiliate disclosure below.</span></div>
 
     <div class="accuracy-box" id="accuracy-box">
       <div class="accuracy-prompt" id="accuracy-prompt">
@@ -338,13 +338,14 @@
   <h2 class="sec-title display" data-i18n="sec_guides2">Zara vs H&M vs Uniqlo: who runs small?</h2>
   <p class="sec-sub">A quick reference for the three brands people ask about most, based on the chest-fit data used in the tool above.</p>
   <table class="reveal compare-table">
-    <thead><tr><th>Brand</th><th>Typical cut</th><th>Sizing behaviour</th></tr></thead>
+    <thead><tr><th>Brand</th><th>Typical cut</th><th>Typical sizing tendency</th></tr></thead>
     <tbody>
       <tr><td>Zara</td><td>Fitted</td><td><span class="tag-small">Runs small</span> — size up if between sizes</td></tr>
       <tr><td>H&M</td><td>Relaxed</td><td><span class="tag-small">Runs large</span> — true size usually works</td></tr>
       <tr><td>Uniqlo</td><td>Standard</td><td><span class="tag-small">True to size</span> — most consistent of the three</td></tr>
     </tbody>
   </table>
+  <div class="disclaimer" style="margin-top:16px;border:1px solid var(--stroke-strong);border-radius:9px;padding:14px 16px;background:var(--brass-soft);"><span><strong>These are typical tendencies, not guarantees.</strong> Sizing can vary by product, collection, fabric, cut and region. Always verify the current official product size chart before purchasing.</span></div>
 </div>
 
 <hr class="divider" />
@@ -1247,7 +1248,7 @@ function renderResults(){
       <div class="brand-card" style="animation-delay:${i*70}ms;">
         <button type="button" class="share-btn" data-share-brand="${escapeHtml(b.name)}" data-share-size="${escapeHtml(m.label)}" data-share-conf="${escapeHtml(m.confidence)}" aria-label="Share your ${escapeHtml(b.name)} size">${ICONS.share}</button>
         <div class="brand-name">${b.name}</div>
-        <div class="brand-note">${b.note}</div>
+        <div class="brand-note"><span style="color:var(--muted);font-size:11.5px;text-transform:uppercase;letter-spacing:.03em;">Typical tendency:</span> ${b.note}</div>
         <div class="brand-size mono">${m.label}</div>
         <span class="conf-tag ${confClass}">${confIcon}${m.confidence}</span>
         ${m.preference !== "regular" ? `<div class="fit-badge">Fit preference: <strong>${FIT_PREF_LABELS[m.preference]}</strong>${m.adjusted ? ` • ${m.baseLabel} → ${m.label}` : " • measurement match"}</div>` : ""}
